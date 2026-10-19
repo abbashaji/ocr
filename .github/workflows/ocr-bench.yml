@@ -1,0 +1,46 @@
+name: ocr-bench
+on:
+  workflow_dispatch:
+  push:
+    paths: ['*.py', 'samples/**', 'ref.txt', '.github/workflows/ocr-bench.yml']
+jobs:
+  bench:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false          # one engine failing to install must not hide the others
+      matrix:
+        engine: [tesseract, easyocr, paddleocr]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - name: System packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y tesseract-ocr tesseract-ocr-fas libraqm0 libfribidi0 libharfbuzz0b libgl1 fonts-dejavu-core
+      - name: Common Python deps
+        run: pip install pillow numpy rapidfuzz arabic-reshaper python-bidi
+      - name: Engine deps
+        run: |
+          if [ "${{ matrix.engine }}" = "easyocr" ]; then
+            pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+            pip install easyocr
+          elif [ "${{ matrix.engine }}" = "paddleocr" ]; then
+            pip install paddlepaddle paddleocr
+          fi
+      - name: Fonts and Persian tessdata_best
+        run: |
+          mkdir -p fonts tess
+          curl -sL -o fonts/Vazirmatn.ttf https://github.com/rastikerdar/vazirmatn/raw/master/fonts/ttf/Vazirmatn-Regular.ttf
+          curl -sL -o fonts/NotoNaskh.ttf https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoNaskhArabic/hinted/ttf/NotoNaskhArabic-Regular.ttf
+          curl -sL -o fonts/NotoKufi.ttf https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoKufiArabic/hinted/ttf/NotoKufiArabic-Regular.ttf
+          cp /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf fonts/DejaVu.ttf
+          curl -sL -o tess/fas.traineddata https://github.com/tesseract-ocr/tessdata_best/raw/main/fas.traineddata
+      - name: Run benchmark
+        run: python engines_bench.py --engine ${{ matrix.engine }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results-${{ matrix.engine }}
+          path: results_${{ matrix.engine }}.json
