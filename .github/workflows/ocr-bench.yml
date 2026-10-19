@@ -37,6 +37,14 @@ jobs:
           curl -sL -o fonts/NotoKufi.ttf https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoKufiArabic/hinted/ttf/NotoKufiArabic-Regular.ttf
           cp /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf fonts/DejaVu.ttf
           curl -sL -o tess/fas.traineddata https://github.com/tesseract-ocr/tessdata_best/raw/main/fas.traineddata
+      - name: Cache OCR model downloads
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.EasyOCR
+            ~/.paddlex
+            ~/.paddleocr
+          key: ocr-models-${{ matrix.engine }}-v1
       - name: Run benchmark
         run: python engines_bench.py --engine ${{ matrix.engine }}
       - uses: actions/upload-artifact@v4
