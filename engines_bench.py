@@ -6,6 +6,11 @@ import argparse, os, glob, json, traceback
 import numpy as np
 from PIL import Image
 import bench as B, bench2 as B2
+from collections import Counter
+
+def bag_recall(ref, hyp):
+    r, h = Counter(B.words(ref)), Counter(B.words(hyp))
+    return sum((r & h).values()) / max(1, sum(r.values()))
 
 def join_rtl(items):
     """items: [(box, text)] -> one string, lines top-to-bottom, words right-to-left."""
@@ -36,17 +41,21 @@ def make_engines(name):
         return {'easyocr_fa': f}
     if name == 'paddleocr':
         from paddleocr import PaddleOCR
-        try: ocr = PaddleOCR(lang='fa', use_angle_cls=False, show_log=False)
-        except Exception: ocr = PaddleOCR(lang='fa')
+        kw = dict(lang='fa')
+        for extra in (dict(enable_mkldnn=False, use_doc_orientation_classify=False, use_doc_unwarping=False, use_textline_orientation=False),
+                      dict(enable_mkldnn=False), dict(use_angle_cls=False, show_log=False), {}):
+            try: ocr = PaddleOCR(**kw, **extra); break
+            except Exception: ocr = None
+        if ocr is None: raise SystemExit('could not construct PaddleOCR(lang="fa")')
         def f(im):
             arr = np.array(im.convert('RGB'))
-            try: res = ocr.ocr(arr, cls=False)
-            except TypeError: res = ocr.ocr(arr)
+            res = ocr.predict(arr) if hasattr(ocr, 'predict') else ocr.ocr(arr, cls=False)
             items = []
             first = res[0] if res else None
-            if isinstance(first, dict) or hasattr(first, 'get'):          # PaddleOCR 3.x
-                for poly, txt in zip(first.get('rec_polys', []), first.get('rec_texts', [])): items.append((poly, txt))
-            elif first:                                                    # PaddleOCR 2.x
+            if first is not None and hasattr(first, 'get') and first.get('rec_texts') is not None:   # 3.x
+                polys = first.get('rec_polys') if first.get('rec_polys') is not None else first.get('dt_polys')
+                for poly, txt in zip(polys, first['rec_texts']): items.append((poly, txt))
+            elif first:                                                                              # 2.x
                 for box, (txt, _c) in first: items.append((box, txt))
             return join_rtl(items)
         return {'paddleocr_fa': f}
@@ -56,13 +65,16 @@ def main():
     ap = argparse.ArgumentParser(); ap.add_argument('--engine', required=True); a = ap.parse_args()
     ref = open('ref.txt', encoding='utf-8').read()
     engines = make_engines(a.engine)
-    out = {'engine': a.engine, 'client': {}, 'synthetic_by_size': {}, 'errors': []}
+    out = {'engine': a.engine, 'client': {}, 'client_hyp': {}, 'synthetic_by_size': {}, 'errors': []}
     samples = sorted(glob.glob('samples/*'))
     for name, fn in engines.items():
         for sp in samples:
             try:
-                s = B.score(ref, fn(Image.open(sp).convert('L')))
+                hyp = fn(Image.open(sp).convert('L'))
+                s = B.score(ref, hyp)
+                s['bag_word_recall'] = bag_recall(ref, hyp)
                 out['client'].setdefault(name, {})[os.path.basename(sp)] = {k: round(100 * v, 2) for k, v in s.items()}
+                out['client_hyp'].setdefault(name, {})[os.path.basename(sp)] = hyp
             except Exception:
                 out['errors'].append(f'{name} on {sp}: {traceback.format_exc(limit=2)}')
     items = B2.make_items([4, 5], B.chunks(ref))
@@ -74,9 +86,9 @@ def main():
             acc.setdefault(it['size'], []).append(s)
         out['synthetic_by_size'][name] = {sz: {k: round(100 * np.mean([x[k] for x in v]), 2) for k in ('letter', 'word')} for sz, v in sorted(acc.items())}
     json.dump(out, open(f'results_{a.engine}.json', 'w'), indent=1, ensure_ascii=False)
-    md = [f'## Engine: {a.engine}', '', '### Client samples (letter% / word%)', '| pipeline | sample | letter | word |', '|---|---|---|---|']
+    md = [f'## Engine: {a.engine}', '', '### Client samples', '| pipeline | sample | letter | word | word-recall ignoring order |', '|---|---|---|---|---|']
     for n, d in out['client'].items():
-        for f, s in d.items(): md.append(f'| {n} | {f} | {s["letter"]} | {s["word"]} |')
+        for f, s in d.items(): md.append(f'| {n} | {f} | {s["letter"]} | {s["word"]} | {s["bag_word_recall"]} |')
     md += ['', '### Synthetic held-out by font size (letter% / word%)', '| pipeline | ' + ' | '.join(f'{s}px' for s in B2.SIZES) + ' |', '|---|' + '---|' * len(B2.SIZES)]
     for n, d in out['synthetic_by_size'].items():
         md.append(f'| {n} | ' + ' | '.join(f'{d[s]["letter"]} / {d[s]["word"]}' if s in d else 'n/a' for s in B2.SIZES) + ' |')
