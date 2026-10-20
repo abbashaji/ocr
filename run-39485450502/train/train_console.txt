@@ -1,0 +1,22 @@
+fonts: ['DejaVu', 'DejaVuBold', 'NotoKufi', 'NotoNaskh', 'NotoNaskhBold', 'Vazirmatn', 'VazirmatnBold']
+{'train': 1330, 'eval': 78, 'holdout': 79}
+train lstmf files: 1500
+eval lstmf files: 200
+lstmtraining exit 0 (124 = time limit reached, fine)
+2 Percent improvement time=738, best error was 13.512 @ 1176
+At iteration 1914/2000/2000, mean rms=2.242%, delta=6.273%, BCER train=11.222%, BWER train=31.660%, skip ratio=0.000%, New best BCER = 11.222 wrote checkpoint.
+Finished! Selected model with minimal training error rate (BCER) = 11.222
+candidate ft_checkpoint BCER=10.292
+candidate ft_11.270_1732_1800.checkpoint BCER=10.475
+candidate ft_12.035_1461_1500.checkpoint BCER=10.992
+candidate ft_12.567_1365_1400.checkpoint BCER=11.055
+Loaded file ft_checkpoint, unpacking...
+{
+ "base_bcer": 18.665,
+ "ft_bcer": 10.292,
+ "checkpoint": "ft_checkpoint",
+ "lr": "0.00001",
+ "n_train": 1500,
+ "n_eval": 200,
+ "note": "BCER = character error % of the raw LSTM on held-out rendered corpus lines (eval split, never trained on)"
+}
