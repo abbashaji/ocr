@@ -5,9 +5,20 @@
    added through the GitHub web page if a bot push is refused).
 2. Actions -> **finetune-tesseract-fa** -> Run workflow with `quick: true` (~15-30 min). This proves the whole chain on a tiny
    corpus. Check the `results` branch for `latest/*`.
-3. Run again with `quick: false` (defaults: 20 MB corpus, 30 000 lines, 60 000 iterations, <=300 min training).
+3. Run again with `quick: false` (defaults: 8 MB corpus / 150 min fetch limit, 30 000 lines, 60 000 iterations, <=300 min training).
+   The fetcher is rate-limited, so 20 MB is not reachable in the job cap; `corpus_stats.json` and the fetch log say whether the
+   size target or the time limit ended the fetch. The `train` job now waits for `tests`, which fails (exit 1) if fewer than
+   70% of the articles produce screenshots.
    If training hits the time limit, re-run with `resume: true`.
 4. Read `results` branch: `latest/evaluate/results/eval.md` (table), `latest/train/fas_ft.traineddata`, `latest/train/train_summary.json`.
+
+## Changes after the first quick run
+* Test crops no longer contain floated photos/infoboxes (they broke line segmentation: pipeline v2 returned empty text). Floats
+  are hidden before scanning, and any paragraph still overlapping a floated element/image/table is rejected.
+* Screenshot timeouts: 120 s limit, 3 retries, failures drop one block instead of the whole article.
+* `evaluate.py` prints/writes WARNINGS when an engine returns < 30% of the reference length, and reports `z100+z75` separately
+  from the unreadable `z50`.
+* `evaluate-only` workflow: re-score an existing `fas_ft` artifact (give the run id) on freshly made tests, no retraining.
 
 ## What the jobs do
 corpus (fa.wikipedia API, excludes «ایران» + the pinned test articles) -> tests (Playwright screenshots of 30 pinned articles,

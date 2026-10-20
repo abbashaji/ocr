@@ -2,6 +2,7 @@ name: finetune-tesseract-fa
 
 # Run via Actions -> finetune-tesseract-fa -> Run workflow.
 # First run `quick: true` (about 15-30 min) to prove the whole chain, then a full run.
+# To re-score an existing model on freshly made tests without retraining, use the `evaluate-only` workflow.
 # Small outputs (eval.md/json, train_summary.json, fas_ft.traineddata) are committed to the `results` branch.
 on:
   workflow_dispatch:
@@ -11,8 +12,11 @@ on:
         type: boolean
         default: true
       target_mb:
-        description: 'Corpus size in MB (full run)'
-        default: '20'
+        description: 'Corpus size in MB (full run). The fetcher is rate-limited (~1.2 s per article); see corpus_stats.json'
+        default: '8'
+      corpus_minutes:
+        description: 'Corpus fetch time limit in minutes (full run, job cap is 190)'
+        default: '150'
       n_train:
         description: 'Training lines to render (full run)'
         default: '30000'
@@ -44,7 +48,7 @@ env:
 jobs:
   corpus:
     runs-on: ubuntu-24.04
-    timeout-minutes: 150
+    timeout-minutes: 190
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -60,7 +64,7 @@ jobs:
       - name: Fetch corpus from fa.wikipedia API
         if: ${{ steps.cache.outputs.cache-hit != 'true' && steps.cache.outputs.cache-matched-key == '' }}
         run: |
-          MB=${{ inputs.target_mb }}; MIN=120
+          MB=${{ inputs.target_mb }}; MIN=${{ inputs.corpus_minutes }}
           if [ "$QUICK" = "1" ]; then MB=1.5; MIN=15; fi
           python ft/fetch_corpus.py --out corpus.txt --exclude ft/articles.txt --target-mb "$MB" --max-minutes "$MIN"
       - name: Save corpus cache
@@ -109,7 +113,8 @@ jobs:
         run: bash ft/publish_results.sh tests tests_log.txt tests_stats.json
 
   train:
-    needs: corpus
+    # needs tests too: if the screenshot job fails its quality gate (make_tests.py exit 1), stop BEFORE hours of training
+    needs: [corpus, tests]
     runs-on: ubuntu-24.04
     timeout-minutes: 350
     steps:

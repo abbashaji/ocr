@@ -80,14 +80,24 @@ def summarize(sets, outs):
                     for (name, im, ref, grp), r in zip(items, o[sname]):
                         h = r[eng] if view == 'raw' else MARK.sub('', r[eng])
                         we, wn, le, ln = counts(ref, h)
-                        for key in ('all', grp):
+                        for key in ('all', grp) + (('z100+z75',) if grp in ('z100', 'z75') else ()):
                             d = tot.setdefault(key, [0, 0, 0, 0, 0]); d[0] += we; d[1] += wn; d[2] += le; d[3] += ln; d[4] += 1
                     for key, d in tot.items():
                         res.setdefault(sname, {}).setdefault(key, {})[f'{tag}/{eng}/{view}'] = dict(
                             word_acc=round(100 * (1 - d[0] / max(1, d[1])), 2), letter_acc=round(100 * (1 - d[2] / max(1, d[3])), 2), n_images=d[4], ref_words=d[1])
     return res
 
-def markdown(res):
+def check_outputs(sets, outs):
+    """Flag engines that return (almost) nothing: a sign of segmentation failure on the image, not of OCR quality."""
+    W = []
+    for sname, items in sets.items():
+        for tag, o in outs.items():
+            for eng in ('plain', 'v2lex', 'v2raw'):
+                bad = [it[0] for it, r in zip(items, o[sname]) if len(B.letters(it[2])) > 50 and len(B.letters(r[eng])) < 0.3 * len(B.letters(it[2]))]
+                if bad: W.append(f'- {sname} [{tag}/{eng}]: {len(bad)}/{len(items)} images returned < 30% of the reference length, e.g. {", ".join(bad[:4])}')
+    return W
+
+def markdown(res, warnings=()):
     L = ['# Results (micro-averaged accuracy %, word / letter)\n', '`nomark` = citation markers like [۱۱] removed from OCR output before scoring.\n']
     for sname, groups in res.items():
         for key, rows in groups.items():
@@ -97,6 +107,7 @@ def markdown(res):
             for eng in ('plain', 'v2raw', 'v2lex'):
                 cell = lambda tag, view: (lambda r: f'{r["word_acc"]:.2f} / {r["letter_acc"]:.2f}')(rows[f'{tag}/{eng}/{view}'])
                 L.append(f'| {eng} | {cell("base", "raw")} | {cell("ft", "raw")} | {cell("base", "nomark")} | {cell("ft", "nomark")} |')
+    if warnings: L = L[:2] + ['\n## WARNINGS (check before trusting the tables)\n'] + list(warnings) + [''] + L[2:]
     return '\n'.join(L) + '\n'
 
 def main():
@@ -112,13 +123,15 @@ def main():
     if a.ft_file:
         d = os.path.abspath('tess_ft'); os.makedirs(d, exist_ok=True); shutil.copy(a.ft_file, os.path.join(d, 'fas_ft.traineddata'))
         outs['ft'] = run_model('ft', d, 'fas_ft', sets, a.threads)
-    res = summarize(sets, outs)
+    res = summarize(sets, outs); warns = check_outputs(sets, outs)
+    for w in warns: print('WARNING', w, flush=True)
+    open(os.path.join(a.out, 'warnings.txt'), 'w', encoding='utf-8').write('\n'.join(warns) + '\n')
     json.dump(res, open(os.path.join(a.out, 'eval.json'), 'w'), ensure_ascii=False, indent=1)
     # raw hypotheses for inspection (client samples + first 10 of each other set)
-    dump = {s: [dict(name=it[0], ref=it[2], **{t: outs[t][s][i] for t in outs}) for i, it in enumerate(items[:10] if s != 'client' else items)] for s, items in sets.items()}
+    dump = {s: [dict(name=it[0], ref=it[2], **{t: outs[t][s][i] for t in outs}) for i, it in enumerate(items[:10] if s == 'synth' else items)] for s, items in sets.items()}
     json.dump(dump, open(os.path.join(a.out, 'hypotheses.json'), 'w'), ensure_ascii=False, indent=1)
     if a.ft_file:
-        open(os.path.join(a.out, 'eval.md'), 'w', encoding='utf-8').write(markdown(res)); print(markdown(res))
+        md = markdown(res, warns); open(os.path.join(a.out, 'eval.md'), 'w', encoding='utf-8').write(md); print(md)
 
 if __name__ == '__main__':
     main()

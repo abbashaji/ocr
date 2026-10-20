@@ -1,0 +1,80 @@
+name: evaluate-only
+
+# Re-score an EXISTING fine-tuned model on freshly generated screenshot tests, without retraining.
+# Use after changing make_tests.py / evaluate.py. Needs the run id of a finetune-tesseract-fa run whose `fas_ft`
+# artifact is still available (retention 14 days). Results go to the `results` branch under latest/evaluate-only/.
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: 'Run id of the finetune-tesseract-fa run that holds the fas_ft artifact (number in the run URL)'
+        required: true
+      quick:
+        description: 'Only 6 articles'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  actions: read
+
+env:
+  QUICK: ${{ inputs.quick && '1' || '0' }}
+
+jobs:
+  tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Persian fonts for the browser
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq fonts-noto-core fonts-dejavu-core fontconfig
+          mkdir -p ~/.fonts
+          curl -sL -o ~/.fonts/Vazirmatn-Regular.ttf https://github.com/rastikerdar/vazirmatn/raw/master/fonts/ttf/Vazirmatn-Regular.ttf
+          fc-cache -f; fc-list :lang=fa family | sort -u | head
+      - run: pip install playwright pillow && python -m playwright install --with-deps chromium
+      - name: Screenshot pinned articles
+        shell: bash
+        run: |
+          grep -v '^#' ft/articles.txt | grep -v '^$' > arts.txt
+          B=3; if [ "$QUICK" = "1" ]; then head -n 6 arts.txt > arts_q.txt; mv arts_q.txt arts.txt; B=2; fi
+          python ft/make_tests.py --articles arts.txt --out tests --blocks $B 2>&1 | tee tests_log.txt
+          echo "{\"images\": $(ls tests/*/*.txt | wc -l), \"tune\": $(ls tests/tune/*.txt 2>/dev/null | wc -l), \"final\": $(ls tests/final/*.txt 2>/dev/null | wc -l)}" | tee tests_stats.json
+      - uses: actions/upload-artifact@v4
+        with: { name: tests, path: tests, retention-days: 5 }
+      - if: always()
+        env: { GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}' }
+        run: bash ft/publish_results.sh tests-only tests_log.txt tests_stats.json
+
+  evaluate:
+    needs: [tests]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Install
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq tesseract-ocr libraqm0 fonts-dejavu-core
+          pip install pillow numpy rapidfuzz wordfreq python-bidi
+          mkdir -p fonts tess; B=https://github.com/notofonts/notofonts.github.io/raw/main/fonts
+          curl -sL -o fonts/Vazirmatn.ttf https://github.com/rastikerdar/vazirmatn/raw/master/fonts/ttf/Vazirmatn-Regular.ttf
+          curl -sL -o fonts/NotoNaskh.ttf  $B/NotoNaskhArabic/hinted/ttf/NotoNaskhArabic-Regular.ttf
+          curl -sL -o fonts/NotoKufi.ttf   $B/NotoKufiArabic/hinted/ttf/NotoKufiArabic-Regular.ttf
+          cp /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf fonts/DejaVu.ttf
+          curl -sL -o tess/fas.traineddata https://github.com/tesseract-ocr/tessdata_best/raw/main/fas.traineddata
+      - uses: actions/download-artifact@v4
+        with: { name: fas_ft, path: ftout, run-id: '${{ inputs.run_id }}', github-token: '${{ secrets.GITHUB_TOKEN }}' }
+      - uses: actions/download-artifact@v4
+        with: { name: tests, path: tests }
+      - name: Evaluate
+        run: |
+          mkdir -p results
+          python ft/evaluate.py --base-dir tess --ft-file ftout/fas_ft.traineddata --tests tests --holdout ftout/holdout_paras.txt --out results 2>&1 | tee results/console.txt || true
+      - if: always()
+        env: { GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}' }
+        run: bash ft/publish_results.sh evaluate-only results
