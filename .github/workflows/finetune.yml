@@ -1,0 +1,190 @@
+name: finetune-tesseract-fa
+
+# Run via Actions -> finetune-tesseract-fa -> Run workflow.
+# First run `quick: true` (about 15-30 min) to prove the whole chain, then a full run.
+# Small outputs (eval.md/json, train_summary.json, fas_ft.traineddata) are committed to the `results` branch.
+on:
+  workflow_dispatch:
+    inputs:
+      quick:
+        description: 'Smoke run: tiny corpus, 6 articles, 2000 iterations'
+        type: boolean
+        default: true
+      target_mb:
+        description: 'Corpus size in MB (full run)'
+        default: '20'
+      n_train:
+        description: 'Training lines to render (full run)'
+        default: '30000'
+      max_it:
+        description: 'Max training iterations (full run)'
+        default: '60000'
+      max_minutes:
+        description: 'Training time limit in minutes (job cap is ~345)'
+        default: '300'
+      lr:
+        description: 'Learning rate (needs --reset_learning_rate, set by train.sh)'
+        default: '0.00001'
+      resume:
+        description: 'Resume from the newest cached training state if present'
+        type: boolean
+        default: false
+      refresh_corpus:
+        description: 'Ignore cached corpus and fetch again'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+env:
+  QUICK: ${{ inputs.quick && '1' || '0' }}
+  FT_FONTS: ${{ github.workspace }}/fonts
+
+jobs:
+  corpus:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install beautifulsoup4 lxml python-bidi
+      - id: cache
+        if: ${{ !inputs.refresh_corpus && env.QUICK == '0' }}
+        uses: actions/cache/restore@v4
+        with:
+          path: corpus.txt
+          key: corpus-none
+          restore-keys: corpus-
+      - name: Fetch corpus from fa.wikipedia API
+        if: ${{ steps.cache.outputs.cache-hit != 'true' && steps.cache.outputs.cache-matched-key == '' }}
+        run: |
+          MB=${{ inputs.target_mb }}; MIN=120
+          if [ "$QUICK" = "1" ]; then MB=1.5; MIN=15; fi
+          python ft/fetch_corpus.py --out corpus.txt --exclude ft/articles.txt --target-mb "$MB" --max-minutes "$MIN"
+      - name: Save corpus cache
+        if: ${{ env.QUICK == '0' && steps.cache.outputs.cache-matched-key == '' }}
+        uses: actions/cache/save@v4
+        with:
+          path: corpus.txt
+          key: corpus-${{ github.run_id }}
+      - run: |
+          mkdir -p out && python - <<'PY' > out/corpus_stats.json
+          import json; L=[l for l in open('corpus.txt',encoding='utf-8') if l.strip()]
+          print(json.dumps(dict(paragraphs=len(L), mb=round(sum(len(l.encode()) for l in L)/1e6,2), sample=L[0][:200] if L else None), ensure_ascii=False))
+          PY
+          cat out/corpus_stats.json
+      - uses: actions/upload-artifact@v4
+        with: { name: corpus, path: corpus.txt, retention-days: 5 }
+      - if: always()
+        env: { GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}' }
+        run: bash ft/publish_results.sh corpus out/corpus_stats.json
+
+  tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Persian fonts for the browser
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq fonts-noto-core fonts-dejavu-core fontconfig
+          mkdir -p ~/.fonts
+          curl -sL -o ~/.fonts/Vazirmatn-Regular.ttf https://github.com/rastikerdar/vazirmatn/raw/master/fonts/ttf/Vazirmatn-Regular.ttf
+          fc-cache -f; fc-list :lang=fa family | sort -u | head
+      - run: pip install playwright pillow && python -m playwright install --with-deps chromium
+      - name: Screenshot pinned articles
+        run: |
+          grep -v '^#' ft/articles.txt | grep -v '^$' > arts.txt
+          B=3; if [ "$QUICK" = "1" ]; then head -n 6 arts.txt > arts_q.txt; mv arts_q.txt arts.txt; B=2; fi
+          python ft/make_tests.py --articles arts.txt --out tests --blocks $B 2>&1 | tee tests_log.txt
+          echo "{\"images\": $(ls tests/*/*.txt | wc -l), \"tune\": $(ls tests/tune/*.txt 2>/dev/null | wc -l), \"final\": $(ls tests/final/*.txt 2>/dev/null | wc -l)}" | tee tests_stats.json
+      - uses: actions/upload-artifact@v4
+        with: { name: tests, path: tests, retention-days: 5 }
+      - if: always()
+        env: { GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}' }
+        run: bash ft/publish_results.sh tests tests_log.txt tests_stats.json
+
+  train:
+    needs: corpus
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Install tools and fonts
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-eng libraqm0 fonts-dejavu-core
+          pip install pillow numpy python-bidi fonttools
+          mkdir -p fonts tess
+          B=https://github.com/notofonts/notofonts.github.io/raw/main/fonts
+          curl -sL -o fonts/Vazirmatn.ttf     https://github.com/rastikerdar/vazirmatn/raw/master/fonts/ttf/Vazirmatn-Regular.ttf
+          curl -sL -o fonts/VazirmatnBold.ttf https://github.com/rastikerdar/vazirmatn/raw/master/fonts/ttf/Vazirmatn-Bold.ttf
+          curl -sL -o fonts/NotoNaskh.ttf     $B/NotoNaskhArabic/hinted/ttf/NotoNaskhArabic-Regular.ttf
+          curl -sL -o fonts/NotoNaskhBold.ttf $B/NotoNaskhArabic/hinted/ttf/NotoNaskhArabic-Bold.ttf
+          curl -sL -o fonts/NotoKufi.ttf      $B/NotoKufiArabic/hinted/ttf/NotoKufiArabic-Regular.ttf
+          cp /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf fonts/DejaVu.ttf; cp /usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf fonts/DejaVuBold.ttf
+          curl -sL -o tess/fas.traineddata https://github.com/tesseract-ocr/tessdata_best/raw/main/fas.traineddata
+          ls -la fonts tess; tesseract --version | head -1
+      - uses: actions/download-artifact@v4
+        with: { name: corpus, path: . }
+      - name: Restore previous training state
+        if: ${{ inputs.resume }}
+        uses: actions/cache/restore@v4
+        with:
+          path: ftwork
+          key: ftwork-none
+          restore-keys: ftwork-
+      - name: Fine-tune
+        run: |
+          export CORPUS=$PWD/corpus.txt BASE=$PWD/tess/fas.traineddata OUT=$PWD/ftwork LR=${{ inputs.lr }}
+          if [ "$QUICK" = "1" ]; then export N_TRAIN=1500 N_EVAL=200 MAX_IT=2000 MAX_MIN=40
+          else export N_TRAIN=${{ inputs.n_train }} N_EVAL=1500 MAX_IT=${{ inputs.max_it }} MAX_MIN=${{ inputs.max_minutes }}; fi
+          bash ft/train.sh 2>&1 | tee train_console.txt
+      - name: Save training state (for resume)
+        if: ${{ always() && env.QUICK == '0' }}
+        uses: actions/cache/save@v4
+        with:
+          path: ftwork
+          key: ftwork-${{ github.run_id }}
+      - run: |
+          mkdir -p out && cp ftwork/fas_ft.traineddata ftwork/train_summary.json out/ && cp train_console.txt out/ && tail -n 400 ftwork/train.log > out/train_log_tail.txt
+          cp ftwork/data/holdout_paras.txt out/holdout_paras.txt
+      - uses: actions/upload-artifact@v4
+        with: { name: fas_ft, path: out, retention-days: 14 }
+      - if: always()
+        env: { GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}' }
+        run: bash ft/publish_results.sh train out/fas_ft.traineddata out/train_summary.json out/train_log_tail.txt out/train_console.txt
+
+  evaluate:
+    needs: [train, tests]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Install
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq tesseract-ocr libraqm0 fonts-dejavu-core
+          pip install pillow numpy rapidfuzz wordfreq python-bidi
+          mkdir -p fonts tess; B=https://github.com/notofonts/notofonts.github.io/raw/main/fonts
+          curl -sL -o fonts/Vazirmatn.ttf https://github.com/rastikerdar/vazirmatn/raw/master/fonts/ttf/Vazirmatn-Regular.ttf
+          curl -sL -o fonts/NotoNaskh.ttf  $B/NotoNaskhArabic/hinted/ttf/NotoNaskhArabic-Regular.ttf
+          curl -sL -o fonts/NotoKufi.ttf   $B/NotoKufiArabic/hinted/ttf/NotoKufiArabic-Regular.ttf
+          cp /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf fonts/DejaVu.ttf
+          curl -sL -o tess/fas.traineddata https://github.com/tesseract-ocr/tessdata_best/raw/main/fas.traineddata
+      - uses: actions/download-artifact@v4
+        with: { name: fas_ft, path: ftout }
+      - uses: actions/download-artifact@v4
+        with: { name: tests, path: tests }
+      - name: Evaluate
+        run: |
+          mkdir -p results
+          python ft/evaluate.py --base-dir tess --ft-file ftout/fas_ft.traineddata --tests tests --holdout ftout/holdout_paras.txt --out results 2>&1 | tee results/console.txt || true
+      - if: always()
+        env: { GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}' }
+        run: bash ft/publish_results.sh evaluate results

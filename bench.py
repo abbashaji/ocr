@@ -22,7 +22,7 @@ os.environ['OMP_THREAD_LIMIT'] = '1'
 
 # ---------- normalisation & metrics ----------
 def base(s):
-    s = s.replace('ي', 'ی').replace('ك', 'ک').replace('ة', 'ه').replace('ۀ', 'ه').replace('\u200c', ' ')
+    s = s.replace('ي', 'ی').replace('ى', 'ی').replace('ك', 'ک').replace('ة', 'ه').replace('ۀ', 'ه').replace('\u200c', ' ')
     s = ''.join(c for c in s if not (0x064B <= ord(c) <= 0x065F))
     s = s.translate(str.maketrans('۰۱۲۳۴۵۶۷۸۹٠١٢٣٤٥٦٧٨٩', '01234567890123456789'))
     return re.sub(r'[\u200e\u200f]', '', s)

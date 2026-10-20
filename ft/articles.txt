@@ -1,0 +1,33 @@
+# Pinned test articles (fa.wikipedia). NOT used for training: fetch_corpus.py excludes every title listed here.
+# Missing/renamed titles are skipped and reported by make_tests.py. Even position -> tune split, odd -> final split.
+# The client's benchmark article «ایران» is deliberately absent and is also excluded from the corpus.
+تهران
+اصفهان
+شیراز
+تبریز
+مشهد
+فردوسی
+سعدی
+حافظ
+مولوی
+خیام
+کورش بزرگ
+داریوش یکم
+خلیج فارس
+دریای خزر
+دماوند
+زبان فارسی
+نوروز
+شاهنامه
+دانشگاه تهران
+فوتبال
+ریاضیات
+فیزیک
+شیمی
+اینترنت
+نفت
+تاریخ
+جمعیت
+خورشید
+زمین
+اقتصاد
