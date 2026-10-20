@@ -8,30 +8,48 @@ browser scale 100% (PNG), 75% (JPEG q60) and 50% (JPEG q40), and write the text 
 ground truth (citation markers sup.reference removed from the truth but still visible in the image, like the
 client's samples; evaluate.py ignores marker residue in the OCR output). Split by article: even index -> tests/tune,
 odd index -> tests/final (final is never used for tuning or training).
+
+Diagnostics: for every article it prints how many paragraphs the page scan found and why each was rejected.
+Exits with status 1 when no image was made at all.
 """
-import argparse, io, os, random, sys, time, urllib.parse
+import argparse, collections, io, os, random, sys, time, urllib.parse
 from PIL import Image
 
 UA = 'ocr-finetune-bot/1.0 (test-image generation; https://github.com/abbashaji/ocr)'
 ZOOMS = [(1.0, 'z100', 'png', None), (0.75, 'z75', 'jpg', 60), (0.5, 'z50', 'jpg', 40)]
 
+# Body paragraphs: direct children of .mw-parser-output, or children of a <section> that is a direct child
+# (newer Parsoid-style markup wraps paragraphs in sections). Both scripts use the same list so indices match.
+JS_PARAS = """() => [...document.querySelectorAll('#mw-content-text .mw-parser-output p')].filter(p => {
+  const par = p.parentElement;
+  return par.classList.contains('mw-parser-output') ||
+         (par.tagName === 'SECTION' && par.parentElement && par.parentElement.classList.contains('mw-parser-output'));
+})"""
 JS_SCAN = """() => {
   const clean = p => { const c = p.cloneNode(true);
     c.querySelectorAll('sup.reference,.mw-editsection,style,script,.noprint,sup.noprint').forEach(e => e.remove());
     return c.textContent.replace(/\\s+/g, ' ').trim(); };
-  const ps = [...document.querySelectorAll('#mw-content-text .mw-parser-output > p')];
+  const ps = (%s)();
   return ps.map((p, i) => { const r = p.getBoundingClientRect(), lh = parseFloat(getComputedStyle(p).lineHeight) || 22;
     return {i, text: clean(p), lines: r.height / lh, w: r.width,
             odd: !!p.querySelector('sup:not(.reference),.Inline-Template,math,img,table,ruby'),
             next: !!(p.nextElementSibling && p.nextElementSibling === ps[i + 1])}; });
-}"""
-JS_RECT = """(i) => { const p = [...document.querySelectorAll('#mw-content-text .mw-parser-output > p')][i];
-  const r = p.getBoundingClientRect(); return {x: r.left + scrollX, y: r.top + scrollY, w: r.width, h: r.height}; }"""
+}""" % JS_PARAS
+JS_RECT = """(i) => { const p = (%s)()[i];
+  const r = p.getBoundingClientRect(); return {x: r.left + scrollX, y: r.top + scrollY, w: r.width, h: r.height}; }""" % JS_PARAS
 
 def latin(s): return sum(c.isascii() and c.isalpha() for c in s)
 
+def reject_reason(it):
+    """None when the paragraph is usable, else a short reason"""
+    if len(it['text']) < 250: return 'short'
+    if it['odd']: return 'odd_markup'
+    if latin(it['text']) > 6: return 'latin'
+    if not 3 <= it['lines'] <= 16: return 'lines'
+    return None
+
 def pick_blocks(items, n, rng):
-    ok = [it for it in items if len(it['text']) >= 250 and not it['odd'] and latin(it['text']) <= 6 and 3 <= it['lines'] <= 16]
+    ok = [it for it in items if reject_reason(it) is None]
     rng.shuffle(ok); blocks = []; used = set()
     for it in ok:
         if it['i'] in used: continue
@@ -68,7 +86,11 @@ def main():
                     if resp is not None and resp.status >= 400: raise RuntimeError(f'HTTP {resp.status}')
                     pg.wait_for_timeout(500); pages[name] = pg; time.sleep(a.delay)
                 items = pages['z100'].evaluate(JS_SCAN)
+                why = collections.Counter(reject_reason(it) or 'ok' for it in items)
+                print(f'[{ai}] {title}: page title={pages["z100"].title()!r}, {len(items)} paragraphs, {dict(why)}', file=sys.stderr)
                 blocks = pick_blocks(items, a.blocks, random.Random(f'{title}'))
+                if not blocks:
+                    missing.append((title, f'no usable paragraphs ({dict(why)})'))
                 for bi, blk in enumerate(blocks):
                     truth = '\n'.join(it['text'] for it in blk)
                     for zoom, name, ext, q in ZOOMS:
@@ -87,6 +109,9 @@ def main():
                 for pg in pages.values(): pg.close()
         br.close()
     print(f'made {made} images from {len(titles) - len(missing)}/{len(titles)} articles; skipped: {missing}')
+    if made == 0:
+        print('ERROR: no test images were made', file=sys.stderr)
+        sys.exit(1)
 
 if __name__ == '__main__':
     main()
