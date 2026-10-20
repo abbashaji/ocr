@@ -1,20 +1,20 @@
 fonts: ['DejaVu', 'DejaVuBold', 'NotoKufi', 'NotoNaskh', 'NotoNaskhBold', 'Vazirmatn', 'VazirmatnBold']
-{'train': 844, 'eval': 56, 'holdout': 39}
+{'train': 719, 'eval': 41, 'holdout': 49}
 train lstmf files: 1500
 eval lstmf files: 200
 lstmtraining exit 0 (124 = time limit reached, fine)
-2 Percent improvement time=713, best error was 13.127 @ 1181
-At iteration 1894/2000/2000, mean rms=2.184%, delta=5.896%, BCER train=10.606%, BWER train=30.333%, skip ratio=0.000%, New best BCER = 10.606 wrote checkpoint.
-Finished! Selected model with minimal training error rate (BCER) = 10.606
-candidate ft_checkpoint BCER=10.216
-candidate ft_10.641_1720_1800.checkpoint BCER=10.448
-candidate ft_11.054_1628_1700.checkpoint BCER=10.585
-candidate ft_11.433_1450_1500.checkpoint BCER=10.727
-Loaded file ft_checkpoint, unpacking...
+2 Percent improvement time=739, best error was 13.711 @ 1178
+At iteration 1917/2000/2000, mean rms=2.258%, delta=6.263%, BCER train=11.315%, BWER train=32.416%, skip ratio=0.000%, New best BCER = 11.315 wrote best model:ft_11.315_1917_2000.checkpoint wrote chec
+Finished! Selected model with minimal training error rate (BCER) = 11.315
+candidate ft_checkpoint BCER=11.207
+candidate ft_11.315_1917_2000.checkpoint BCER=11.207
+candidate ft_11.683_1649_1700.checkpoint BCER=11.199
+candidate ft_12.260_1462_1500.checkpoint BCER=11.468
+Loaded file ft_11.683_1649_1700.checkpoint, unpacking...
 {
- "base_bcer": 18.588,
- "ft_bcer": 10.216,
- "checkpoint": "ft_checkpoint",
+ "base_bcer": 19.306,
+ "ft_bcer": 11.199,
+ "checkpoint": "ft_11.683_1649_1700.checkpoint",
  "lr": "0.00001",
  "n_train": 1500,
  "n_eval": 200,
