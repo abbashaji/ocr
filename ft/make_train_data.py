@@ -21,8 +21,15 @@ def split_of(p):
 def visual(text):
     """Tesseract's LSTM trainer wants RTL line labels in VISUAL (left-to-right) order. Verified empirically:
     logical-order labels make training diverge (delta ~60%, BWER 97%), visual-order labels train normally.
-    A bidi reorder (not a plain reversal) keeps digit runs left-to-right."""
-    return get_display(text, base_dir='R')
+    A bidi reorder (not a plain reversal) keeps digit runs left-to-right.
+
+    python-bidi >= 0.6 silently DROPS U+200C (ZWNJ, bidi class BN) in get_display. The first full run trained on labels
+    without any half-space while the images showed it, and the model learned never to emit ZWNJ (2 in 135 test images
+    vs 1839 in the reference), which wrecked word accuracy. ZWNJ is therefore hidden behind a private-use placeholder."""
+    return get_display(text.replace(ZWNJ, _ZWNJ_PLACEHOLDER), base_dir='R').replace(_ZWNJ_PLACEHOLDER, ZWNJ)
+
+ZWNJ, _ZWNJ_PLACEHOLDER = '‌', ''
+assert visual('سال‌های ۱۳۹۹').count(ZWNJ) == 1, 'ZWNJ was lost in visual(): labels would be wrong'
 
 def write_box(path, text, w, h):
     text = visual(C.to_label(text))

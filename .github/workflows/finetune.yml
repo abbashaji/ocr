@@ -124,7 +124,7 @@ jobs:
       - name: Install tools and fonts
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-eng libraqm0 fonts-dejavu-core
-          pip install pillow numpy python-bidi fonttools
+          pip install pillow numpy "python-bidi==0.6.12" fonttools
           mkdir -p fonts tess
           B=https://github.com/notofonts/notofonts.github.io/raw/main/fonts
           curl -sL -o fonts/Vazirmatn.ttf     https://github.com/rastikerdar/vazirmatn/raw/master/fonts/ttf/Vazirmatn-Regular.ttf

@@ -45,3 +45,23 @@ The >99% target is therefore unproven until the Actions run reports numbers on t
 ## Caveats
 Linux-rendered screenshots approximate the client's Windows rendering; real client screenshots (even 10) are a valuable extra test split.
 Wikipedia text is CC BY-SA - the corpus is cached, not committed.
+
+## After the first full run (21 Oct 2026): what went wrong and what changed
+First full run (10 MB corpus, 30 000 lines, 37 611 learning iterations): rendered-line BCER 18.67 -> 4.37, **but word accuracy on real
+screenshots collapsed** (real_final z100: 96.1 -> 78.7 with `plain`) while letter accuracy stayed the same or improved.
+* **Cause: ZWNJ (half-space) was missing from every training label.** `python-bidi` >= 0.6 silently drops U+200C in
+  `get_display`. Images showed the half-space, labels did not, so the model learned never to emit it (2 ZWNJ in the
+  fine-tune output vs 1 618 for the base model and 1 839 in the reference over `real_final`). Words like `هیچ‌وجه`, `سال‌های`,
+  `نمی‌داد` came out joined and counted as errors. Fix: `visual()` in `make_train_data.py` hides ZWNJ behind a private-use
+  placeholder, asserts at import time that it survives, and the training job pins `python-bidi==0.6.12`.
+  Checked offline: the base model's BCER on the same 300 lines is 18.91 with old labels and 18.08 with fixed labels (BWER 42.8 -> 39.9).
+  **A new fine-tune has NOT been run with this fix yet.** Before a long run, do a `quick` run and count ZWNJ in `ft` outputs.
+* **Citation markers.** Most remaining z100 errors were garbled `[۲۳۶]` markers glued to words. `markers.py` now removes
+  them geometrically from Tesseract character boxes (hOCR) before the per-line consensus; `pipeline2.recognize_tok(markers=True)` is the default,
+  `markers=False` is the old path. On 36 Chromium screenshots, base model, v2lex (word accuracy %):
+  tune z100 95.84 -> 98.00, final z100 93.13 -> 97.32, tune z75 81.66 -> 83.20, final z75 86.26 -> 88.27, client samples 98.07 -> 98.07.
+  Pitfalls found: the Persian zero `۰` is a tiny dot and must not be treated as a marker; word confidence must come from
+  hOCR `x_wconf`, not the mean of character confidences (that alone cost 2 to 4 points through the lexicon `conf_skip` threshold).
+* Not solved: ft was only on par with the base model on real screenshots even ignoring ZWNJ; training lines (Pillow rendering) are
+  much harder than real screenshots (base BCER 18.7% on them vs about 0.4% letter error on real z100), so the gain did not transfer.
+  Next idea: build training lines from Chromium screenshots of the corpus text (zoom 75-100%, JPEG) with DOM ground truth.

@@ -70,3 +70,23 @@ def tess_boxes(im, psm=7, tessdir=None):
         c = row.split('\t')
         if len(c) >= 12 and c[0] == '5' and c[11].strip(): res.append((c[11].strip(), float(c[10]), int(c[6]), int(c[7]), int(c[8]), int(c[9])))
     _cache[key] = res; return res
+
+import re as _re, html as _html
+_CINFO = _re.compile(r"<span class='ocrx_cinfo' title='x_bboxes (\d+) (\d+) (\d+) (\d+); x_conf ([\d.]+)'>(.*?)</span>", _re.S)
+def tess_chars(im, psm=7, tessdir=None):
+    """-> list of words; word = list of (char, x0, y0, x1, y1, char_conf, word_conf) in reading (logical) order, from hOCR
+    char boxes. word_conf is Tesseract's x_wconf (same scale as the TSV word confidence). Cached.
+    (`-c tessedit_create_hocr=1`, not the `hocr` config name: that config is not found with a custom --tessdata-dir.)"""
+    tessdir = tessdir or os.environ.get('OCR_TESSDIR') or B.TESS_BEST; lang = os.environ.get('OCR_LANG', 'fas')
+    key = 'chr2:' + hashlib.md5(im.tobytes() + str((im.size, psm, tessdir, lang)).encode()).hexdigest()
+    if key in _cache: return [[tuple(c) for c in w] for w in _cache[key]]
+    with tempfile.NamedTemporaryFile(suffix='.png', delete=False) as f: p = f.name
+    im.save(p)
+    out = subprocess.run(['tesseract', p, '-', '-l', lang, '--psm', str(psm), '--tessdata-dir', tessdir,
+                          '-c', 'hocr_char_boxes=1', '-c', 'tessedit_create_hocr=1'], capture_output=True, text=True).stdout
+    os.unlink(p); words = []
+    for m in _re.finditer(r"<span class='ocrx_word'.*?(?=<span class='ocrx_word'|</p>)", out, _re.S):
+        wc = _re.search(r"x_wconf (\d+)", m.group(0).split('>', 1)[0]); wc = float(wc.group(1)) if wc else 0.0
+        cs = [(_html.unescape(c[5]), int(c[0]), int(c[1]), int(c[2]), int(c[3]), float(c[4]), wc) for c in _CINFO.findall(m.group(0))]
+        if cs: words.append(cs)
+    _cache[key] = words; return words

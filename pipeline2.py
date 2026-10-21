@@ -3,15 +3,25 @@ import re, functools
 from rapidfuzz.distance import Levenshtein as Lev
 from lines import *
 import postproc as P
+import markers as M
 
 TARGETS = (28, 32, 36, 40, 44, 48, 56)
 norm = lambda s: ' '.join(B.base(s).split())
 
-def recognize_tok(im, targets=TARGETS):
-    """-> list of lines; each line = list of (token, conf) from the medoid scale."""
+def recognize_tok(im, targets=TARGETS, markers=True):
+    """-> list of lines; each line = list of (token, conf) from the medoid scale.
+    markers=True removes superscript citation markers like [۱۱] geometrically (markers.py, from Tesseract character boxes)
+    BEFORE the medoid is chosen; markers=False keeps the old TSV path (no marker handling)."""
     g = to_gray(im, 'L'); out = []
     for c in crops(g, segment_lines(g)):
-        cands = [tess_tsv(pad_white(scale(c, T / c.height), 12), 7) for T in targets]
+        if markers:
+            cands = []
+            for T in targets:
+                words = tess_chars(pad_white(scale(c, T / c.height), 12), 7)
+                toks = M.clean_words_conf(words)
+                cands.append((' '.join(t for t, _ in toks), toks))
+        else:
+            cands = [tess_tsv(pad_white(scale(c, T / c.height), 12), 7) for T in targets]
         n = [norm(t) for t, _ in cands]
         best = min(range(len(n)), key=lambda i: sum(Lev.distance(n[i], n[j]) for j in range(len(n))))
         out.append(cands[best][1])
