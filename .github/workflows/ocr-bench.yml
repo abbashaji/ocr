@@ -1,8 +1,7 @@
 name: ocr-bench
 on:
   workflow_dispatch:
-  push:
-    paths: ['*.py', 'samples/**', 'ref.txt', '.github/workflows/ocr-bench.yml']
+  # push trigger removed: it started this slow 3-engine benchmark on every .py change. Run it manually when needed.
 jobs:
   bench:
     runs-on: ubuntu-latest

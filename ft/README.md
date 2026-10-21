@@ -55,7 +55,9 @@ screenshots collapsed** (real_final z100: 96.1 -> 78.7 with `plain`) while lette
   `نمی‌داد` came out joined and counted as errors. Fix: `visual()` in `make_train_data.py` hides ZWNJ behind a private-use
   placeholder, asserts at import time that it survives, and the training job pins `python-bidi==0.6.12`.
   Checked offline: the base model's BCER on the same 300 lines is 18.91 with old labels and 18.08 with fixed labels (BWER 42.8 -> 39.9).
-  **A new fine-tune has NOT been run with this fix yet.** Before a long run, do a `quick` run and count ZWNJ in `ft` outputs.
+  **A new fine-tune has NOT been run with this fix yet.** A `quick` run (2 000 iterations) cannot verify it: the quick model trained
+  with the bug still emitted all 88 ZWNJ in 12 test images. The collapse only appeared after tens of thousands of iterations, so the
+  check is a full run followed by comparing ZWNJ counts in `ft` vs `base` outputs.
 * **Citation markers.** Most remaining z100 errors were garbled `[۲۳۶]` markers glued to words. `markers.py` now removes
   them geometrically from Tesseract character boxes (hOCR) before the per-line consensus; `pipeline2.recognize_tok(markers=True)` is the default,
   `markers=False` is the old path. On 36 Chromium screenshots, base model, v2lex (word accuracy %):
