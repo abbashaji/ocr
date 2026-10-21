@@ -1,6 +1,6 @@
 {
- "base_bcer": 18.67,
- "ft_bcer": 4.366,
+ "base_bcer": 17.73,
+ "ft_bcer": 4.487,
  "checkpoint": "ft_checkpoint",
  "lr": "0.00001",
  "n_train": 30000,

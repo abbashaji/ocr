@@ -18,17 +18,17 @@ train 30000 / 30000
 train lstmf files: 30000
 eval lstmf files: 1500
 lstmtraining exit 0 (124 = time limit reached, fine)
-At iteration 37563/59900/59900, mean rms=1.079%, delta=1.942%, BCER train=4.589%, BWER train=13.257%, skip ratio=0.000%, wrote checkpoint.
-At iteration 37611/60000/60000, mean rms=1.074%, delta=1.941%, BCER train=4.558%, BWER train=13.014%, skip ratio=0.000%, wrote checkpoint.
-Finished! Selected model with minimal training error rate (BCER) = 4.07
-candidate ft_checkpoint BCER=4.366
-candidate ft_4.070_32811_50300.checkpoint BCER=4.501
-candidate ft_4.266_32767_50200.checkpoint BCER=4.540
-candidate ft_4.418_28749_42600.checkpoint BCER=4.709
+At iteration 36734/59900/59900, mean rms=1.082%, delta=1.940%, BCER train=4.610%, BWER train=13.423%, skip ratio=0.000%, New worst BCER = 4.610 wrote checkpoint.
+At iteration 36784/60000/60000, mean rms=1.077%, delta=1.936%, BCER train=4.578%, BWER train=13.256%, skip ratio=0.000%, New worst BCER = 4.578 wrote checkpoint.
+Finished! Selected model with minimal training error rate (BCER) = 4.05
+candidate ft_checkpoint BCER=4.487
+candidate ft_4.050_36059_58500.checkpoint BCER=4.490
+candidate ft_4.192_31947_50300.checkpoint BCER=4.678
+candidate ft_4.401_31900_50200.checkpoint BCER=4.692
 Loaded file ft_checkpoint, unpacking...
 {
- "base_bcer": 18.67,
- "ft_bcer": 4.366,
+ "base_bcer": 17.73,
+ "ft_bcer": 4.487,
  "checkpoint": "ft_checkpoint",
  "lr": "0.00001",
  "n_train": 30000,
