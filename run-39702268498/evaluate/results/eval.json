@@ -1,0 +1,1120 @@
+{
+ "client": {
+  "all": {
+   "base/plain/raw": {
+    "word_acc": 92.56,
+    "letter_acc": 98.09,
+    "n_images": 2,
+    "ref_words": 672
+   },
+   "base/plain/nomark": {
+    "word_acc": 92.56,
+    "letter_acc": 98.09,
+    "n_images": 2,
+    "ref_words": 672
+   },
+   "base/v2lex/raw": {
+    "word_acc": 98.07,
+    "letter_acc": 99.66,
+    "n_images": 2,
+    "ref_words": 672
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 98.07,
+    "letter_acc": 99.66,
+    "n_images": 2,
+    "ref_words": 672
+   },
+   "base/v2raw/raw": {
+    "word_acc": 95.83,
+    "letter_acc": 99.08,
+    "n_images": 2,
+    "ref_words": 672
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 95.83,
+    "letter_acc": 99.08,
+    "n_images": 2,
+    "ref_words": 672
+   },
+   "ft/plain/raw": {
+    "word_acc": 94.64,
+    "letter_acc": 98.81,
+    "n_images": 2,
+    "ref_words": 672
+   },
+   "ft/plain/nomark": {
+    "word_acc": 94.64,
+    "letter_acc": 98.81,
+    "n_images": 2,
+    "ref_words": 672
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 98.07,
+    "letter_acc": 99.62,
+    "n_images": 2,
+    "ref_words": 672
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 98.07,
+    "letter_acc": 99.62,
+    "n_images": 2,
+    "ref_words": 672
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 96.13,
+    "letter_acc": 99.16,
+    "n_images": 2,
+    "ref_words": 672
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 96.13,
+    "letter_acc": 99.16,
+    "n_images": 2,
+    "ref_words": 672
+   }
+  },
+  "client": {
+   "base/plain/raw": {
+    "word_acc": 92.56,
+    "letter_acc": 98.09,
+    "n_images": 2,
+    "ref_words": 672
+   },
+   "base/plain/nomark": {
+    "word_acc": 92.56,
+    "letter_acc": 98.09,
+    "n_images": 2,
+    "ref_words": 672
+   },
+   "base/v2lex/raw": {
+    "word_acc": 98.07,
+    "letter_acc": 99.66,
+    "n_images": 2,
+    "ref_words": 672
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 98.07,
+    "letter_acc": 99.66,
+    "n_images": 2,
+    "ref_words": 672
+   },
+   "base/v2raw/raw": {
+    "word_acc": 95.83,
+    "letter_acc": 99.08,
+    "n_images": 2,
+    "ref_words": 672
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 95.83,
+    "letter_acc": 99.08,
+    "n_images": 2,
+    "ref_words": 672
+   },
+   "ft/plain/raw": {
+    "word_acc": 94.64,
+    "letter_acc": 98.81,
+    "n_images": 2,
+    "ref_words": 672
+   },
+   "ft/plain/nomark": {
+    "word_acc": 94.64,
+    "letter_acc": 98.81,
+    "n_images": 2,
+    "ref_words": 672
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 98.07,
+    "letter_acc": 99.62,
+    "n_images": 2,
+    "ref_words": 672
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 98.07,
+    "letter_acc": 99.62,
+    "n_images": 2,
+    "ref_words": 672
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 96.13,
+    "letter_acc": 99.16,
+    "n_images": 2,
+    "ref_words": 672
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 96.13,
+    "letter_acc": 99.16,
+    "n_images": 2,
+    "ref_words": 672
+   }
+  }
+ },
+ "real_tune": {
+  "all": {
+   "base/plain/raw": {
+    "word_acc": 75.51,
+    "letter_acc": 91.59,
+    "n_images": 132,
+    "ref_words": 17217
+   },
+   "base/plain/nomark": {
+    "word_acc": 75.63,
+    "letter_acc": 91.59,
+    "n_images": 132,
+    "ref_words": 17217
+   },
+   "base/v2lex/raw": {
+    "word_acc": 79.59,
+    "letter_acc": 89.47,
+    "n_images": 132,
+    "ref_words": 17217
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 79.59,
+    "letter_acc": 89.47,
+    "n_images": 132,
+    "ref_words": 17217
+   },
+   "base/v2raw/raw": {
+    "word_acc": 76.3,
+    "letter_acc": 89.07,
+    "n_images": 132,
+    "ref_words": 17217
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 76.3,
+    "letter_acc": 89.07,
+    "n_images": 132,
+    "ref_words": 17217
+   },
+   "ft/plain/raw": {
+    "word_acc": 81.12,
+    "letter_acc": 93.98,
+    "n_images": 132,
+    "ref_words": 17217
+   },
+   "ft/plain/nomark": {
+    "word_acc": 81.16,
+    "letter_acc": 93.98,
+    "n_images": 132,
+    "ref_words": 17217
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 84.9,
+    "letter_acc": 92.37,
+    "n_images": 132,
+    "ref_words": 17217
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 84.9,
+    "letter_acc": 92.37,
+    "n_images": 132,
+    "ref_words": 17217
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 82.57,
+    "letter_acc": 92.22,
+    "n_images": 132,
+    "ref_words": 17217
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 82.57,
+    "letter_acc": 92.22,
+    "n_images": 132,
+    "ref_words": 17217
+   }
+  },
+  "z100": {
+   "base/plain/raw": {
+    "word_acc": 96.64,
+    "letter_acc": 99.63,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "base/plain/nomark": {
+    "word_acc": 96.85,
+    "letter_acc": 99.63,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "base/v2lex/raw": {
+    "word_acc": 98.22,
+    "letter_acc": 99.57,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 98.22,
+    "letter_acc": 99.57,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "base/v2raw/raw": {
+    "word_acc": 99.11,
+    "letter_acc": 99.83,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 99.11,
+    "letter_acc": 99.83,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "ft/plain/raw": {
+    "word_acc": 97.19,
+    "letter_acc": 99.79,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "ft/plain/nomark": {
+    "word_acc": 97.23,
+    "letter_acc": 99.79,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 98.82,
+    "letter_acc": 99.69,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 98.82,
+    "letter_acc": 99.69,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 99.3,
+    "letter_acc": 99.84,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 99.3,
+    "letter_acc": 99.84,
+    "n_images": 44,
+    "ref_words": 5739
+   }
+  },
+  "z100+z75": {
+   "base/plain/raw": {
+    "word_acc": 91.9,
+    "letter_acc": 98.32,
+    "n_images": 88,
+    "ref_words": 11478
+   },
+   "base/plain/nomark": {
+    "word_acc": 92.07,
+    "letter_acc": 98.32,
+    "n_images": 88,
+    "ref_words": 11478
+   },
+   "base/v2lex/raw": {
+    "word_acc": 96.04,
+    "letter_acc": 98.92,
+    "n_images": 88,
+    "ref_words": 11478
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 96.04,
+    "letter_acc": 98.92,
+    "n_images": 88,
+    "ref_words": 11478
+   },
+   "base/v2raw/raw": {
+    "word_acc": 94.74,
+    "letter_acc": 98.61,
+    "n_images": 88,
+    "ref_words": 11478
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 94.74,
+    "letter_acc": 98.61,
+    "n_images": 88,
+    "ref_words": 11478
+   },
+   "ft/plain/raw": {
+    "word_acc": 95.27,
+    "letter_acc": 99.28,
+    "n_images": 88,
+    "ref_words": 11478
+   },
+   "ft/plain/nomark": {
+    "word_acc": 95.34,
+    "letter_acc": 99.28,
+    "n_images": 88,
+    "ref_words": 11478
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 97.87,
+    "letter_acc": 99.43,
+    "n_images": 88,
+    "ref_words": 11478
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 97.87,
+    "letter_acc": 99.43,
+    "n_images": 88,
+    "ref_words": 11478
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 97.92,
+    "letter_acc": 99.5,
+    "n_images": 88,
+    "ref_words": 11478
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 97.92,
+    "letter_acc": 99.5,
+    "n_images": 88,
+    "ref_words": 11478
+   }
+  },
+  "z50": {
+   "base/plain/raw": {
+    "word_acc": 42.74,
+    "letter_acc": 78.14,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "base/plain/nomark": {
+    "word_acc": 42.76,
+    "letter_acc": 78.14,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "base/v2lex/raw": {
+    "word_acc": 46.7,
+    "letter_acc": 70.57,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 46.7,
+    "letter_acc": 70.57,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "base/v2raw/raw": {
+    "word_acc": 39.43,
+    "letter_acc": 69.99,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 39.43,
+    "letter_acc": 69.99,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "ft/plain/raw": {
+    "word_acc": 52.81,
+    "letter_acc": 83.38,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "ft/plain/nomark": {
+    "word_acc": 52.81,
+    "letter_acc": 83.38,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 58.95,
+    "letter_acc": 78.24,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 58.95,
+    "letter_acc": 78.24,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 51.87,
+    "letter_acc": 77.66,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 51.87,
+    "letter_acc": 77.66,
+    "n_images": 44,
+    "ref_words": 5739
+   }
+  },
+  "z75": {
+   "base/plain/raw": {
+    "word_acc": 87.16,
+    "letter_acc": 97.01,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "base/plain/nomark": {
+    "word_acc": 87.3,
+    "letter_acc": 97.01,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "base/v2lex/raw": {
+    "word_acc": 93.85,
+    "letter_acc": 98.27,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 93.85,
+    "letter_acc": 98.27,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "base/v2raw/raw": {
+    "word_acc": 90.36,
+    "letter_acc": 97.39,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 90.36,
+    "letter_acc": 97.39,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "ft/plain/raw": {
+    "word_acc": 93.34,
+    "letter_acc": 98.77,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "ft/plain/nomark": {
+    "word_acc": 93.45,
+    "letter_acc": 98.77,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 96.93,
+    "letter_acc": 99.17,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 96.93,
+    "letter_acc": 99.17,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 96.53,
+    "letter_acc": 99.16,
+    "n_images": 44,
+    "ref_words": 5739
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 96.53,
+    "letter_acc": 99.16,
+    "n_images": 44,
+    "ref_words": 5739
+   }
+  }
+ },
+ "real_final": {
+  "all": {
+   "base/plain/raw": {
+    "word_acc": 73.7,
+    "letter_acc": 90.42,
+    "n_images": 135,
+    "ref_words": 20334
+   },
+   "base/plain/nomark": {
+    "word_acc": 73.77,
+    "letter_acc": 90.42,
+    "n_images": 135,
+    "ref_words": 20334
+   },
+   "base/v2lex/raw": {
+    "word_acc": 78.52,
+    "letter_acc": 88.83,
+    "n_images": 135,
+    "ref_words": 20334
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 78.52,
+    "letter_acc": 88.83,
+    "n_images": 135,
+    "ref_words": 20334
+   },
+   "base/v2raw/raw": {
+    "word_acc": 75.26,
+    "letter_acc": 88.44,
+    "n_images": 135,
+    "ref_words": 20334
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 75.26,
+    "letter_acc": 88.44,
+    "n_images": 135,
+    "ref_words": 20334
+   },
+   "ft/plain/raw": {
+    "word_acc": 79.59,
+    "letter_acc": 92.88,
+    "n_images": 135,
+    "ref_words": 20334
+   },
+   "ft/plain/nomark": {
+    "word_acc": 79.61,
+    "letter_acc": 92.88,
+    "n_images": 135,
+    "ref_words": 20334
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 84.37,
+    "letter_acc": 91.87,
+    "n_images": 135,
+    "ref_words": 20334
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 84.38,
+    "letter_acc": 91.87,
+    "n_images": 135,
+    "ref_words": 20334
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 82.01,
+    "letter_acc": 91.64,
+    "n_images": 135,
+    "ref_words": 20334
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 82.02,
+    "letter_acc": 91.64,
+    "n_images": 135,
+    "ref_words": 20334
+   }
+  },
+  "z100": {
+   "base/plain/raw": {
+    "word_acc": 96.12,
+    "letter_acc": 99.54,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "base/plain/nomark": {
+    "word_acc": 96.21,
+    "letter_acc": 99.54,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "base/v2lex/raw": {
+    "word_acc": 97.96,
+    "letter_acc": 99.58,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 97.96,
+    "letter_acc": 99.58,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "base/v2raw/raw": {
+    "word_acc": 98.67,
+    "letter_acc": 99.78,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 98.67,
+    "letter_acc": 99.78,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "ft/plain/raw": {
+    "word_acc": 97.05,
+    "letter_acc": 99.72,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "ft/plain/nomark": {
+    "word_acc": 97.11,
+    "letter_acc": 99.72,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 98.82,
+    "letter_acc": 99.7,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 98.82,
+    "letter_acc": 99.7,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 99.31,
+    "letter_acc": 99.84,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 99.31,
+    "letter_acc": 99.84,
+    "n_images": 45,
+    "ref_words": 6778
+   }
+  },
+  "z100+z75": {
+   "base/plain/raw": {
+    "word_acc": 91.59,
+    "letter_acc": 98.3,
+    "n_images": 90,
+    "ref_words": 13556
+   },
+   "base/plain/nomark": {
+    "word_acc": 91.69,
+    "letter_acc": 98.3,
+    "n_images": 90,
+    "ref_words": 13556
+   },
+   "base/v2lex/raw": {
+    "word_acc": 95.4,
+    "letter_acc": 98.89,
+    "n_images": 90,
+    "ref_words": 13556
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 95.4,
+    "letter_acc": 98.89,
+    "n_images": 90,
+    "ref_words": 13556
+   },
+   "base/v2raw/raw": {
+    "word_acc": 94.16,
+    "letter_acc": 98.61,
+    "n_images": 90,
+    "ref_words": 13556
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 94.16,
+    "letter_acc": 98.61,
+    "n_images": 90,
+    "ref_words": 13556
+   },
+   "ft/plain/raw": {
+    "word_acc": 95.26,
+    "letter_acc": 99.26,
+    "n_images": 90,
+    "ref_words": 13556
+   },
+   "ft/plain/nomark": {
+    "word_acc": 95.29,
+    "letter_acc": 99.26,
+    "n_images": 90,
+    "ref_words": 13556
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 97.8,
+    "letter_acc": 99.44,
+    "n_images": 90,
+    "ref_words": 13556
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 97.81,
+    "letter_acc": 99.44,
+    "n_images": 90,
+    "ref_words": 13556
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 97.76,
+    "letter_acc": 99.47,
+    "n_images": 90,
+    "ref_words": 13556
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 97.76,
+    "letter_acc": 99.47,
+    "n_images": 90,
+    "ref_words": 13556
+   }
+  },
+  "z50": {
+   "base/plain/raw": {
+    "word_acc": 37.93,
+    "letter_acc": 74.65,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "base/plain/nomark": {
+    "word_acc": 37.93,
+    "letter_acc": 74.65,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "base/v2lex/raw": {
+    "word_acc": 44.76,
+    "letter_acc": 68.73,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 44.76,
+    "letter_acc": 68.73,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "base/v2raw/raw": {
+    "word_acc": 37.46,
+    "letter_acc": 68.1,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 37.46,
+    "letter_acc": 68.1,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "ft/plain/raw": {
+    "word_acc": 48.24,
+    "letter_acc": 80.13,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "ft/plain/nomark": {
+    "word_acc": 48.24,
+    "letter_acc": 80.13,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 57.51,
+    "letter_acc": 76.74,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 57.51,
+    "letter_acc": 76.74,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 50.52,
+    "letter_acc": 75.99,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 50.52,
+    "letter_acc": 75.99,
+    "n_images": 45,
+    "ref_words": 6778
+   }
+  },
+  "z75": {
+   "base/plain/raw": {
+    "word_acc": 87.06,
+    "letter_acc": 97.06,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "base/plain/nomark": {
+    "word_acc": 87.18,
+    "letter_acc": 97.06,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "base/v2lex/raw": {
+    "word_acc": 92.84,
+    "letter_acc": 98.19,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 92.84,
+    "letter_acc": 98.19,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "base/v2raw/raw": {
+    "word_acc": 89.66,
+    "letter_acc": 97.43,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 89.66,
+    "letter_acc": 97.43,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "ft/plain/raw": {
+    "word_acc": 93.48,
+    "letter_acc": 98.79,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "ft/plain/nomark": {
+    "word_acc": 93.48,
+    "letter_acc": 98.79,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 96.78,
+    "letter_acc": 99.18,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 96.8,
+    "letter_acc": 99.18,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 96.21,
+    "letter_acc": 99.1,
+    "n_images": 45,
+    "ref_words": 6778
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 96.22,
+    "letter_acc": 99.1,
+    "n_images": 45,
+    "ref_words": 6778
+   }
+  }
+ },
+ "synth": {
+  "all": {
+   "base/plain/raw": {
+    "word_acc": 86.01,
+    "letter_acc": 95.46,
+    "n_images": 72,
+    "ref_words": 3696
+   },
+   "base/plain/nomark": {
+    "word_acc": 86.01,
+    "letter_acc": 95.46,
+    "n_images": 72,
+    "ref_words": 3696
+   },
+   "base/v2lex/raw": {
+    "word_acc": 94.13,
+    "letter_acc": 98.07,
+    "n_images": 72,
+    "ref_words": 3696
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 94.13,
+    "letter_acc": 98.07,
+    "n_images": 72,
+    "ref_words": 3696
+   },
+   "base/v2raw/raw": {
+    "word_acc": 91.45,
+    "letter_acc": 97.43,
+    "n_images": 72,
+    "ref_words": 3696
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 91.45,
+    "letter_acc": 97.43,
+    "n_images": 72,
+    "ref_words": 3696
+   },
+   "ft/plain/raw": {
+    "word_acc": 91.99,
+    "letter_acc": 97.24,
+    "n_images": 72,
+    "ref_words": 3696
+   },
+   "ft/plain/nomark": {
+    "word_acc": 91.99,
+    "letter_acc": 97.24,
+    "n_images": 72,
+    "ref_words": 3696
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 95.08,
+    "letter_acc": 98.57,
+    "n_images": 72,
+    "ref_words": 3696
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 95.08,
+    "letter_acc": 98.57,
+    "n_images": 72,
+    "ref_words": 3696
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 92.97,
+    "letter_acc": 98.1,
+    "n_images": 72,
+    "ref_words": 3696
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 92.97,
+    "letter_acc": 98.1,
+    "n_images": 72,
+    "ref_words": 3696
+   }
+  },
+  "clean": {
+   "base/plain/raw": {
+    "word_acc": 98.11,
+    "letter_acc": 99.71,
+    "n_images": 36,
+    "ref_words": 1848
+   },
+   "base/plain/nomark": {
+    "word_acc": 98.11,
+    "letter_acc": 99.71,
+    "n_images": 36,
+    "ref_words": 1848
+   },
+   "base/v2lex/raw": {
+    "word_acc": 99.03,
+    "letter_acc": 99.91,
+    "n_images": 36,
+    "ref_words": 1848
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 99.03,
+    "letter_acc": 99.91,
+    "n_images": 36,
+    "ref_words": 1848
+   },
+   "base/v2raw/raw": {
+    "word_acc": 98.92,
+    "letter_acc": 99.88,
+    "n_images": 36,
+    "ref_words": 1848
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 98.92,
+    "letter_acc": 99.88,
+    "n_images": 36,
+    "ref_words": 1848
+   },
+   "ft/plain/raw": {
+    "word_acc": 99.03,
+    "letter_acc": 99.86,
+    "n_images": 36,
+    "ref_words": 1848
+   },
+   "ft/plain/nomark": {
+    "word_acc": 99.03,
+    "letter_acc": 99.86,
+    "n_images": 36,
+    "ref_words": 1848
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 99.13,
+    "letter_acc": 99.92,
+    "n_images": 36,
+    "ref_words": 1848
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 99.13,
+    "letter_acc": 99.92,
+    "n_images": 36,
+    "ref_words": 1848
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 98.97,
+    "letter_acc": 99.88,
+    "n_images": 36,
+    "ref_words": 1848
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 98.97,
+    "letter_acc": 99.88,
+    "n_images": 36,
+    "ref_words": 1848
+   }
+  },
+  "low": {
+   "base/plain/raw": {
+    "word_acc": 73.92,
+    "letter_acc": 91.21,
+    "n_images": 36,
+    "ref_words": 1848
+   },
+   "base/plain/nomark": {
+    "word_acc": 73.92,
+    "letter_acc": 91.21,
+    "n_images": 36,
+    "ref_words": 1848
+   },
+   "base/v2lex/raw": {
+    "word_acc": 89.23,
+    "letter_acc": 96.22,
+    "n_images": 36,
+    "ref_words": 1848
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 89.23,
+    "letter_acc": 96.22,
+    "n_images": 36,
+    "ref_words": 1848
+   },
+   "base/v2raw/raw": {
+    "word_acc": 83.98,
+    "letter_acc": 94.98,
+    "n_images": 36,
+    "ref_words": 1848
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 83.98,
+    "letter_acc": 94.98,
+    "n_images": 36,
+    "ref_words": 1848
+   },
+   "ft/plain/raw": {
+    "word_acc": 84.96,
+    "letter_acc": 94.61,
+    "n_images": 36,
+    "ref_words": 1848
+   },
+   "ft/plain/nomark": {
+    "word_acc": 84.96,
+    "letter_acc": 94.61,
+    "n_images": 36,
+    "ref_words": 1848
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 91.02,
+    "letter_acc": 97.21,
+    "n_images": 36,
+    "ref_words": 1848
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 91.02,
+    "letter_acc": 97.21,
+    "n_images": 36,
+    "ref_words": 1848
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 86.96,
+    "letter_acc": 96.32,
+    "n_images": 36,
+    "ref_words": 1848
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 86.96,
+    "letter_acc": 96.32,
+    "n_images": 36,
+    "ref_words": 1848
+   }
+  }
+ }
+}
