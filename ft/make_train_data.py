@@ -57,13 +57,19 @@ def make_one(args):
             if img is not None: break
     else: return None
     base = os.path.join(out, split, f'{split}_{idx:07d}')
+    write_sample(base, text, img)
+    return to_lstmf(base)
+
+def write_sample(base, text, img):
+    """image + transcription + placeholder box file for one line (shared with make_chromium_data.py)"""
     img.save(base + '.png'); open(base + '.gt.txt', 'w', encoding='utf-8').write(text + '\n')
     write_box(base + '.box', text, img.width, img.height)
-    # lstm.train config lives in the default tessdata dir; language only needs to load
+
+def to_lstmf(base):
+    """tesseract lstm.train -> base.lstmf; lstm.train config lives in the default tessdata dir, language only needs to load"""
     subprocess.run(['tesseract', base + '.png', base, '--psm', '13', '-l', 'eng', 'lstm.train'],
                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, env={**os.environ, 'OMP_THREAD_LIMIT': '1'})
-    if not os.path.exists(base + '.lstmf'): return None
-    return base + '.lstmf'
+    return base + '.lstmf' if os.path.exists(base + '.lstmf') else None
 
 def main():
     ap = argparse.ArgumentParser()

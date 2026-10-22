@@ -67,3 +67,20 @@ screenshots collapsed** (real_final z100: 96.1 -> 78.7 with `plain`) while lette
 * Not solved: ft was only on par with the base model on real screenshots even ignoring ZWNJ; training lines (Pillow rendering) are
   much harder than real screenshots (base BCER 18.7% on them vs about 0.4% letter error on real z100), so the gain did not transfer.
   Next idea: build training lines from Chromium screenshots of the corpus text (zoom 75-100%, JPEG) with DOM ground truth.
+
+## After the second full run (22 Oct 2026): Chromium training lines
+Second full run (ZWNJ fixed, markers removed): ZWNJ is back (ft emits 1 599 of 1 773 in `real_final`; base 1 563), but ft is only on par with base.
+`real_final` word accuracy %, v2raw / v2lex: z100 base 98.78 / 97.99, ft 98.65 / 98.13; z75 base 89.95 / 93.05, ft 92.64 / 94.58 (z50 not counted).
+z100 error mix: base 43 digit + 30 letter errors, ft 16 digit + 65 letter errors (final letters dropped, `پ`/`ب`). ft fixed the digits and hurt the letters.
+The lexicon helps at z75 and hurts at z100; its parameters were tuned for the base model.
+A rule "take ft where base and ft differ and a digit is involved, else base" gave final z100 99.16 but tune z100 only 97.14 -> 97.28 (the rule was chosen after seeing the data, so this is not a result).
+
+**New: `ft/make_chromium_data.py`.** Training lines cut from real Chromium renderings of random fa.wikipedia articles (MediaWiki `list=random`, pinned test
+articles and «ایران» excluded, corpus holdout paragraphs skipped), labels from the DOM per visual line (`Range.getClientRects`), ZWNJ and `[۱۲]` markers kept
+because they are in the image. Device scale 1.0 / 0.9 / 0.75 / 0.67 (50% is unreadable), per-article font override in 50% of articles (so the model does not
+overfit the runner's default font), `degrade(low_p=0.3)` because real screenshots are mostly clean. Lines are appended to the Pillow lists.
+`train.sh` env: `CHROMIUM_FRAC` (default 0 = off; workflow default 0.6), `CHROMIUM_MIN`; it aborts if the Chromium step fails (no silent Pillow-only run).
+Workflow inputs `chromium_frac`, `chromium_minutes`. `make_fixture_pages.py` builds offline Wikipedia-shaped pages for `--source files`.
+Verified offline: line crops and labels (base model reads them back in visual order with ZWNJ, 9% median CER on the hard single-scale lines), end-to-end `train.sh` with
+`--source files`. NOT verified: the live API fetch from the runner and any accuracy gain. Caveat: test screenshots and Chromium training lines come from the same
+runner and the same renderer; the font override reduces but does not remove that overlap, so real client screenshots remain the honest test.

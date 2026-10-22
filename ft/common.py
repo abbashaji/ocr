@@ -110,12 +110,12 @@ def tight_crop_rows(g, pad=5, thr=0.015):
 def pad_white(im, p):
     w = Image.new('L', (im.width + 2 * p, im.height + 2 * p), 255); w.paste(im, (p, p)); return w
 
-def degrade(im, rng, font_size=20):
+def degrade(im, rng, font_size=20, low_p=0.55):
     """RGB line image -> grey image in pipeline-input form. Mix of clean and low-quality cases."""
     r = rng.random()
     if rng.random() < 0.35:                                         # slight rotation (screenshots are mostly straight)
         im = im.rotate(rng.uniform(-0.5, 0.5), resample=Image.BICUBIC, expand=True, fillcolor=(255, 255, 255))
-    low = r < 0.55                                                  # ~55% low-quality
+    low = r < low_p                                                 # ~55% low-quality by default
     if low and rng.random() < 0.8:                                  # downscale (the main real-world degradation)
         f = max(rng.uniform(0.45, 0.9), 10.0 / font_size)      # keep the effective text size >= ~10 px
         f = min(f, 1.0)
