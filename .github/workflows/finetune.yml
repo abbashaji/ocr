@@ -24,14 +24,14 @@ on:
         description: 'Share of training lines cut from real Chromium renderings of random fa.wikipedia articles (0 = Pillow only, quick run uses 0.3)'
         default: '0.6'
       chromium_minutes:
-        description: 'Time limit for the Chromium data step (job cap is 350 total)'
-        default: '45'
+        description: 'Time limit for the Chromium data step (job cap is 350 total: about 25 setup + this + max_minutes + 10 evaluation)'
+        default: '90'
       max_it:
         description: 'Max training iterations (full run)'
         default: '60000'
       max_minutes:
-        description: 'Training time limit in minutes (job cap is ~345)'
-        default: '300'
+        description: 'Training time limit in minutes (job cap is ~345; the last full run needed about 90 for 60000 iterations)'
+        default: '200'
       lr:
         description: 'Learning rate (needs --reset_learning_rate, set by train.sh)'
         default: '0.00001'

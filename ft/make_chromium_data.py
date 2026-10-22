@@ -98,7 +98,8 @@ def pick_zoom(rng):
     return ZOOMS[0][0]
 
 def article_urls(a, rng, excl):
-    """yields (title, url)"""
+    """yields (title, url). api: random articles, long ones only (a stub has 1-2 usable paragraphs, a long article has dozens;
+    the first run visited 1063 random articles in 45 min and got only 3 240 lines)."""
     if a.source == 'files':
         for f in sorted(os.listdir(a.files_dir)):
             if f.endswith('.html'): yield f, 'file://' + os.path.abspath(os.path.join(a.files_dir, f))
@@ -106,14 +107,16 @@ def article_urls(a, rng, excl):
     import fetch_corpus as FC
     fails = 0
     while True:
-        d = FC.api({'action': 'query', 'list': 'random', 'rnnamespace': '0', 'rnlimit': '50', 'rnfilterredir': 'nonredirects'}); time.sleep(0.4)
-        if not d:
+        d = FC.api({'action': 'query', 'generator': 'random', 'grnnamespace': '0', 'grnlimit': '50', 'grnfilterredir': 'nonredirects', 'prop': 'info'}); time.sleep(0.4)
+        pages = (d or {}).get('query', {}).get('pages') if d else None
+        if not pages:
             fails += 1
             if fails > 5: return
             time.sleep(5); continue
         fails = 0
-        for pg in d['query']['random']:
-            if pg['title'] not in excl: yield pg['title'], a.base_url + urllib.parse.quote(pg['title'].replace(' ', '_'))
+        for pg in pages:
+            if pg.get('length', 0) >= a.min_bytes and pg['title'] not in excl:
+                yield pg['title'], a.base_url + urllib.parse.quote(pg['title'].replace(' ', '_'))
 
 def main():
     ap = argparse.ArgumentParser()
@@ -123,8 +126,9 @@ def main():
     ap.add_argument('--n-train', type=int, default=18000); ap.add_argument('--n-eval', type=int, default=800)
     ap.add_argument('--max-minutes', type=float, default=40); ap.add_argument('--max-par', type=int, default=12, help='paragraphs per article')
     ap.add_argument('--source', choices=['api', 'files'], default='api'); ap.add_argument('--files-dir', default=None)
-    ap.add_argument('--base-url', default='https://fa.wikipedia.org/wiki/'); ap.add_argument('--delay', type=float, default=1.0)
+    ap.add_argument('--base-url', default='https://fa.wikipedia.org/wiki/'); ap.add_argument('--delay', type=float, default=0.3)
     ap.add_argument('--chrome', default=os.environ.get('CHROME_PATH')); ap.add_argument('--width', type=int, default=1100)
+    ap.add_argument('--min-bytes', type=int, default=15000, help='api source: skip articles shorter than this (wikitext bytes)')
     ap.add_argument('--font-mix', type=float, default=0.5); ap.add_argument('--low-p', type=float, default=0.3, help='share of lines with extra degradation (blur/downscale/noise); real screenshots are mostly clean')
     ap.add_argument('--seed', type=int, default=7); ap.add_argument('--jobs', type=int, default=os.cpu_count() or 1)
     ap.add_argument('--keep-png', action='store_true'); ap.add_argument('--dump-lines', default=None, help='write line labels to this jsonl (debug)')
@@ -142,6 +146,8 @@ def main():
     with sync_playwright() as pw:
         br = pw.chromium.launch(executable_path=a.chrome) if a.chrome else pw.chromium.launch()
         ctxs = {z: br.new_context(viewport={'width': a.width, 'height': 900}, device_scale_factor=z, locale='fa-IR', user_agent=MT.UA) for z, _ in ZOOMS}
+        if a.source == 'api':
+            for c in ctxs.values(): c.route(re.compile(r'\.(png|jpe?g|gif|svg|webp|ogg|webm|mp4)(\?.*)?$', re.I), lambda r: r.abort())
         for title, url in article_urls(a, rng, excl):
             if time.time() - t0 > a.max_minutes * 60 or all(n[s] >= quota[s] for s in quota): break
             if title in seen_titles: continue

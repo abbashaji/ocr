@@ -84,3 +84,11 @@ Workflow inputs `chromium_frac`, `chromium_minutes`. `make_fixture_pages.py` bui
 Verified offline: line crops and labels (base model reads them back in visual order with ZWNJ, 9% median CER on the hard single-scale lines), end-to-end `train.sh` with
 `--source files`. NOT verified: the live API fetch from the runner and any accuracy gain. Caveat: test screenshots and Chromium training lines come from the same
 runner and the same renderer; the font override reduces but does not remove that overlap, so real client screenshots remain the honest test.
+
+## Third full run (22 Oct 2026): Chromium lines (3 240 of a planned 18 000) - result
+`real_final` + `real_tune`, word accuracy %, ft v2raw (95% bootstrap interval over images): z100 **99.30** (99.09-99.49, 89 images, 12 517 words),
+z75 96.36 (v2lex 96.86); base v2raw z100 98.67/99.11, z75 89.66/90.36. Client clean 99.40 (2 errors / 336 words), client low-quality 96.73 (v2lex).
+Remaining z100 errors: 35 digit/marker residue, 52 single letters. Caveat: same renderer for tests and Chromium training lines.
+The Chromium step stopped at its 45-minute limit (1 063 random articles, mostly stubs, 3 240 lines). Now: `generator=random&prop=info`, articles shorter than
+`--min-bytes` (15 000) are skipped, image requests are blocked (layout of the text does not depend on them), delay 0.3 s; workflow defaults 90 min / 200 min training.
+The new API path is untested live: run a `quick` run first (it uses it for 8 minutes).
