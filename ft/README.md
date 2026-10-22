@@ -92,3 +92,9 @@ Remaining z100 errors: 35 digit/marker residue, 52 single letters. Caveat: same 
 The Chromium step stopped at its 45-minute limit (1 063 random articles, mostly stubs, 3 240 lines). Now: `generator=random&prop=info`, articles shorter than
 `--min-bytes` (15 000) are skipped, image requests are blocked (layout of the text does not depend on them), delay 0.3 s; workflow defaults 90 min / 200 min training.
 The new API path is untested live: run a `quick` run first (it uses it for 8 minutes).
+
+## Automatic raw/lex choice (23 Oct 2026)
+`pipeline2.choose_mode(lines)`: lexicon correction ("lex") when >= 10% of words have Tesseract word confidence < 80, else "raw" (fewer than 20 words: raw).
+Feature values: clean zoom 100 about 0.06, zoom 90 0.08, zoom 75 JPEG 0.12, client low-quality 0.18, zoom 67 0.20. Calibrated on a small local fixture, so the
+threshold is a first guess; `ft/evaluate.py` now reports the engine `v2auto` next to `v2raw` / `v2lex` so the Actions test set (independent of the calibration) can confirm it:
+run `evaluate-only` with the run id of a finetune run. `ocr_cli.py` default is `--mode auto`.

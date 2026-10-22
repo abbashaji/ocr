@@ -62,7 +62,8 @@ def run_model(tag, tessdir, lang, sets, threads):
     def one(it):
         name, im, ref, grp = it; g = to_gray(im, 'L')
         lines = Q.recognize_tok(im)
-        return dict(plain=tess(g, 6), v2lex=Q.render(lines, **CFG), v2raw=Q.render(lines, **CFG_RAW))
+        lex, raw = Q.render(lines, **CFG), Q.render(lines, **CFG_RAW)
+        return dict(plain=tess(g, 6), v2lex=lex, v2raw=raw, v2auto=lex if Q.choose_mode(lines) == 'lex' else raw)
     out = {}
     for sname, items in sets.items():
         t = time.time()
@@ -74,7 +75,7 @@ def summarize(sets, outs):
     res = {}
     for sname, items in sets.items():
         for tag, o in outs.items():
-            for eng in ('plain', 'v2lex', 'v2raw'):
+            for eng in ('plain', 'v2lex', 'v2raw', 'v2auto'):
                 for view in ('raw', 'nomark'):
                     tot = {}
                     for (name, im, ref, grp), r in zip(items, o[sname]):
@@ -92,7 +93,7 @@ def check_outputs(sets, outs):
     W = []
     for sname, items in sets.items():
         for tag, o in outs.items():
-            for eng in ('plain', 'v2lex', 'v2raw'):
+            for eng in ('plain', 'v2lex', 'v2raw', 'v2auto'):
                 bad = [it[0] for it, r in zip(items, o[sname]) if len(B.letters(it[2])) > 50 and len(B.letters(r[eng])) < 0.3 * len(B.letters(it[2]))]
                 if bad: W.append(f'- {sname} [{tag}/{eng}]: {len(bad)}/{len(items)} images returned < 30% of the reference length, e.g. {", ".join(bad[:4])}')
     return W
@@ -104,7 +105,7 @@ def markdown(res, warnings=()):
             n = next(iter(rows.values()))
             L.append(f'\n## {sname} / {key}  (n={n["n_images"]} images, {n["ref_words"]} ref words)\n')
             L.append('| engine | base raw | ft raw | base nomark | ft nomark |'); L.append('|---|---|---|---|---|')
-            for eng in ('plain', 'v2raw', 'v2lex'):
+            for eng in ('plain', 'v2raw', 'v2lex', 'v2auto'):
                 cell = lambda tag, view: (lambda r: f'{r["word_acc"]:.2f} / {r["letter_acc"]:.2f}')(rows[f'{tag}/{eng}/{view}'])
                 L.append(f'| {eng} | {cell("base", "raw")} | {cell("ft", "raw")} | {cell("base", "nomark")} | {cell("ft", "nomark")} |')
     if warnings: L = L[:2] + ['\n## WARNINGS (check before trusting the tables)\n'] + list(warnings) + [''] + L[2:]

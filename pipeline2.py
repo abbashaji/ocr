@@ -76,6 +76,16 @@ def restore_placeholders(t):
     t = t.replace(',', '،')
     return t.replace('#', '٪')
 
+AUTO_LOW_CONF, AUTO_LOWFRAC, AUTO_MIN_WORDS = 80, 0.10, 20
+def choose_mode(lines):
+    """'lex' or 'raw' from the image itself. Share of words Tesseract is unsure about (word conf < 80): about 0.06 on clean zoom-100 screenshots,
+    0.08 at zoom 90, 0.12 at zoom 75 / JPEG, 0.18 for the client's low-quality sample, 0.20 at zoom 67. The lexicon step costs about 0.5 points on clean
+    text and gains 0.3 to 4.5 points on low-quality text, so it is used from 0.10 up. Fewer than 20 words: too few to judge, use raw.
+    Calibrated on a small local fixture (client samples + Chromium renderings at 4 zooms), NOT on the Actions test set."""
+    cf = [c for ln in lines for _, c in ln]
+    if len(cf) < AUTO_MIN_WORDS: return 'raw'
+    return 'lex' if sum(c < AUTO_LOW_CONF for c in cf) / len(cf) >= AUTO_LOWFRAC else 'raw'
+
 def render(lines, **cfg):
     out = []
     for ln in lines:
