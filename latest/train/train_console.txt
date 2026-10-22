@@ -1,43 +1,87 @@
 fonts: ['DejaVu', 'DejaVuBold', 'NotoKufi', 'NotoNaskh', 'NotoNaskhBold', 'Vazirmatn', 'VazirmatnBold']
-{'train': 1306, 'eval': 65, 'holdout': 70}
-train lstmf files: 1050
-eval lstmf files: 140
-10 articles, train 170/450, eval 8/60, 0 min
-20 articles, train 364/450, eval 10/60, 1 min
-30 articles, train 450/450, eval 23/60, 1 min
-40 articles, train 450/450, eval 35/60, 1 min
-50 articles, train 450/450, eval 58/60, 1 min
-DONE (quota reached) lines: train 450 eval 60; {'articles': 51, 'paragraphs': 177, 'skipped_holdout': 0, 'lines_seen': 585, 'lines_bad_charset': 73, 'lines_short': 1}
-train lstmf from chromium: 450 | list total: 1500
-eval lstmf from chromium: 60 | list total: 200
+{'train': 12009, 'eval': 629, 'holdout': 627}
+train 2000 / 12000
+train 4000 / 12000
+train 6000 / 12000
+train 8000 / 12000
+train 10000 / 12000
+train 12000 / 12000
+train lstmf files: 12000
+eval lstmf files: 750
+10 articles, train 300/18000, eval 14/750, 3 min
+20 articles, train 437/18000, eval 34/750, 3 min
+30 articles, train 534/18000, eval 41/750, 3 min
+40 articles, train 723/18000, eval 52/750, 4 min
+50 articles, train 910/18000, eval 65/750, 4 min
+60 articles, train 1067/18000, eval 77/750, 5 min
+70 articles, train 1317/18000, eval 112/750, 5 min
+80 articles, train 1525/18000, eval 118/750, 5 min
+90 articles, train 1729/18000, eval 127/750, 6 min
+100 articles, train 1946/18000, eval 139/750, 8 min
+110 articles, train 2144/18000, eval 153/750, 11 min
+120 articles, train 2239/18000, eval 153/750, 11 min
+130 articles, train 2486/18000, eval 161/750, 11 min
+140 articles, train 2661/18000, eval 170/750, 12 min
+150 articles, train 2845/18000, eval 183/750, 12 min
+160 articles, train 3147/18000, eval 187/750, 13 min
+170 articles, train 3295/18000, eval 193/750, 13 min
+180 articles, train 3519/18000, eval 212/750, 14 min
+190 articles, train 3793/18000, eval 219/750, 18 min
+200 articles, train 4039/18000, eval 241/750, 18 min
+210 articles, train 4378/18000, eval 247/750, 18 min
+220 articles, train 4581/18000, eval 249/750, 19 min
+230 articles, train 4830/18000, eval 267/750, 20 min
+240 articles, train 4994/18000, eval 270/750, 21 min
+250 articles, train 5194/18000, eval 272/750, 24 min
+260 articles, train 5386/18000, eval 289/750, 24 min
+270 articles, train 5619/18000, eval 311/750, 25 min
+280 articles, train 5847/18000, eval 324/750, 25 min
+290 articles, train 6017/18000, eval 336/750, 25 min
+300 articles, train 6265/18000, eval 342/750, 26 min
+310 articles, train 6432/18000, eval 355/750, 26 min
+320 articles, train 6601/18000, eval 356/750, 26 min
+330 articles, train 6757/18000, eval 379/750, 27 min
+340 articles, train 7013/18000, eval 395/750, 27 min
+350 articles, train 7286/18000, eval 404/750, 28 min
+360 articles, train 7543/18000, eval 418/750, 28 min
+370 articles, train 7715/18000, eval 437/750, 29 min
+380 articles, train 7837/18000, eval 448/750, 65 min
+390 articles, train 7975/18000, eval 462/750, 67 min
+400 articles, train 8143/18000, eval 475/750, 68 min
+410 articles, train 8351/18000, eval 477/750, 68 min
+420 articles, train 8604/18000, eval 504/750, 69 min
+430 articles, train 8753/18000, eval 520/750, 69 min
+DONE (TIME LIMIT) lines: train 8913 eval 523; {'articles': 436, 'paragraphs': 3185, 'skipped_holdout': 0, 'lines_seen': 10810, 'lines_bad_charset': 1320, 'lines_short': 54}
+train lstmf from chromium: 8913 | list total: 20913
+eval lstmf from chromium: 523 | list total: 1273
 lstmtraining exit 0 (124 = time limit reached, fine)
-2 Percent improvement time=793, best error was 12.019 @ 1082
-At iteration 1875/2000/2000, mean rms=1.940%, delta=5.002%, BCER train=9.976%, BWER train=26.249%, skip ratio=0.000%, New best BCER = 9.976 Transitioned to stage 1 wrote best model:ft_9.976_1875_2000.
-Finished! Selected model with minimal training error rate (BCER) = 9.976
-candidate ft_checkpoint BCER=9.588
-candidate ft_9.976_1875_2000.checkpoint BCER=9.588
-candidate ft_10.300_1540_1600.checkpoint BCER=10.193
-candidate ft_10.640_1358_1400.checkpoint BCER=10.526
+At iteration 42971/59900/59900, mean rms=1.179%, delta=2.212%, BCER train=5.142%, BWER train=15.828%, skip ratio=0.000%, wrote checkpoint.
+At iteration 43037/60000/60000, mean rms=1.197%, delta=2.263%, BCER train=5.291%, BWER train=16.399%, skip ratio=0.000%, wrote checkpoint.
+Finished! Selected model with minimal training error rate (BCER) = 4.661
+candidate ft_checkpoint BCER=5.170
+candidate ft_4.661_34301_46200.checkpoint BCER=5.637
+candidate ft_4.958_33914_45600.checkpoint BCER=5.710
+candidate ft_5.118_33382_44800.checkpoint BCER=5.692
 Loaded file ft_checkpoint, unpacking...
 {
  "chromium": {
-  "articles": 51,
-  "paragraphs": 177,
+  "articles": 436,
+  "paragraphs": 3185,
   "skipped_holdout": 0,
-  "lines_seen": 585,
-  "lines_bad_charset": 73,
-  "lines_short": 1,
-  "n_train": 450,
-  "n_eval": 60,
-  "minutes": 1.4,
-  "ended": "quota reached"
+  "lines_seen": 10810,
+  "lines_bad_charset": 1320,
+  "lines_short": 54,
+  "n_train": 8913,
+  "n_eval": 523,
+  "minutes": 92.6,
+  "ended": "TIME LIMIT"
  },
- "chromium_frac": 0.3,
- "base_bcer": 16.963,
- "ft_bcer": 9.588,
+ "chromium_frac": 0.6,
+ "base_bcer": 16.134,
+ "ft_bcer": 5.17,
  "checkpoint": "ft_checkpoint",
  "lr": "0.00001",
- "n_train": 1500,
- "n_eval": 200,
+ "n_train": 30000,
+ "n_eval": 1500,
  "note": "BCER = character error % of the raw LSTM on held-out lines (eval split, never trained on); mixed Pillow + Chromium lines when chromium_frac > 0"
 }

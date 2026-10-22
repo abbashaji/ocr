@@ -1,0 +1,22 @@
+{
+ "chromium": {
+  "articles": 436,
+  "paragraphs": 3185,
+  "skipped_holdout": 0,
+  "lines_seen": 10810,
+  "lines_bad_charset": 1320,
+  "lines_short": 54,
+  "n_train": 8913,
+  "n_eval": 523,
+  "minutes": 92.6,
+  "ended": "TIME LIMIT"
+ },
+ "chromium_frac": 0.6,
+ "base_bcer": 16.134,
+ "ft_bcer": 5.17,
+ "checkpoint": "ft_checkpoint",
+ "lr": "0.00001",
+ "n_train": 30000,
+ "n_eval": 1500,
+ "note": "BCER = character error % of the raw LSTM on held-out lines (eval split, never trained on); mixed Pillow + Chromium lines when chromium_frac > 0"
+}
