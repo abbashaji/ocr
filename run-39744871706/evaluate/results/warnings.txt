@@ -1,0 +1,10 @@
+- real_tune [base/plain]: 2/132 images returned < 30% of the reference length, e.g. 02_2_z100.png, 02_2_z75.jpg
+- real_tune [base/v2lex]: 6/132 images returned < 30% of the reference length, e.g. 02_1_z50.jpg, 02_2_z100.png, 02_2_z75.jpg, 04_1_z50.jpg
+- real_tune [base/v2raw]: 5/132 images returned < 30% of the reference length, e.g. 02_1_z50.jpg, 02_2_z100.png, 02_2_z75.jpg, 14_0_z50.jpg
+- real_tune [ft/plain]: 2/132 images returned < 30% of the reference length, e.g. 02_2_z100.png, 02_2_z75.jpg
+- real_tune [ft/v2lex]: 4/132 images returned < 30% of the reference length, e.g. 02_2_z100.png, 02_2_z75.jpg, 14_0_z50.jpg, 14_2_z50.jpg
+- real_tune [ft/v2raw]: 4/132 images returned < 30% of the reference length, e.g. 02_2_z100.png, 02_2_z75.jpg, 14_0_z50.jpg, 14_2_z50.jpg
+- real_final [base/v2lex]: 2/135 images returned < 30% of the reference length, e.g. 01_0_z50.jpg, 03_2_z50.jpg
+- real_final [base/v2raw]: 2/135 images returned < 30% of the reference length, e.g. 01_0_z50.jpg, 03_2_z50.jpg
+- real_final [ft/v2lex]: 2/135 images returned < 30% of the reference length, e.g. 01_0_z50.jpg, 03_2_z50.jpg
+- real_final [ft/v2raw]: 2/135 images returned < 30% of the reference length, e.g. 01_0_z50.jpg, 03_2_z50.jpg
