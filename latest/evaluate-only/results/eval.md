@@ -5,14 +5,12 @@
 
 ## WARNINGS (check before trusting the tables)
 
-- real_tune [base/plain]: 2/132 images returned < 30% of the reference length, e.g. 02_1_z100.png, 02_1_z75.jpg
-- real_tune [base/v2lex]: 6/132 images returned < 30% of the reference length, e.g. 02_1_z100.png, 02_1_z50.jpg, 02_1_z75.jpg, 04_1_z50.jpg
-- real_tune [base/v2raw]: 5/132 images returned < 30% of the reference length, e.g. 02_1_z100.png, 02_1_z50.jpg, 02_1_z75.jpg, 14_0_z50.jpg
-- real_tune [base/v2auto]: 6/132 images returned < 30% of the reference length, e.g. 02_1_z100.png, 02_1_z50.jpg, 02_1_z75.jpg, 04_1_z50.jpg
-- real_tune [ft/plain]: 2/132 images returned < 30% of the reference length, e.g. 02_1_z100.png, 02_1_z75.jpg
-- real_tune [ft/v2lex]: 4/132 images returned < 30% of the reference length, e.g. 02_1_z100.png, 02_1_z75.jpg, 14_0_z50.jpg, 14_2_z50.jpg
-- real_tune [ft/v2raw]: 4/132 images returned < 30% of the reference length, e.g. 02_1_z100.png, 02_1_z75.jpg, 14_0_z50.jpg, 14_2_z50.jpg
-- real_tune [ft/v2auto]: 4/132 images returned < 30% of the reference length, e.g. 02_1_z100.png, 02_1_z75.jpg, 14_0_z50.jpg, 14_2_z50.jpg
+- real_tune [base/v2lex]: 4/132 images returned < 30% of the reference length, e.g. 02_1_z50.jpg, 04_1_z50.jpg, 14_0_z50.jpg, 14_2_z50.jpg
+- real_tune [base/v2raw]: 3/132 images returned < 30% of the reference length, e.g. 02_1_z50.jpg, 14_0_z50.jpg, 14_2_z50.jpg
+- real_tune [base/v2auto]: 4/132 images returned < 30% of the reference length, e.g. 02_1_z50.jpg, 04_1_z50.jpg, 14_0_z50.jpg, 14_2_z50.jpg
+- real_tune [ft/v2lex]: 2/132 images returned < 30% of the reference length, e.g. 14_0_z50.jpg, 14_2_z50.jpg
+- real_tune [ft/v2raw]: 2/132 images returned < 30% of the reference length, e.g. 14_0_z50.jpg, 14_2_z50.jpg
+- real_tune [ft/v2auto]: 2/132 images returned < 30% of the reference length, e.g. 14_0_z50.jpg, 14_2_z50.jpg
 - real_final [base/v2lex]: 2/135 images returned < 30% of the reference length, e.g. 01_0_z50.jpg, 03_2_z50.jpg
 - real_final [base/v2raw]: 2/135 images returned < 30% of the reference length, e.g. 01_0_z50.jpg, 03_2_z50.jpg
 - real_final [base/v2auto]: 2/135 images returned < 30% of the reference length, e.g. 01_0_z50.jpg, 03_2_z50.jpg
@@ -43,46 +41,46 @@
 
 | engine | base raw | ft raw | base nomark | ft nomark |
 |---|---|---|---|---|
-| plain | 74.32 / 90.05 | 80.21 / 92.48 | 74.44 / 90.05 | 80.28 / 92.48 |
-| v2raw | 75.05 / 87.64 | 81.96 / 91.16 | 75.05 / 87.64 | 81.96 / 91.16 |
-| v2lex | 78.29 / 88.01 | 84.13 / 91.30 | 78.29 / 88.01 | 84.13 / 91.30 |
-| v2auto | 78.28 / 88.02 | 84.13 / 91.30 | 78.28 / 88.02 | 84.13 / 91.30 |
+| plain | 75.53 / 91.60 | 81.43 / 94.06 | 75.65 / 91.60 | 81.50 / 94.06 |
+| v2raw | 76.37 / 89.08 | 83.27 / 92.63 | 76.37 / 89.08 | 83.27 / 92.63 |
+| v2lex | 79.66 / 89.48 | 85.44 / 92.76 | 79.66 / 89.48 | 85.44 / 92.76 |
+| v2auto | 79.66 / 89.48 | 85.46 / 92.77 | 79.66 / 89.48 | 85.46 / 92.77 |
 
 ## real_tune / z100  (n=44 images, 5739 ref words)
 
 | engine | base raw | ft raw | base nomark | ft nomark |
 |---|---|---|---|---|
-| plain | 94.82 / 97.38 | 95.45 / 97.45 | 95.03 / 97.38 | 95.52 / 97.45 |
-| v2raw | 97.14 / 97.68 | 97.39 / 97.69 | 97.14 / 97.68 | 97.39 / 97.69 |
-| v2lex | 96.27 / 97.41 | 96.88 / 97.55 | 96.27 / 97.41 | 96.88 / 97.55 |
-| v2auto | 96.25 / 97.42 | 97.25 / 97.65 | 96.25 / 97.42 | 97.25 / 97.65 |
+| plain | 96.65 / 99.64 | 97.28 / 99.79 | 96.86 / 99.64 | 97.39 / 99.79 |
+| v2raw | 99.09 / 99.83 | 99.37 / 99.85 | 99.09 / 99.83 | 99.37 / 99.85 |
+| v2lex | 98.22 / 99.57 | 98.85 / 99.71 | 98.22 / 99.57 | 98.85 / 99.71 |
+| v2auto | 98.22 / 99.57 | 99.23 / 99.81 | 98.22 / 99.57 | 99.23 / 99.81 |
 
 ## real_tune / z100+z75  (n=88 images, 11478 ref words)
 
 | engine | base raw | ft raw | base nomark | ft nomark |
 |---|---|---|---|---|
-| plain | 90.11 / 96.01 | 93.66 / 96.96 | 90.29 / 96.01 | 93.74 / 96.96 |
-| v2raw | 92.86 / 96.46 | 96.31 / 97.43 | 92.86 / 96.46 | 96.31 / 97.43 |
-| v2lex | 94.08 / 96.73 | 96.17 / 97.35 | 94.08 / 96.73 | 96.17 / 97.35 |
-| v2auto | 94.08 / 96.74 | 96.17 / 97.36 | 94.08 / 96.74 | 96.17 / 97.36 |
+| plain | 91.89 / 98.32 | 95.50 / 99.33 | 92.06 / 98.32 | 95.60 / 99.33 |
+| v2raw | 94.78 / 98.62 | 98.22 / 99.59 | 94.78 / 98.62 | 98.22 / 99.59 |
+| v2lex | 96.10 / 98.94 | 98.10 / 99.53 | 96.10 / 98.94 | 98.10 / 99.53 |
+| v2auto | 96.10 / 98.94 | 98.13 / 99.54 | 96.10 / 98.94 | 98.13 / 99.54 |
 
 ## real_tune / z50  (n=44 images, 5739 ref words)
 
 | engine | base raw | ft raw | base nomark | ft nomark |
 |---|---|---|---|---|
-| plain | 42.74 / 78.14 | 53.32 / 83.52 | 42.76 / 78.14 | 53.34 / 83.52 |
-| v2raw | 39.43 / 69.99 | 53.27 / 78.64 | 39.43 / 69.99 | 53.27 / 78.64 |
-| v2lex | 46.70 / 70.57 | 60.05 / 79.18 | 46.70 / 70.57 | 60.05 / 79.18 |
-| v2auto | 46.70 / 70.57 | 60.05 / 79.19 | 46.70 / 70.57 | 60.05 / 79.19 |
+| plain | 42.81 / 78.15 | 53.28 / 83.51 | 42.83 / 78.15 | 53.30 / 83.51 |
+| v2raw | 39.54 / 70.00 | 53.37 / 78.70 | 39.54 / 70.00 | 53.37 / 78.70 |
+| v2lex | 46.79 / 70.56 | 60.12 / 79.23 | 46.79 / 70.56 | 60.12 / 79.23 |
+| v2auto | 46.79 / 70.56 | 60.12 / 79.24 | 46.79 / 70.56 | 60.12 / 79.24 |
 
 ## real_tune / z75  (n=44 images, 5739 ref words)
 
 | engine | base raw | ft raw | base nomark | ft nomark |
 |---|---|---|---|---|
-| plain | 85.40 / 94.63 | 91.86 / 96.46 | 85.54 / 94.63 | 91.97 / 96.46 |
-| v2raw | 88.59 / 95.23 | 95.23 / 97.16 | 88.59 / 95.23 | 95.23 / 97.16 |
-| v2lex | 91.90 / 96.05 | 95.45 / 97.16 | 91.90 / 96.05 | 95.45 / 97.16 |
-| v2auto | 91.90 / 96.07 | 95.09 / 97.08 | 91.90 / 96.07 | 95.09 / 97.08 |
+| plain | 87.12 / 97.01 | 93.71 / 98.87 | 87.26 / 97.01 | 93.81 / 98.87 |
+| v2raw | 90.47 / 97.42 | 97.07 / 99.33 | 90.47 / 97.42 | 97.07 / 99.33 |
+| v2lex | 93.97 / 98.31 | 97.35 / 99.34 | 93.97 / 98.31 | 97.35 / 99.34 |
+| v2auto | 93.97 / 98.31 | 97.02 / 99.27 | 93.97 / 98.31 | 97.02 / 99.27 |
 
 ## real_final / all  (n=135 images, 20337 ref words)
 

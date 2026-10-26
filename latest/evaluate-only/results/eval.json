@@ -200,490 +200,490 @@
  "real_tune": {
   "all": {
    "base/plain/raw": {
-    "word_acc": 74.32,
-    "letter_acc": 90.05,
+    "word_acc": 75.53,
+    "letter_acc": 91.6,
     "n_images": 132,
     "ref_words": 17217
    },
    "base/plain/nomark": {
-    "word_acc": 74.44,
-    "letter_acc": 90.05,
+    "word_acc": 75.65,
+    "letter_acc": 91.6,
     "n_images": 132,
     "ref_words": 17217
    },
    "base/v2lex/raw": {
-    "word_acc": 78.29,
-    "letter_acc": 88.01,
+    "word_acc": 79.66,
+    "letter_acc": 89.48,
     "n_images": 132,
     "ref_words": 17217
    },
    "base/v2lex/nomark": {
-    "word_acc": 78.29,
-    "letter_acc": 88.01,
+    "word_acc": 79.66,
+    "letter_acc": 89.48,
     "n_images": 132,
     "ref_words": 17217
    },
    "base/v2raw/raw": {
-    "word_acc": 75.05,
-    "letter_acc": 87.64,
+    "word_acc": 76.37,
+    "letter_acc": 89.08,
     "n_images": 132,
     "ref_words": 17217
    },
    "base/v2raw/nomark": {
-    "word_acc": 75.05,
-    "letter_acc": 87.64,
+    "word_acc": 76.37,
+    "letter_acc": 89.08,
     "n_images": 132,
     "ref_words": 17217
    },
    "base/v2auto/raw": {
-    "word_acc": 78.28,
-    "letter_acc": 88.02,
+    "word_acc": 79.66,
+    "letter_acc": 89.48,
     "n_images": 132,
     "ref_words": 17217
    },
    "base/v2auto/nomark": {
-    "word_acc": 78.28,
-    "letter_acc": 88.02,
+    "word_acc": 79.66,
+    "letter_acc": 89.48,
     "n_images": 132,
     "ref_words": 17217
    },
    "ft/plain/raw": {
-    "word_acc": 80.21,
-    "letter_acc": 92.48,
+    "word_acc": 81.43,
+    "letter_acc": 94.06,
     "n_images": 132,
     "ref_words": 17217
    },
    "ft/plain/nomark": {
-    "word_acc": 80.28,
-    "letter_acc": 92.48,
+    "word_acc": 81.5,
+    "letter_acc": 94.06,
     "n_images": 132,
     "ref_words": 17217
    },
    "ft/v2lex/raw": {
-    "word_acc": 84.13,
-    "letter_acc": 91.3,
+    "word_acc": 85.44,
+    "letter_acc": 92.76,
     "n_images": 132,
     "ref_words": 17217
    },
    "ft/v2lex/nomark": {
-    "word_acc": 84.13,
-    "letter_acc": 91.3,
+    "word_acc": 85.44,
+    "letter_acc": 92.76,
     "n_images": 132,
     "ref_words": 17217
    },
    "ft/v2raw/raw": {
-    "word_acc": 81.96,
-    "letter_acc": 91.16,
+    "word_acc": 83.27,
+    "letter_acc": 92.63,
     "n_images": 132,
     "ref_words": 17217
    },
    "ft/v2raw/nomark": {
-    "word_acc": 81.96,
-    "letter_acc": 91.16,
+    "word_acc": 83.27,
+    "letter_acc": 92.63,
     "n_images": 132,
     "ref_words": 17217
    },
    "ft/v2auto/raw": {
-    "word_acc": 84.13,
-    "letter_acc": 91.3,
+    "word_acc": 85.46,
+    "letter_acc": 92.77,
     "n_images": 132,
     "ref_words": 17217
    },
    "ft/v2auto/nomark": {
-    "word_acc": 84.13,
-    "letter_acc": 91.3,
+    "word_acc": 85.46,
+    "letter_acc": 92.77,
     "n_images": 132,
     "ref_words": 17217
    }
   },
   "z100": {
    "base/plain/raw": {
-    "word_acc": 94.82,
-    "letter_acc": 97.38,
+    "word_acc": 96.65,
+    "letter_acc": 99.64,
     "n_images": 44,
     "ref_words": 5739
    },
    "base/plain/nomark": {
-    "word_acc": 95.03,
-    "letter_acc": 97.38,
+    "word_acc": 96.86,
+    "letter_acc": 99.64,
     "n_images": 44,
     "ref_words": 5739
    },
    "base/v2lex/raw": {
-    "word_acc": 96.27,
-    "letter_acc": 97.41,
+    "word_acc": 98.22,
+    "letter_acc": 99.57,
     "n_images": 44,
     "ref_words": 5739
    },
    "base/v2lex/nomark": {
-    "word_acc": 96.27,
-    "letter_acc": 97.41,
+    "word_acc": 98.22,
+    "letter_acc": 99.57,
     "n_images": 44,
     "ref_words": 5739
    },
    "base/v2raw/raw": {
-    "word_acc": 97.14,
-    "letter_acc": 97.68,
+    "word_acc": 99.09,
+    "letter_acc": 99.83,
     "n_images": 44,
     "ref_words": 5739
    },
    "base/v2raw/nomark": {
-    "word_acc": 97.14,
-    "letter_acc": 97.68,
+    "word_acc": 99.09,
+    "letter_acc": 99.83,
     "n_images": 44,
     "ref_words": 5739
    },
    "base/v2auto/raw": {
-    "word_acc": 96.25,
-    "letter_acc": 97.42,
+    "word_acc": 98.22,
+    "letter_acc": 99.57,
     "n_images": 44,
     "ref_words": 5739
    },
    "base/v2auto/nomark": {
-    "word_acc": 96.25,
-    "letter_acc": 97.42,
+    "word_acc": 98.22,
+    "letter_acc": 99.57,
     "n_images": 44,
     "ref_words": 5739
    },
    "ft/plain/raw": {
-    "word_acc": 95.45,
-    "letter_acc": 97.45,
+    "word_acc": 97.28,
+    "letter_acc": 99.79,
     "n_images": 44,
     "ref_words": 5739
    },
    "ft/plain/nomark": {
-    "word_acc": 95.52,
-    "letter_acc": 97.45,
+    "word_acc": 97.39,
+    "letter_acc": 99.79,
     "n_images": 44,
     "ref_words": 5739
    },
    "ft/v2lex/raw": {
-    "word_acc": 96.88,
-    "letter_acc": 97.55,
+    "word_acc": 98.85,
+    "letter_acc": 99.71,
     "n_images": 44,
     "ref_words": 5739
    },
    "ft/v2lex/nomark": {
-    "word_acc": 96.88,
-    "letter_acc": 97.55,
+    "word_acc": 98.85,
+    "letter_acc": 99.71,
     "n_images": 44,
     "ref_words": 5739
    },
    "ft/v2raw/raw": {
-    "word_acc": 97.39,
-    "letter_acc": 97.69,
+    "word_acc": 99.37,
+    "letter_acc": 99.85,
     "n_images": 44,
     "ref_words": 5739
    },
    "ft/v2raw/nomark": {
-    "word_acc": 97.39,
-    "letter_acc": 97.69,
+    "word_acc": 99.37,
+    "letter_acc": 99.85,
     "n_images": 44,
     "ref_words": 5739
    },
    "ft/v2auto/raw": {
-    "word_acc": 97.25,
-    "letter_acc": 97.65,
+    "word_acc": 99.23,
+    "letter_acc": 99.81,
     "n_images": 44,
     "ref_words": 5739
    },
    "ft/v2auto/nomark": {
-    "word_acc": 97.25,
-    "letter_acc": 97.65,
+    "word_acc": 99.23,
+    "letter_acc": 99.81,
     "n_images": 44,
     "ref_words": 5739
    }
   },
   "z100+z75": {
    "base/plain/raw": {
-    "word_acc": 90.11,
-    "letter_acc": 96.01,
+    "word_acc": 91.89,
+    "letter_acc": 98.32,
     "n_images": 88,
     "ref_words": 11478
    },
    "base/plain/nomark": {
-    "word_acc": 90.29,
-    "letter_acc": 96.01,
+    "word_acc": 92.06,
+    "letter_acc": 98.32,
     "n_images": 88,
     "ref_words": 11478
    },
    "base/v2lex/raw": {
-    "word_acc": 94.08,
-    "letter_acc": 96.73,
+    "word_acc": 96.1,
+    "letter_acc": 98.94,
     "n_images": 88,
     "ref_words": 11478
    },
    "base/v2lex/nomark": {
-    "word_acc": 94.08,
-    "letter_acc": 96.73,
+    "word_acc": 96.1,
+    "letter_acc": 98.94,
     "n_images": 88,
     "ref_words": 11478
    },
    "base/v2raw/raw": {
-    "word_acc": 92.86,
-    "letter_acc": 96.46,
+    "word_acc": 94.78,
+    "letter_acc": 98.62,
     "n_images": 88,
     "ref_words": 11478
    },
    "base/v2raw/nomark": {
-    "word_acc": 92.86,
-    "letter_acc": 96.46,
+    "word_acc": 94.78,
+    "letter_acc": 98.62,
     "n_images": 88,
     "ref_words": 11478
    },
    "base/v2auto/raw": {
-    "word_acc": 94.08,
-    "letter_acc": 96.74,
+    "word_acc": 96.1,
+    "letter_acc": 98.94,
     "n_images": 88,
     "ref_words": 11478
    },
    "base/v2auto/nomark": {
-    "word_acc": 94.08,
-    "letter_acc": 96.74,
+    "word_acc": 96.1,
+    "letter_acc": 98.94,
     "n_images": 88,
     "ref_words": 11478
    },
    "ft/plain/raw": {
-    "word_acc": 93.66,
-    "letter_acc": 96.96,
+    "word_acc": 95.5,
+    "letter_acc": 99.33,
     "n_images": 88,
     "ref_words": 11478
    },
    "ft/plain/nomark": {
-    "word_acc": 93.74,
-    "letter_acc": 96.96,
+    "word_acc": 95.6,
+    "letter_acc": 99.33,
     "n_images": 88,
     "ref_words": 11478
    },
    "ft/v2lex/raw": {
-    "word_acc": 96.17,
-    "letter_acc": 97.35,
+    "word_acc": 98.1,
+    "letter_acc": 99.53,
     "n_images": 88,
     "ref_words": 11478
    },
    "ft/v2lex/nomark": {
-    "word_acc": 96.17,
-    "letter_acc": 97.35,
+    "word_acc": 98.1,
+    "letter_acc": 99.53,
     "n_images": 88,
     "ref_words": 11478
    },
    "ft/v2raw/raw": {
-    "word_acc": 96.31,
-    "letter_acc": 97.43,
+    "word_acc": 98.22,
+    "letter_acc": 99.59,
     "n_images": 88,
     "ref_words": 11478
    },
    "ft/v2raw/nomark": {
-    "word_acc": 96.31,
-    "letter_acc": 97.43,
+    "word_acc": 98.22,
+    "letter_acc": 99.59,
     "n_images": 88,
     "ref_words": 11478
    },
    "ft/v2auto/raw": {
-    "word_acc": 96.17,
-    "letter_acc": 97.36,
+    "word_acc": 98.13,
+    "letter_acc": 99.54,
     "n_images": 88,
     "ref_words": 11478
    },
    "ft/v2auto/nomark": {
-    "word_acc": 96.17,
-    "letter_acc": 97.36,
+    "word_acc": 98.13,
+    "letter_acc": 99.54,
     "n_images": 88,
     "ref_words": 11478
    }
   },
   "z50": {
    "base/plain/raw": {
-    "word_acc": 42.74,
-    "letter_acc": 78.14,
+    "word_acc": 42.81,
+    "letter_acc": 78.15,
     "n_images": 44,
     "ref_words": 5739
    },
    "base/plain/nomark": {
-    "word_acc": 42.76,
-    "letter_acc": 78.14,
+    "word_acc": 42.83,
+    "letter_acc": 78.15,
     "n_images": 44,
     "ref_words": 5739
    },
    "base/v2lex/raw": {
-    "word_acc": 46.7,
-    "letter_acc": 70.57,
+    "word_acc": 46.79,
+    "letter_acc": 70.56,
     "n_images": 44,
     "ref_words": 5739
    },
    "base/v2lex/nomark": {
-    "word_acc": 46.7,
-    "letter_acc": 70.57,
+    "word_acc": 46.79,
+    "letter_acc": 70.56,
     "n_images": 44,
     "ref_words": 5739
    },
    "base/v2raw/raw": {
-    "word_acc": 39.43,
-    "letter_acc": 69.99,
+    "word_acc": 39.54,
+    "letter_acc": 70.0,
     "n_images": 44,
     "ref_words": 5739
    },
    "base/v2raw/nomark": {
-    "word_acc": 39.43,
-    "letter_acc": 69.99,
+    "word_acc": 39.54,
+    "letter_acc": 70.0,
     "n_images": 44,
     "ref_words": 5739
    },
    "base/v2auto/raw": {
-    "word_acc": 46.7,
-    "letter_acc": 70.57,
+    "word_acc": 46.79,
+    "letter_acc": 70.56,
     "n_images": 44,
     "ref_words": 5739
    },
    "base/v2auto/nomark": {
-    "word_acc": 46.7,
-    "letter_acc": 70.57,
+    "word_acc": 46.79,
+    "letter_acc": 70.56,
     "n_images": 44,
     "ref_words": 5739
    },
    "ft/plain/raw": {
-    "word_acc": 53.32,
-    "letter_acc": 83.52,
+    "word_acc": 53.28,
+    "letter_acc": 83.51,
     "n_images": 44,
     "ref_words": 5739
    },
    "ft/plain/nomark": {
-    "word_acc": 53.34,
-    "letter_acc": 83.52,
+    "word_acc": 53.3,
+    "letter_acc": 83.51,
     "n_images": 44,
     "ref_words": 5739
    },
    "ft/v2lex/raw": {
-    "word_acc": 60.05,
-    "letter_acc": 79.18,
+    "word_acc": 60.12,
+    "letter_acc": 79.23,
     "n_images": 44,
     "ref_words": 5739
    },
    "ft/v2lex/nomark": {
-    "word_acc": 60.05,
-    "letter_acc": 79.18,
+    "word_acc": 60.12,
+    "letter_acc": 79.23,
     "n_images": 44,
     "ref_words": 5739
    },
    "ft/v2raw/raw": {
-    "word_acc": 53.27,
-    "letter_acc": 78.64,
+    "word_acc": 53.37,
+    "letter_acc": 78.7,
     "n_images": 44,
     "ref_words": 5739
    },
    "ft/v2raw/nomark": {
-    "word_acc": 53.27,
-    "letter_acc": 78.64,
+    "word_acc": 53.37,
+    "letter_acc": 78.7,
     "n_images": 44,
     "ref_words": 5739
    },
    "ft/v2auto/raw": {
-    "word_acc": 60.05,
-    "letter_acc": 79.19,
+    "word_acc": 60.12,
+    "letter_acc": 79.24,
     "n_images": 44,
     "ref_words": 5739
    },
    "ft/v2auto/nomark": {
-    "word_acc": 60.05,
-    "letter_acc": 79.19,
+    "word_acc": 60.12,
+    "letter_acc": 79.24,
     "n_images": 44,
     "ref_words": 5739
    }
   },
   "z75": {
    "base/plain/raw": {
-    "word_acc": 85.4,
-    "letter_acc": 94.63,
+    "word_acc": 87.12,
+    "letter_acc": 97.01,
     "n_images": 44,
     "ref_words": 5739
    },
    "base/plain/nomark": {
-    "word_acc": 85.54,
-    "letter_acc": 94.63,
+    "word_acc": 87.26,
+    "letter_acc": 97.01,
     "n_images": 44,
     "ref_words": 5739
    },
    "base/v2lex/raw": {
-    "word_acc": 91.9,
-    "letter_acc": 96.05,
+    "word_acc": 93.97,
+    "letter_acc": 98.31,
     "n_images": 44,
     "ref_words": 5739
    },
    "base/v2lex/nomark": {
-    "word_acc": 91.9,
-    "letter_acc": 96.05,
+    "word_acc": 93.97,
+    "letter_acc": 98.31,
     "n_images": 44,
     "ref_words": 5739
    },
    "base/v2raw/raw": {
-    "word_acc": 88.59,
-    "letter_acc": 95.23,
+    "word_acc": 90.47,
+    "letter_acc": 97.42,
     "n_images": 44,
     "ref_words": 5739
    },
    "base/v2raw/nomark": {
-    "word_acc": 88.59,
-    "letter_acc": 95.23,
+    "word_acc": 90.47,
+    "letter_acc": 97.42,
     "n_images": 44,
     "ref_words": 5739
    },
    "base/v2auto/raw": {
-    "word_acc": 91.9,
-    "letter_acc": 96.07,
+    "word_acc": 93.97,
+    "letter_acc": 98.31,
     "n_images": 44,
     "ref_words": 5739
    },
    "base/v2auto/nomark": {
-    "word_acc": 91.9,
-    "letter_acc": 96.07,
+    "word_acc": 93.97,
+    "letter_acc": 98.31,
     "n_images": 44,
     "ref_words": 5739
    },
    "ft/plain/raw": {
-    "word_acc": 91.86,
-    "letter_acc": 96.46,
+    "word_acc": 93.71,
+    "letter_acc": 98.87,
     "n_images": 44,
     "ref_words": 5739
    },
    "ft/plain/nomark": {
-    "word_acc": 91.97,
-    "letter_acc": 96.46,
+    "word_acc": 93.81,
+    "letter_acc": 98.87,
     "n_images": 44,
     "ref_words": 5739
    },
    "ft/v2lex/raw": {
-    "word_acc": 95.45,
-    "letter_acc": 97.16,
+    "word_acc": 97.35,
+    "letter_acc": 99.34,
     "n_images": 44,
     "ref_words": 5739
    },
    "ft/v2lex/nomark": {
-    "word_acc": 95.45,
-    "letter_acc": 97.16,
+    "word_acc": 97.35,
+    "letter_acc": 99.34,
     "n_images": 44,
     "ref_words": 5739
    },
    "ft/v2raw/raw": {
-    "word_acc": 95.23,
-    "letter_acc": 97.16,
+    "word_acc": 97.07,
+    "letter_acc": 99.33,
     "n_images": 44,
     "ref_words": 5739
    },
    "ft/v2raw/nomark": {
-    "word_acc": 95.23,
-    "letter_acc": 97.16,
+    "word_acc": 97.07,
+    "letter_acc": 99.33,
     "n_images": 44,
     "ref_words": 5739
    },
    "ft/v2auto/raw": {
-    "word_acc": 95.09,
-    "letter_acc": 97.08,
+    "word_acc": 97.02,
+    "letter_acc": 99.27,
     "n_images": 44,
     "ref_words": 5739
    },
    "ft/v2auto/nomark": {
-    "word_acc": 95.09,
-    "letter_acc": 97.08,
+    "word_acc": 97.02,
+    "letter_acc": 99.27,
     "n_images": 44,
     "ref_words": 5739
    }
