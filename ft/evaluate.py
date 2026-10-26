@@ -8,11 +8,13 @@ usage (from repo root):
 Engines (all computed for both models):  plain = whole image, psm 6, no post-processing
                                           v2lex = pipeline2 (per-line, 7 scales, medoid, lexicon correction)
                                           v2raw = pipeline2 without the lexicon step
-Metrics: micro-averaged word and letter accuracy (1 - edit distance / reference length), reported twice:
+Metrics: micro-averaged word and letter accuracy (1 - edit distance / reference length), plus two strict ones that the
+letter/word metrics are blind to: 'num' (numbers incl. their decimal/thousands separator, e.g. ۱٫۶۴ vs ۱،۶۴ vs ،۶۴)
+and 'punct' (the sequence of punctuation marks). Each is reported twice:
   'raw'   = OCR output as is
   'nomark'= bracketed citation markers like [۱۱] removed from the OCR output first (they are not in the ground truth)
 """
-import argparse, glob, io, json, os, re, shutil, sys, time
+import argparse, glob, io, json, os, re, shutil, sys, time, unicodedata
 from concurrent.futures import ThreadPoolExecutor
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT); sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -27,9 +29,21 @@ CFG = dict(alpha=1.5, margin=0.3, floor=2.5, guard=2, conf_skip=90, sub_other=2.
 CFG_RAW = {**CFG, 'conf_skip': 0}
 MARK = re.compile(r'[\[\(]\s*[0-9۰-۹٠-٩]{1,3}\s*[\]\)]')
 
+NUM = re.compile(r'\d+(?:[.,٫٬،]\d+)*')
+
+def numbers(s):
+    """Numbers as written, digits folded to ASCII; ٫ and ٬ folded to . and , so only a WRONG separator mismatches."""
+    return [m.replace('٫', '.').replace('٬', ',') for m in NUM.findall(B.base(s))]
+
+def puncts(s):
+    """The sequence of punctuation marks (letters, digits and spaces dropped)."""
+    return ''.join(c for c in B.base(s) if unicodedata.category(c).startswith('P') or c in '٪٫٬')
+
 def counts(ref, hyp):
     rw, hw, rl, hl = B.words(ref), B.words(hyp), B.letters(ref), B.letters(hyp)
-    return Lev.distance(rw, hw), len(rw), Lev.distance(rl, hl), len(rl)
+    rn, hn, rp, hp = numbers(ref), numbers(hyp), puncts(ref), puncts(hyp)
+    return (Lev.distance(rw, hw), len(rw), Lev.distance(rl, hl), len(rl),
+            Lev.distance(rn, hn), len(rn), Lev.distance(rp, hp), len(rp))
 
 def load_sets(a):
     sets = {}
@@ -79,12 +93,15 @@ def summarize(sets, outs):
                     tot = {}
                     for (name, im, ref, grp), r in zip(items, o[sname]):
                         h = r[eng] if view == 'raw' else MARK.sub('', r[eng])
-                        we, wn, le, ln = counts(ref, h)
+                        we, wn, le, ln, ne, nn, pe, pn = counts(ref, h)
                         for key in ('all', grp) + (('z100+z75',) if grp in ('z100', 'z75') else ()):
-                            d = tot.setdefault(key, [0, 0, 0, 0, 0]); d[0] += we; d[1] += wn; d[2] += le; d[3] += ln; d[4] += 1
+                            d = tot.setdefault(key, [0] * 9); d[0] += we; d[1] += wn; d[2] += le; d[3] += ln; d[4] += 1
+                            d[5] += ne; d[6] += nn; d[7] += pe; d[8] += pn
                     for key, d in tot.items():
                         res.setdefault(sname, {}).setdefault(key, {})[f'{tag}/{eng}/{view}'] = dict(
-                            word_acc=round(100 * (1 - d[0] / max(1, d[1])), 2), letter_acc=round(100 * (1 - d[2] / max(1, d[3])), 2), n_images=d[4], ref_words=d[1])
+                            word_acc=round(100 * (1 - d[0] / max(1, d[1])), 2), letter_acc=round(100 * (1 - d[2] / max(1, d[3])), 2), n_images=d[4], ref_words=d[1],
+                            num_acc=round(100 * (1 - d[5] / d[6]), 2) if d[6] else None, ref_numbers=d[6],
+                            punct_acc=round(100 * (1 - d[7] / d[8]), 2) if d[8] else None, ref_puncts=d[8])
     return res
 
 def check_outputs(sets, outs):
@@ -98,7 +115,7 @@ def check_outputs(sets, outs):
     return W
 
 def markdown(res, warnings=()):
-    L = ['# Results (micro-averaged accuracy %, word / letter)\n', '`nomark` = citation markers like [۱۱] removed from OCR output before scoring.\n']
+    L = ['# Results (micro-averaged accuracy %, word / letter)\n', '`nomark` = citation markers like [۱۱] removed from OCR output before scoring. Strict tables show numbers % / punctuation %.\n']
     for sname, groups in res.items():
         for key, rows in groups.items():
             n = next(iter(rows.values()))
@@ -107,6 +124,13 @@ def markdown(res, warnings=()):
             for eng in ('plain', 'v2raw', 'v2lex'):
                 cell = lambda tag, view: (lambda r: f'{r["word_acc"]:.2f} / {r["letter_acc"]:.2f}')(rows[f'{tag}/{eng}/{view}'])
                 L.append(f'| {eng} | {cell("base", "raw")} | {cell("ft", "raw")} | {cell("base", "nomark")} | {cell("ft", "nomark")} |')
+            if n.get('ref_numbers') is not None:
+                f2 = lambda v: '-' if v is None else f'{v:.2f}'
+                L.append(f'\nStrict (numbers incl. separators, {n["ref_numbers"]} in ref / punctuation marks, {n["ref_puncts"]} in ref):\n')
+                L.append('| engine | base raw | ft raw | base nomark | ft nomark |'); L.append('|---|---|---|---|---|')
+                for eng in ('plain', 'v2raw', 'v2lex'):
+                    c2 = lambda tag, view: (lambda r: f'{f2(r.get("num_acc"))} / {f2(r.get("punct_acc"))}')(rows[f'{tag}/{eng}/{view}'])
+                    L.append(f'| {eng} | {c2("base", "raw")} | {c2("ft", "raw")} | {c2("base", "nomark")} | {c2("ft", "nomark")} |')
     if warnings: L = L[:2] + ['\n## WARNINGS (check before trusting the tables)\n'] + list(warnings) + [''] + L[2:]
     return '\n'.join(L) + '\n'
 
