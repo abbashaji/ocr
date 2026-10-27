@@ -37,6 +37,11 @@ on:
         description: 'Ignore cached corpus and fetch again'
         type: boolean
         default: false
+      corpus_source:
+        description: 'Corpus source: api = fa.wikipedia API (slow, default) | dump = bulk Wikipedia dump/dataset (ft/fetch_corpus_dump.py; use target_mb=100 corpus_minutes=60)'
+        type: choice
+        options: [api, dump]
+        default: api
 
 permissions:
   contents: write
@@ -59,25 +64,35 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: corpus.txt
-          key: corpus-none
-          restore-keys: corpus-
+          key: ${{ inputs.corpus_source == 'dump' && 'corpusdump-none' || 'corpus-none' }}
+          restore-keys: ${{ inputs.corpus_source == 'dump' && 'corpusdump-' || 'corpus-' }}
       - name: Fetch corpus from fa.wikipedia API
-        if: ${{ steps.cache.outputs.cache-hit != 'true' && steps.cache.outputs.cache-matched-key == '' }}
+        if: ${{ inputs.corpus_source != 'dump' && steps.cache.outputs.cache-hit != 'true' && steps.cache.outputs.cache-matched-key == '' }}
         run: |
           MB=${{ inputs.target_mb }}; MIN=${{ inputs.corpus_minutes }}
           if [ "$QUICK" = "1" ]; then MB=1.5; MIN=15; fi
           python ft/fetch_corpus.py --out corpus.txt --exclude ft/articles.txt --target-mb "$MB" --max-minutes "$MIN"
+      - name: Build corpus from Wikipedia dump
+        if: ${{ inputs.corpus_source == 'dump' && steps.cache.outputs.cache-hit != 'true' && steps.cache.outputs.cache-matched-key == '' }}
+        run: |
+          pip install pyarrow
+          MB=${{ inputs.target_mb }}; MIN=${{ inputs.corpus_minutes }}
+          if [ "$QUICK" = "1" ]; then MB=3; MIN=30; fi
+          mkdir -p out
+          python ft/fetch_corpus_dump.py --out corpus.txt --exclude ft/articles.txt --stats out/corpus_stats.json --target-mb "$MB" --max-minutes "$MIN"
       - name: Save corpus cache
         if: ${{ env.QUICK == '0' && steps.cache.outputs.cache-matched-key == '' }}
         uses: actions/cache/save@v4
         with:
           path: corpus.txt
-          key: corpus-${{ github.run_id }}
+          key: ${{ inputs.corpus_source == 'dump' && 'corpusdump-' || 'corpus-' }}${{ github.run_id }}
       - run: |
-          mkdir -p out && python - <<'PY' > out/corpus_stats.json
+          mkdir -p out
+          if [ ! -s out/corpus_stats.json ]; then python - <<'PY' > out/corpus_stats.json
           import json; L=[l for l in open('corpus.txt',encoding='utf-8') if l.strip()]
           print(json.dumps(dict(paragraphs=len(L), mb=round(sum(len(l.encode()) for l in L)/1e6,2), sample=L[0][:200] if L else None), ensure_ascii=False))
           PY
+          fi
           cat out/corpus_stats.json
       - uses: actions/upload-artifact@v4
         with: { name: corpus, path: corpus.txt, retention-days: 5 }
