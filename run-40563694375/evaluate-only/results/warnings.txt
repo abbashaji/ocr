@@ -1,0 +1,15 @@
+- real_tune [base/v2raw]: 1/18 images returned < 30% of the reference length, e.g. 02_1_z50.jpg
+- real_tune [base/v2lex]: 2/18 images returned < 30% of the reference length, e.g. 02_1_z50.jpg, 04_1_z50.jpg
+- real_tune [base/ocr2/auto]: 1/18 images returned < 30% of the reference length, e.g. 02_1_z50.jpg
+- real_tune [base/ocr2/raw]: 1/18 images returned < 30% of the reference length, e.g. 02_1_z50.jpg
+- real_tune [base/ocr2/lex]: 1/18 images returned < 30% of the reference length, e.g. 02_1_z50.jpg
+- real_final [base/v2raw]: 1/18 images returned < 30% of the reference length, e.g. 01_0_z50.jpg
+- real_final [base/v2lex]: 1/18 images returned < 30% of the reference length, e.g. 01_0_z50.jpg
+- real_final [base/ocr2/auto]: 1/18 images returned < 30% of the reference length, e.g. 01_0_z50.jpg
+- real_final [base/ocr2/raw]: 1/18 images returned < 30% of the reference length, e.g. 01_0_z50.jpg
+- real_final [base/ocr2/lex]: 1/18 images returned < 30% of the reference length, e.g. 01_0_z50.jpg
+- real_final [ft/v2raw]: 1/18 images returned < 30% of the reference length, e.g. 01_0_z50.jpg
+- real_final [ft/v2lex]: 1/18 images returned < 30% of the reference length, e.g. 01_0_z50.jpg
+- real_final [ft/ocr2/auto]: 1/18 images returned < 30% of the reference length, e.g. 01_0_z50.jpg
+- real_final [ft/ocr2/raw]: 1/18 images returned < 30% of the reference length, e.g. 01_0_z50.jpg
+- real_final [ft/ocr2/lex]: 1/18 images returned < 30% of the reference length, e.g. 01_0_z50.jpg
