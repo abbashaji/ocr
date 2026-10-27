@@ -1,0 +1,45 @@
+{
+ "work": "w01",
+ "file": "Tarikh-e Iran-e Bastan.pdf",
+ "role": "train",
+ "started": "2026-10-27T19:57:51.813608Z",
+ "commons": {
+  "file": "Tarikh-e Iran-e Bastan.pdf",
+  "license": "Public domain",
+  "license_url": "",
+  "artist": "Hassan Pirnia",
+  "date": "1926",
+  "credit": "https://noorlib.ir/book/info/10050",
+  "url": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Tarikh-e_Iran-e_Bastan.pdf?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "size": 371396029,
+  "sha1": "40bd58d3ce32703423196729c5f29993d40496de",
+  "mime": "application/pdf",
+  "page_url": "https://commons.wikimedia.org/wiki/File:Tarikh-e_Iran-e_Bastan.pdf",
+  "categories": [
+   "Category:History of Ancient Iran",
+   "Category:Images with extracted images",
+   "Category:PD Iran",
+   "Category:Persian-language books"
+  ],
+  "missing": false
+ },
+ "proofread_pages_total": 3216,
+ "pages_sampled": 8,
+ "pdf_mb": 371.4,
+ "download_s": 13,
+ "counts": {
+  "pages": 8,
+  "tier_GOLD": 61,
+  "tier_SILVER": 85,
+  "tier_GOLD_A": 1
+ },
+ "line_reasons": {
+  "low_sim": 13,
+  "ok": 145,
+  "anchored": 2,
+  "short": 20,
+  "nomatch": 9,
+  "ambiguous": 24
+ },
+ "finished": "2026-10-27T19:58:40.336181Z"
+}
