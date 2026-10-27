@@ -13,6 +13,12 @@ on:
         description: 'Only 6 articles'
         type: boolean
         default: false
+      engines:
+        description: 'Engines to score, comma separated: legacy (pipeline2) and/or ocr2 (the product engine)'
+        default: 'legacy,ocr2'
+      ocr2_ref:
+        description: 'Branch, tag or commit of github.com/abbashaji/ocr2 to evaluate'
+        default: 'main'
 
 permissions:
   contents: write
@@ -20,6 +26,8 @@ permissions:
 
 env:
   QUICK: ${{ inputs.quick && '1' || '0' }}
+  ENGINES: ${{ inputs.engines }}
+  OCR2_REF: ${{ inputs.ocr2_ref }}
 
 jobs:
   tests:
@@ -52,7 +60,7 @@ jobs:
   evaluate:
     needs: [tests]
     runs-on: ubuntu-24.04
-    timeout-minutes: 240
+    timeout-minutes: 340
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -67,6 +75,9 @@ jobs:
           curl -sL -o fonts/NotoKufi.ttf   $B/NotoKufiArabic/hinted/ttf/NotoKufiArabic-Regular.ttf
           cp /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf fonts/DejaVu.ttf
           curl -sL -o tess/fas.traineddata https://github.com/tesseract-ocr/tessdata_best/raw/main/fas.traineddata
+          # product engine; --no-deps: the GUI dependency (PySide6) is not needed by the engine
+          pip install --no-deps "git+https://github.com/abbashaji/ocr2@${OCR2_REF}"
+          python -c "import matnyab.engine.tesseract_engine"
       - uses: actions/download-artifact@v4
         with: { name: fas_ft, path: ftout, run-id: '${{ inputs.run_id }}', github-token: '${{ secrets.GITHUB_TOKEN }}' }
       - uses: actions/download-artifact@v4
@@ -74,7 +85,9 @@ jobs:
       - name: Evaluate
         run: |
           mkdir -p results
-          python ft/evaluate.py --base-dir tess --ft-file ftout/fas_ft.traineddata --tests tests --holdout ftout/holdout_paras.txt --out results 2>&1 | tee results/console.txt || true
+          git ls-remote https://github.com/abbashaji/ocr2 "${OCR2_REF}" HEAD | head -2 > results/ocr2_ref.txt || true
+          tesseract --version 2>&1 | head -1 > results/tesseract_version.txt
+          python ft/evaluate.py --base-dir tess --ft-file ftout/fas_ft.traineddata --tests tests --holdout ftout/holdout_paras.txt --engines "${ENGINES}" --out results 2>&1 | tee results/console.txt || true
       - if: always()
         env: { GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}' }
         run: bash ft/publish_results.sh evaluate-only results

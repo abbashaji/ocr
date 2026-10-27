@@ -44,3 +44,40 @@ def test_marker_regex_removes_citation_markers_in_any_bracket_order():
     for marker in ('[۱۶]', ']۱۶[', ']۲]]۱[', '(۱۲)', ']۴۱۱['):
         assert E.MARK.sub('', 'است.' + marker + ' تبریز') == 'است. تبریز'
     assert E.MARK.sub('', 'در سال (۱۳۹۹) آمد') == 'در سال (۱۳۹۹) آمد'    # a four-digit year in parentheses stays
+
+
+# ---- product-engine (ocr2) plumbing: no Tesseract needed, outputs are faked ----
+def _fake_outs(ref, texts):
+    """One set, one image; texts = {engine key: hypothesis}. Two models share the same fake output."""
+    row = {**texts, 'sec': {'auto': 3.0, 'raw': 2.0, 'lex': 4.0}}
+    return {'base': {'s': [dict(row)]}, 'ft': {'s': [dict(row)]}}
+
+
+def test_summarize_scores_ocr2_modes_and_reports_seconds_per_image():
+    ref = REF
+    sets = {'s': [('a.png', None, ref, 'z100')]}
+    outs = _fake_outs(ref, {'ocr2/auto': ref, 'ocr2/raw': ref, 'ocr2/lex': ref.replace('۹۲', '۹]')})
+    res = E.summarize(sets, outs)
+    g = res['s']['all']
+    assert g['ft/ocr2/auto/raw']['word_acc'] == 100.0 and g['ft/ocr2/auto/raw']['sec_per_image'] == 3.0
+    assert g['ft/ocr2/lex/raw']['num_f1'] < 100                       # the lost number is visible
+    assert g['ft/ocr2/lex/raw']['sec_per_image'] == 4.0
+    assert 'ft/plain/raw' not in g                                      # legacy engines absent when not run
+    assert res['s']['z100']['base/ocr2/raw/nomark']['n_images'] == 1
+
+
+def test_markdown_has_an_ocr2_row_for_every_model_and_mode_without_empty_cells():
+    sets = {'s': [('a.png', None, REF, 'z100')]}
+    legacy = {'plain': REF, 'v2raw': REF, 'v2lex': REF}
+    outs = _fake_outs(REF, {**legacy, 'ocr2/auto': REF, 'ocr2/raw': REF, 'ocr2/lex': REF})
+    md = E.markdown(E.summarize(sets, outs))
+    for tag in ('base', 'ft'):
+        for mode in ('auto', 'raw', 'lex'):
+            assert f'| {tag} | {mode} | 100.00 | 100.00 | 100.00 | 100.00 |' in md
+    assert '| plain |' in md and '| ocr2/auto |' in md and 'nan' not in md and '-1' not in md
+
+
+def test_markdown_works_with_only_ocr2_engines():
+    sets = {'s': [('a.png', None, REF, 'z75')]}
+    md = E.markdown(E.summarize(sets, _fake_outs(REF, {'ocr2/auto': REF, 'ocr2/raw': REF, 'ocr2/lex': REF})))
+    assert 'Product engine (ocr2)' in md and '| ft | lex |' in md
