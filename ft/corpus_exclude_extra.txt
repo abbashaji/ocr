@@ -1,0 +1,10 @@
+# Extra titles excluded from the dump corpus only (NOT screenshotted by make_tests.py).
+# Alias spellings of pinned articles that were renamed/redirected between the 2023-11 snapshot and live Wikipedia.
+# Matched by normalised title; titles that do not exist are harmless (listed under excluded_titles_not_found).
+کوروش بزرگ
+کوروش دوم
+کوروش
+داریوش بزرگ
+داریوش اول
+داریوش
+نفت خام
