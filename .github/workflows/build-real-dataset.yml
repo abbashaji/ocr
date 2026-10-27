@@ -1,0 +1,27 @@
+name: build-real-dataset
+
+# Finds, downloads and labels real Persian line images (TASK F). New workflow; does not touch finetune.yml/evaluate-only.yml.
+on:
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: 'discover | build'
+        default: 'discover'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  discover:
+    if: ${{ inputs.stage == 'discover' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install requests
+      - run: python ft/realdata/discover.py --out discovery
+      - uses: actions/upload-artifact@v4
+        with: { name: discovery, path: discovery, retention-days: 30 }
