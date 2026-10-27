@@ -1,0 +1,7 @@
+Loaded file base.lstm, unpacking...
+Warning: LSTMTrainer deserialized an LSTMRecognizer!
+Continuing from base.lstm
+Set learning rate to 0.000010
+2 Percent improvement time=100, best error was 100 @ 0
+At iteration 100/100/100, mean rms=2.977%, delta=11.321%, BCER train=19.004%, BWER train=44.480%, skip ratio=0.000%, New best BCER = 19.004 wrote best model:ft_19.004_100_100.checkpoint wrote checkpoint.
+Finished! Selected model with minimal training error rate (BCER) = 19.004

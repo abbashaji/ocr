@@ -1,0 +1,9 @@
+{
+ "base_bcer": 18.835,
+ "ft_bcer": 17.82,
+ "checkpoint": "ft_checkpoint",
+ "lr": "0.00001",
+ "n_train": 300,
+ "n_eval": 1500,
+ "note": "BCER = character error % of the raw LSTM on held-out rendered corpus lines (eval split, never trained on)"
+}
