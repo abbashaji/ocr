@@ -79,7 +79,8 @@ jobs:
           MB=${{ inputs.target_mb }}; MIN=${{ inputs.corpus_minutes }}
           if [ "$QUICK" = "1" ]; then MB=3; MIN=30; fi
           mkdir -p out
-          python ft/fetch_corpus_dump.py --out corpus.txt --exclude ft/articles.txt --stats out/corpus_stats.json --target-mb "$MB" --max-minutes "$MIN"
+          cat ft/articles.txt ft/corpus_exclude_extra.txt > excl_all.txt
+          python ft/fetch_corpus_dump.py --out corpus.txt --exclude excl_all.txt --stats out/corpus_stats.json --target-mb "$MB" --max-minutes "$MIN"
       - name: Save corpus cache
         if: ${{ env.QUICK == '0' && steps.cache.outputs.cache-matched-key == '' }}
         uses: actions/cache/save@v4
