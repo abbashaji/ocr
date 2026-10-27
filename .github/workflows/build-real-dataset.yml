@@ -1,16 +1,29 @@
 name: build-real-dataset
 
-# Finds, downloads and labels real Persian line images (TASK F). New workflow; does not touch finetune.yml/evaluate-only.yml.
+# Finds, downloads and labels real Persian line images from fa.wikisource (TASK F). New workflow; does not touch
+# finetune.yml / evaluate-only.yml.
 on:
   workflow_dispatch:
     inputs:
       stage:
-        description: 'discover | build'
-        default: 'discover'
+        description: 'discover | probe | build'
+        default: 'probe'
+      work:
+        description: 'probe: work id from ft/realdata/works.json'
+        default: 'w01'
+      max_pages:
+        description: 'probe: pages to process'
+        default: '8'
+      model_run:
+        description: 'run id on the results branch that holds train/fas_ft.traineddata'
+        default: '39744871706'
 
 permissions:
   contents: write
   actions: read
+
+env:
+  MODEL_URL: https://raw.githubusercontent.com/abbashaji/ocr/results/run-${{ inputs.model_run }}/train/fas_ft.traineddata
 
 jobs:
   discover:
@@ -25,3 +38,35 @@ jobs:
       - run: python ft/realdata/discover.py --out discovery
       - uses: actions/upload-artifact@v4
         with: { name: discovery, path: discovery, retention-days: 30 }
+
+  probe:
+    if: ${{ inputs.stage == 'probe' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq tesseract-ocr poppler-utils fonts-dejavu-core
+          pip install requests rapidfuzz numpy pillow wordfreq pytest python-docx
+          pip install --no-deps git+https://github.com/abbashaji/ocr2
+          mkdir -p model && curl -sfL -o model/fas.traineddata "$MODEL_URL" && ls -l model
+      - name: unit tests
+        run: REALDATA_TESSDATA=$PWD/model python -m pytest -q ft/realdata/test_realdata.py
+      - name: probe one work
+        run: python ft/realdata/build_work.py --work "${{ inputs.work }}" --tessdata $PWD/model --out parts/${{ inputs.work }} --max-pages ${{ inputs.max_pages }} --debug-wikitext 3 2>&1 | tee probe_log.txt
+      - name: summary
+        run: |
+          cat parts/${{ inputs.work }}/stats.json | head -80
+          wc -l parts/${{ inputs.work }}/lines.jsonl || true
+          mkdir -p qa && head -n 40 parts/${{ inputs.work }}/lines.jsonl > qa/sample_lines.jsonl || true
+          for id in $(head -n 40 parts/${{ inputs.work }}/lines.jsonl | python -c "import sys,json;[print(json.loads(l)['id']) for l in sys.stdin]"); do cp parts/${{ inputs.work }}/lines/$id.png qa/; done
+          cp parts/${{ inputs.work }}/stats.json qa/ || true
+          cp probe_log.txt qa/ || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: 'probe-${{ inputs.work }}', path: qa, retention-days: 7 }
+      - if: always()
+        env: { GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}' }
+        run: bash ft/publish_results.sh realdata-probe-${{ inputs.work }} qa
