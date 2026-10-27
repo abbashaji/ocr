@@ -1,0 +1,1840 @@
+{
+ "client": {
+  "all": {
+   "base/plain/raw": {
+    "word_acc": 92.56,
+    "letter_acc": 98.09,
+    "n_images": 2,
+    "ref_words": 672,
+    "num_acc": 0.0,
+    "ref_numbers": 6,
+    "punct_acc": 30.21,
+    "ref_puncts": 96
+   },
+   "base/plain/nomark": {
+    "word_acc": 92.56,
+    "letter_acc": 98.09,
+    "n_images": 2,
+    "ref_words": 672,
+    "num_acc": 0.0,
+    "ref_numbers": 6,
+    "punct_acc": 30.21,
+    "ref_puncts": 96
+   },
+   "base/v2lex/raw": {
+    "word_acc": 97.92,
+    "letter_acc": 99.66,
+    "n_images": 2,
+    "ref_words": 672,
+    "num_acc": -16.67,
+    "ref_numbers": 6,
+    "punct_acc": 57.29,
+    "ref_puncts": 96
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 98.07,
+    "letter_acc": 99.66,
+    "n_images": 2,
+    "ref_words": 672,
+    "num_acc": 0.0,
+    "ref_numbers": 6,
+    "punct_acc": 59.38,
+    "ref_puncts": 96
+   },
+   "base/v2raw/raw": {
+    "word_acc": 95.68,
+    "letter_acc": 99.08,
+    "n_images": 2,
+    "ref_words": 672,
+    "num_acc": -16.67,
+    "ref_numbers": 6,
+    "punct_acc": 57.29,
+    "ref_puncts": 96
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 95.83,
+    "letter_acc": 99.08,
+    "n_images": 2,
+    "ref_words": 672,
+    "num_acc": 0.0,
+    "ref_numbers": 6,
+    "punct_acc": 59.38,
+    "ref_puncts": 96
+   },
+   "ft/plain/raw": {
+    "word_acc": 94.05,
+    "letter_acc": 98.7,
+    "n_images": 2,
+    "ref_words": 672,
+    "num_acc": -33.33,
+    "ref_numbers": 6,
+    "punct_acc": 25.0,
+    "ref_puncts": 96
+   },
+   "ft/plain/nomark": {
+    "word_acc": 94.05,
+    "letter_acc": 98.7,
+    "n_images": 2,
+    "ref_words": 672,
+    "num_acc": -33.33,
+    "ref_numbers": 6,
+    "punct_acc": 25.0,
+    "ref_puncts": 96
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 97.17,
+    "letter_acc": 99.54,
+    "n_images": 2,
+    "ref_words": 672,
+    "num_acc": -33.33,
+    "ref_numbers": 6,
+    "punct_acc": 86.46,
+    "ref_puncts": 96
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 97.17,
+    "letter_acc": 99.54,
+    "n_images": 2,
+    "ref_words": 672,
+    "num_acc": -33.33,
+    "ref_numbers": 6,
+    "punct_acc": 86.46,
+    "ref_puncts": 96
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 94.94,
+    "letter_acc": 99.01,
+    "n_images": 2,
+    "ref_words": 672,
+    "num_acc": -33.33,
+    "ref_numbers": 6,
+    "punct_acc": 86.46,
+    "ref_puncts": 96
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 94.94,
+    "letter_acc": 99.01,
+    "n_images": 2,
+    "ref_words": 672,
+    "num_acc": -33.33,
+    "ref_numbers": 6,
+    "punct_acc": 86.46,
+    "ref_puncts": 96
+   }
+  },
+  "client": {
+   "base/plain/raw": {
+    "word_acc": 92.56,
+    "letter_acc": 98.09,
+    "n_images": 2,
+    "ref_words": 672,
+    "num_acc": 0.0,
+    "ref_numbers": 6,
+    "punct_acc": 30.21,
+    "ref_puncts": 96
+   },
+   "base/plain/nomark": {
+    "word_acc": 92.56,
+    "letter_acc": 98.09,
+    "n_images": 2,
+    "ref_words": 672,
+    "num_acc": 0.0,
+    "ref_numbers": 6,
+    "punct_acc": 30.21,
+    "ref_puncts": 96
+   },
+   "base/v2lex/raw": {
+    "word_acc": 97.92,
+    "letter_acc": 99.66,
+    "n_images": 2,
+    "ref_words": 672,
+    "num_acc": -16.67,
+    "ref_numbers": 6,
+    "punct_acc": 57.29,
+    "ref_puncts": 96
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 98.07,
+    "letter_acc": 99.66,
+    "n_images": 2,
+    "ref_words": 672,
+    "num_acc": 0.0,
+    "ref_numbers": 6,
+    "punct_acc": 59.38,
+    "ref_puncts": 96
+   },
+   "base/v2raw/raw": {
+    "word_acc": 95.68,
+    "letter_acc": 99.08,
+    "n_images": 2,
+    "ref_words": 672,
+    "num_acc": -16.67,
+    "ref_numbers": 6,
+    "punct_acc": 57.29,
+    "ref_puncts": 96
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 95.83,
+    "letter_acc": 99.08,
+    "n_images": 2,
+    "ref_words": 672,
+    "num_acc": 0.0,
+    "ref_numbers": 6,
+    "punct_acc": 59.38,
+    "ref_puncts": 96
+   },
+   "ft/plain/raw": {
+    "word_acc": 94.05,
+    "letter_acc": 98.7,
+    "n_images": 2,
+    "ref_words": 672,
+    "num_acc": -33.33,
+    "ref_numbers": 6,
+    "punct_acc": 25.0,
+    "ref_puncts": 96
+   },
+   "ft/plain/nomark": {
+    "word_acc": 94.05,
+    "letter_acc": 98.7,
+    "n_images": 2,
+    "ref_words": 672,
+    "num_acc": -33.33,
+    "ref_numbers": 6,
+    "punct_acc": 25.0,
+    "ref_puncts": 96
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 97.17,
+    "letter_acc": 99.54,
+    "n_images": 2,
+    "ref_words": 672,
+    "num_acc": -33.33,
+    "ref_numbers": 6,
+    "punct_acc": 86.46,
+    "ref_puncts": 96
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 97.17,
+    "letter_acc": 99.54,
+    "n_images": 2,
+    "ref_words": 672,
+    "num_acc": -33.33,
+    "ref_numbers": 6,
+    "punct_acc": 86.46,
+    "ref_puncts": 96
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 94.94,
+    "letter_acc": 99.01,
+    "n_images": 2,
+    "ref_words": 672,
+    "num_acc": -33.33,
+    "ref_numbers": 6,
+    "punct_acc": 86.46,
+    "ref_puncts": 96
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 94.94,
+    "letter_acc": 99.01,
+    "n_images": 2,
+    "ref_words": 672,
+    "num_acc": -33.33,
+    "ref_numbers": 6,
+    "punct_acc": 86.46,
+    "ref_puncts": 96
+   }
+  }
+ },
+ "real_tune": {
+  "all": {
+   "base/plain/raw": {
+    "word_acc": 75.56,
+    "letter_acc": 91.59,
+    "n_images": 132,
+    "ref_words": 17217,
+    "num_acc": -58.73,
+    "ref_numbers": 252,
+    "punct_acc": 38.93,
+    "ref_puncts": 2109
+   },
+   "base/plain/nomark": {
+    "word_acc": 75.69,
+    "letter_acc": 91.59,
+    "n_images": 132,
+    "ref_words": 17217,
+    "num_acc": -50.79,
+    "ref_numbers": 252,
+    "punct_acc": 40.68,
+    "ref_puncts": 2109
+   },
+   "base/v2lex/raw": {
+    "word_acc": 78.7,
+    "letter_acc": 89.83,
+    "n_images": 132,
+    "ref_words": 17217,
+    "num_acc": -53.57,
+    "ref_numbers": 252,
+    "punct_acc": 46.7,
+    "ref_puncts": 2109
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 79.04,
+    "letter_acc": 89.83,
+    "n_images": 132,
+    "ref_words": 17217,
+    "num_acc": -30.56,
+    "ref_numbers": 252,
+    "punct_acc": 51.78,
+    "ref_puncts": 2109
+   },
+   "base/v2raw/raw": {
+    "word_acc": 75.36,
+    "letter_acc": 89.44,
+    "n_images": 132,
+    "ref_words": 17217,
+    "num_acc": -53.57,
+    "ref_numbers": 252,
+    "punct_acc": 46.7,
+    "ref_puncts": 2109
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 75.69,
+    "letter_acc": 89.44,
+    "n_images": 132,
+    "ref_words": 17217,
+    "num_acc": -30.56,
+    "ref_numbers": 252,
+    "punct_acc": 51.78,
+    "ref_puncts": 2109
+   },
+   "ft/plain/raw": {
+    "word_acc": 81.47,
+    "letter_acc": 94.04,
+    "n_images": 132,
+    "ref_words": 17217,
+    "num_acc": -57.14,
+    "ref_numbers": 252,
+    "punct_acc": 14.04,
+    "ref_puncts": 2109
+   },
+   "ft/plain/nomark": {
+    "word_acc": 81.54,
+    "letter_acc": 94.04,
+    "n_images": 132,
+    "ref_words": 17217,
+    "num_acc": -51.98,
+    "ref_numbers": 252,
+    "punct_acc": 15.27,
+    "ref_puncts": 2109
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 84.21,
+    "letter_acc": 93.12,
+    "n_images": 132,
+    "ref_words": 17217,
+    "num_acc": -65.48,
+    "ref_numbers": 252,
+    "punct_acc": 44.57,
+    "ref_puncts": 2109
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 84.25,
+    "letter_acc": 93.12,
+    "n_images": 132,
+    "ref_words": 17217,
+    "num_acc": -62.3,
+    "ref_numbers": 252,
+    "punct_acc": 45.33,
+    "ref_puncts": 2109
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 82.0,
+    "letter_acc": 92.98,
+    "n_images": 132,
+    "ref_words": 17217,
+    "num_acc": -65.48,
+    "ref_numbers": 252,
+    "punct_acc": 44.57,
+    "ref_puncts": 2109
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 82.05,
+    "letter_acc": 92.98,
+    "n_images": 132,
+    "ref_words": 17217,
+    "num_acc": -62.3,
+    "ref_numbers": 252,
+    "punct_acc": 45.33,
+    "ref_puncts": 2109
+   }
+  },
+  "z100": {
+   "base/plain/raw": {
+    "word_acc": 96.65,
+    "letter_acc": 99.64,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -46.43,
+    "ref_numbers": 84,
+    "punct_acc": 42.25,
+    "ref_puncts": 703
+   },
+   "base/plain/nomark": {
+    "word_acc": 96.86,
+    "letter_acc": 99.64,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -32.14,
+    "ref_numbers": 84,
+    "punct_acc": 45.66,
+    "ref_puncts": 703
+   },
+   "base/v2lex/raw": {
+    "word_acc": 96.38,
+    "letter_acc": 99.54,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -51.19,
+    "ref_numbers": 84,
+    "punct_acc": 52.63,
+    "ref_puncts": 703
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 96.85,
+    "letter_acc": 99.54,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -19.05,
+    "ref_numbers": 84,
+    "punct_acc": 59.74,
+    "ref_puncts": 703
+   },
+   "base/v2raw/raw": {
+    "word_acc": 97.3,
+    "letter_acc": 99.82,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -51.19,
+    "ref_numbers": 84,
+    "punct_acc": 52.63,
+    "ref_puncts": 703
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 97.77,
+    "letter_acc": 99.82,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -19.05,
+    "ref_numbers": 84,
+    "punct_acc": 59.74,
+    "ref_puncts": 703
+   },
+   "ft/plain/raw": {
+    "word_acc": 97.28,
+    "letter_acc": 99.79,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -41.67,
+    "ref_numbers": 84,
+    "punct_acc": 11.52,
+    "ref_puncts": 703
+   },
+   "ft/plain/nomark": {
+    "word_acc": 97.39,
+    "letter_acc": 99.79,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -34.52,
+    "ref_numbers": 84,
+    "punct_acc": 13.23,
+    "ref_puncts": 703
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 96.95,
+    "letter_acc": 99.71,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -45.24,
+    "ref_numbers": 84,
+    "punct_acc": 50.78,
+    "ref_puncts": 703
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 97.02,
+    "letter_acc": 99.71,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -40.48,
+    "ref_numbers": 84,
+    "punct_acc": 51.92,
+    "ref_puncts": 703
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 97.47,
+    "letter_acc": 99.85,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -45.24,
+    "ref_numbers": 84,
+    "punct_acc": 50.78,
+    "ref_puncts": 703
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 97.54,
+    "letter_acc": 99.85,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -40.48,
+    "ref_numbers": 84,
+    "punct_acc": 51.92,
+    "ref_puncts": 703
+   }
+  },
+  "z100+z75": {
+   "base/plain/raw": {
+    "word_acc": 91.89,
+    "letter_acc": 98.32,
+    "n_images": 88,
+    "ref_words": 11478,
+    "num_acc": -55.95,
+    "ref_numbers": 168,
+    "punct_acc": 42.53,
+    "ref_puncts": 1406
+   },
+   "base/plain/nomark": {
+    "word_acc": 92.06,
+    "letter_acc": 98.32,
+    "n_images": 88,
+    "ref_words": 11478,
+    "num_acc": -44.64,
+    "ref_numbers": 168,
+    "punct_acc": 45.09,
+    "ref_puncts": 1406
+   },
+   "base/v2lex/raw": {
+    "word_acc": 94.46,
+    "letter_acc": 98.94,
+    "n_images": 88,
+    "ref_words": 11478,
+    "num_acc": -51.79,
+    "ref_numbers": 168,
+    "punct_acc": 53.49,
+    "ref_puncts": 1406
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 94.96,
+    "letter_acc": 98.94,
+    "n_images": 88,
+    "ref_words": 11478,
+    "num_acc": -17.26,
+    "ref_numbers": 168,
+    "punct_acc": 61.1,
+    "ref_puncts": 1406
+   },
+   "base/v2raw/raw": {
+    "word_acc": 93.1,
+    "letter_acc": 98.61,
+    "n_images": 88,
+    "ref_words": 11478,
+    "num_acc": -51.79,
+    "ref_numbers": 168,
+    "punct_acc": 53.49,
+    "ref_puncts": 1406
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 93.61,
+    "letter_acc": 98.61,
+    "n_images": 88,
+    "ref_words": 11478,
+    "num_acc": -17.26,
+    "ref_numbers": 168,
+    "punct_acc": 61.1,
+    "ref_puncts": 1406
+   },
+   "ft/plain/raw": {
+    "word_acc": 95.5,
+    "letter_acc": 99.33,
+    "n_images": 88,
+    "ref_words": 11478,
+    "num_acc": -48.21,
+    "ref_numbers": 168,
+    "punct_acc": 11.17,
+    "ref_puncts": 1406
+   },
+   "ft/plain/nomark": {
+    "word_acc": 95.6,
+    "letter_acc": 99.33,
+    "n_images": 88,
+    "ref_words": 11478,
+    "num_acc": -41.07,
+    "ref_numbers": 168,
+    "punct_acc": 12.87,
+    "ref_puncts": 1406
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 96.25,
+    "letter_acc": 99.5,
+    "n_images": 88,
+    "ref_words": 11478,
+    "num_acc": -54.17,
+    "ref_numbers": 168,
+    "punct_acc": 49.93,
+    "ref_puncts": 1406
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 96.32,
+    "letter_acc": 99.5,
+    "n_images": 88,
+    "ref_words": 11478,
+    "num_acc": -49.4,
+    "ref_numbers": 168,
+    "punct_acc": 51.07,
+    "ref_puncts": 1406
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 96.33,
+    "letter_acc": 99.56,
+    "n_images": 88,
+    "ref_words": 11478,
+    "num_acc": -54.17,
+    "ref_numbers": 168,
+    "punct_acc": 49.93,
+    "ref_puncts": 1406
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 96.4,
+    "letter_acc": 99.56,
+    "n_images": 88,
+    "ref_words": 11478,
+    "num_acc": -49.4,
+    "ref_numbers": 168,
+    "punct_acc": 51.07,
+    "ref_puncts": 1406
+   }
+  },
+  "z50": {
+   "base/plain/raw": {
+    "word_acc": 42.92,
+    "letter_acc": 78.12,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -64.29,
+    "ref_numbers": 84,
+    "punct_acc": 31.72,
+    "ref_puncts": 703
+   },
+   "base/plain/nomark": {
+    "word_acc": 42.93,
+    "letter_acc": 78.12,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -63.1,
+    "ref_numbers": 84,
+    "punct_acc": 31.86,
+    "ref_puncts": 703
+   },
+   "base/v2lex/raw": {
+    "word_acc": 47.19,
+    "letter_acc": 71.62,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -57.14,
+    "ref_numbers": 84,
+    "punct_acc": 33.14,
+    "ref_puncts": 703
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 47.19,
+    "letter_acc": 71.62,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -57.14,
+    "ref_numbers": 84,
+    "punct_acc": 33.14,
+    "ref_puncts": 703
+   },
+   "base/v2raw/raw": {
+    "word_acc": 39.87,
+    "letter_acc": 71.1,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -57.14,
+    "ref_numbers": 84,
+    "punct_acc": 33.14,
+    "ref_puncts": 703
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 39.87,
+    "letter_acc": 71.1,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -57.14,
+    "ref_numbers": 84,
+    "punct_acc": 33.14,
+    "ref_puncts": 703
+   },
+   "ft/plain/raw": {
+    "word_acc": 53.41,
+    "letter_acc": 83.48,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -75.0,
+    "ref_numbers": 84,
+    "punct_acc": 19.77,
+    "ref_puncts": 703
+   },
+   "ft/plain/nomark": {
+    "word_acc": 53.42,
+    "letter_acc": 83.48,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -73.81,
+    "ref_numbers": 84,
+    "punct_acc": 20.06,
+    "ref_puncts": 703
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 60.12,
+    "letter_acc": 80.37,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -88.1,
+    "ref_numbers": 84,
+    "punct_acc": 33.85,
+    "ref_puncts": 703
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 60.12,
+    "letter_acc": 80.37,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -88.1,
+    "ref_numbers": 84,
+    "punct_acc": 33.85,
+    "ref_puncts": 703
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 53.34,
+    "letter_acc": 79.81,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -88.1,
+    "ref_numbers": 84,
+    "punct_acc": 33.85,
+    "ref_puncts": 703
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 53.34,
+    "letter_acc": 79.81,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -88.1,
+    "ref_numbers": 84,
+    "punct_acc": 33.85,
+    "ref_puncts": 703
+   }
+  },
+  "z75": {
+   "base/plain/raw": {
+    "word_acc": 87.12,
+    "letter_acc": 97.01,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -65.48,
+    "ref_numbers": 84,
+    "punct_acc": 42.82,
+    "ref_puncts": 703
+   },
+   "base/plain/nomark": {
+    "word_acc": 87.26,
+    "letter_acc": 97.01,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -57.14,
+    "ref_numbers": 84,
+    "punct_acc": 44.52,
+    "ref_puncts": 703
+   },
+   "base/v2lex/raw": {
+    "word_acc": 92.54,
+    "letter_acc": 98.34,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -52.38,
+    "ref_numbers": 84,
+    "punct_acc": 54.34,
+    "ref_puncts": 703
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 93.08,
+    "letter_acc": 98.34,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -15.48,
+    "ref_numbers": 84,
+    "punct_acc": 62.45,
+    "ref_puncts": 703
+   },
+   "base/v2raw/raw": {
+    "word_acc": 88.9,
+    "letter_acc": 97.41,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -52.38,
+    "ref_numbers": 84,
+    "punct_acc": 54.34,
+    "ref_puncts": 703
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 89.44,
+    "letter_acc": 97.41,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -15.48,
+    "ref_numbers": 84,
+    "punct_acc": 62.45,
+    "ref_puncts": 703
+   },
+   "ft/plain/raw": {
+    "word_acc": 93.71,
+    "letter_acc": 98.87,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -54.76,
+    "ref_numbers": 84,
+    "punct_acc": 10.81,
+    "ref_puncts": 703
+   },
+   "ft/plain/nomark": {
+    "word_acc": 93.81,
+    "letter_acc": 98.87,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -47.62,
+    "ref_numbers": 84,
+    "punct_acc": 12.52,
+    "ref_puncts": 703
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 95.56,
+    "letter_acc": 99.29,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -63.1,
+    "ref_numbers": 84,
+    "punct_acc": 49.08,
+    "ref_puncts": 703
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 95.63,
+    "letter_acc": 99.29,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -58.33,
+    "ref_numbers": 84,
+    "punct_acc": 50.21,
+    "ref_puncts": 703
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 95.19,
+    "letter_acc": 99.28,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -63.1,
+    "ref_numbers": 84,
+    "punct_acc": 49.08,
+    "ref_puncts": 703
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 95.26,
+    "letter_acc": 99.28,
+    "n_images": 44,
+    "ref_words": 5739,
+    "num_acc": -58.33,
+    "ref_numbers": 84,
+    "punct_acc": 50.21,
+    "ref_puncts": 703
+   }
+  }
+ },
+ "real_final": {
+  "all": {
+   "base/plain/raw": {
+    "word_acc": 73.75,
+    "letter_acc": 90.44,
+    "n_images": 135,
+    "ref_words": 20337,
+    "num_acc": -75.95,
+    "ref_numbers": 291,
+    "punct_acc": 32.09,
+    "ref_puncts": 2244
+   },
+   "base/plain/nomark": {
+    "word_acc": 73.82,
+    "letter_acc": 90.44,
+    "n_images": 135,
+    "ref_words": 20337,
+    "num_acc": -70.45,
+    "ref_numbers": 291,
+    "punct_acc": 33.38,
+    "ref_puncts": 2244
+   },
+   "base/v2lex/raw": {
+    "word_acc": 77.5,
+    "letter_acc": 88.85,
+    "n_images": 135,
+    "ref_words": 20337,
+    "num_acc": -67.7,
+    "ref_numbers": 291,
+    "punct_acc": 43.18,
+    "ref_puncts": 2244
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 77.69,
+    "letter_acc": 88.85,
+    "n_images": 135,
+    "ref_words": 20337,
+    "num_acc": -54.3,
+    "ref_numbers": 291,
+    "punct_acc": 46.26,
+    "ref_puncts": 2244
+   },
+   "base/v2raw/raw": {
+    "word_acc": 74.21,
+    "letter_acc": 88.43,
+    "n_images": 135,
+    "ref_words": 20337,
+    "num_acc": -67.7,
+    "ref_numbers": 291,
+    "punct_acc": 43.18,
+    "ref_puncts": 2244
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 74.4,
+    "letter_acc": 88.43,
+    "n_images": 135,
+    "ref_words": 20337,
+    "num_acc": -54.3,
+    "ref_numbers": 291,
+    "punct_acc": 46.26,
+    "ref_puncts": 2244
+   },
+   "ft/plain/raw": {
+    "word_acc": 80.12,
+    "letter_acc": 93.1,
+    "n_images": 135,
+    "ref_words": 20337,
+    "num_acc": -64.6,
+    "ref_numbers": 291,
+    "punct_acc": 12.66,
+    "ref_puncts": 2244
+   },
+   "ft/plain/nomark": {
+    "word_acc": 80.15,
+    "letter_acc": 93.1,
+    "n_images": 135,
+    "ref_words": 20337,
+    "num_acc": -62.2,
+    "ref_numbers": 291,
+    "punct_acc": 13.28,
+    "ref_puncts": 2244
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 83.33,
+    "letter_acc": 92.15,
+    "n_images": 135,
+    "ref_words": 20337,
+    "num_acc": -74.23,
+    "ref_numbers": 291,
+    "punct_acc": 46.12,
+    "ref_puncts": 2244
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 83.36,
+    "letter_acc": 92.15,
+    "n_images": 135,
+    "ref_words": 20337,
+    "num_acc": -72.16,
+    "ref_numbers": 291,
+    "punct_acc": 46.66,
+    "ref_puncts": 2244
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 81.2,
+    "letter_acc": 92.01,
+    "n_images": 135,
+    "ref_words": 20337,
+    "num_acc": -74.23,
+    "ref_numbers": 291,
+    "punct_acc": 46.12,
+    "ref_puncts": 2244
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 81.23,
+    "letter_acc": 92.01,
+    "n_images": 135,
+    "ref_words": 20337,
+    "num_acc": -72.16,
+    "ref_numbers": 291,
+    "punct_acc": 46.66,
+    "ref_puncts": 2244
+   }
+  },
+  "z100": {
+   "base/plain/raw": {
+    "word_acc": 96.12,
+    "letter_acc": 99.53,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -67.01,
+    "ref_numbers": 97,
+    "punct_acc": 37.83,
+    "ref_puncts": 748
+   },
+   "base/plain/nomark": {
+    "word_acc": 96.21,
+    "letter_acc": 99.53,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -59.79,
+    "ref_numbers": 97,
+    "punct_acc": 39.44,
+    "ref_puncts": 748
+   },
+   "base/v2lex/raw": {
+    "word_acc": 96.15,
+    "letter_acc": 99.53,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -65.98,
+    "ref_numbers": 97,
+    "punct_acc": 46.93,
+    "ref_puncts": 748
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 96.5,
+    "letter_acc": 99.53,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -41.24,
+    "ref_numbers": 97,
+    "punct_acc": 53.34,
+    "ref_puncts": 748
+   },
+   "base/v2raw/raw": {
+    "word_acc": 96.87,
+    "letter_acc": 99.75,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -65.98,
+    "ref_numbers": 97,
+    "punct_acc": 46.93,
+    "ref_puncts": 748
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 97.23,
+    "letter_acc": 99.75,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -41.24,
+    "ref_numbers": 97,
+    "punct_acc": 53.34,
+    "ref_puncts": 748
+   },
+   "ft/plain/raw": {
+    "word_acc": 96.99,
+    "letter_acc": 99.74,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -54.64,
+    "ref_numbers": 97,
+    "punct_acc": 9.76,
+    "ref_puncts": 748
+   },
+   "ft/plain/nomark": {
+    "word_acc": 97.06,
+    "letter_acc": 99.74,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -49.48,
+    "ref_numbers": 97,
+    "punct_acc": 11.1,
+    "ref_puncts": 748
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 96.75,
+    "letter_acc": 99.65,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -50.52,
+    "ref_numbers": 97,
+    "punct_acc": 52.81,
+    "ref_puncts": 748
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 96.83,
+    "letter_acc": 99.65,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -45.36,
+    "ref_numbers": 97,
+    "punct_acc": 54.14,
+    "ref_puncts": 748
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 97.39,
+    "letter_acc": 99.83,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -50.52,
+    "ref_numbers": 97,
+    "punct_acc": 52.81,
+    "ref_puncts": 748
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 97.46,
+    "letter_acc": 99.83,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -45.36,
+    "ref_numbers": 97,
+    "punct_acc": 54.14,
+    "ref_puncts": 748
+   }
+  },
+  "z100+z75": {
+   "base/plain/raw": {
+    "word_acc": 91.57,
+    "letter_acc": 98.29,
+    "n_images": 90,
+    "ref_words": 13558,
+    "num_acc": -71.65,
+    "ref_numbers": 194,
+    "punct_acc": 35.76,
+    "ref_puncts": 1496
+   },
+   "base/plain/nomark": {
+    "word_acc": 91.67,
+    "letter_acc": 98.29,
+    "n_images": 90,
+    "ref_words": 13558,
+    "num_acc": -63.4,
+    "ref_numbers": 194,
+    "punct_acc": 37.7,
+    "ref_puncts": 1496
+   },
+   "base/v2lex/raw": {
+    "word_acc": 93.85,
+    "letter_acc": 98.86,
+    "n_images": 90,
+    "ref_words": 13558,
+    "num_acc": -68.04,
+    "ref_numbers": 194,
+    "punct_acc": 51.87,
+    "ref_puncts": 1496
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 94.12,
+    "letter_acc": 98.86,
+    "n_images": 90,
+    "ref_words": 13558,
+    "num_acc": -48.45,
+    "ref_numbers": 194,
+    "punct_acc": 56.62,
+    "ref_puncts": 1496
+   },
+   "base/v2raw/raw": {
+    "word_acc": 92.61,
+    "letter_acc": 98.58,
+    "n_images": 90,
+    "ref_words": 13558,
+    "num_acc": -68.04,
+    "ref_numbers": 194,
+    "punct_acc": 51.87,
+    "ref_puncts": 1496
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 92.88,
+    "letter_acc": 98.58,
+    "n_images": 90,
+    "ref_words": 13558,
+    "num_acc": -48.45,
+    "ref_numbers": 194,
+    "punct_acc": 56.62,
+    "ref_puncts": 1496
+   },
+   "ft/plain/raw": {
+    "word_acc": 95.49,
+    "letter_acc": 99.35,
+    "n_images": 90,
+    "ref_words": 13558,
+    "num_acc": -55.67,
+    "ref_numbers": 194,
+    "punct_acc": 8.42,
+    "ref_puncts": 1496
+   },
+   "ft/plain/nomark": {
+    "word_acc": 95.54,
+    "letter_acc": 99.35,
+    "n_images": 90,
+    "ref_words": 13558,
+    "num_acc": -52.06,
+    "ref_numbers": 194,
+    "punct_acc": 9.36,
+    "ref_puncts": 1496
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 95.96,
+    "letter_acc": 99.43,
+    "n_images": 90,
+    "ref_words": 13558,
+    "num_acc": -59.79,
+    "ref_numbers": 194,
+    "punct_acc": 52.47,
+    "ref_puncts": 1496
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 96.0,
+    "letter_acc": 99.43,
+    "n_images": 90,
+    "ref_words": 13558,
+    "num_acc": -56.7,
+    "ref_numbers": 194,
+    "punct_acc": 53.28,
+    "ref_puncts": 1496
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 96.1,
+    "letter_acc": 99.5,
+    "n_images": 90,
+    "ref_words": 13558,
+    "num_acc": -59.79,
+    "ref_numbers": 194,
+    "punct_acc": 52.47,
+    "ref_puncts": 1496
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 96.14,
+    "letter_acc": 99.5,
+    "n_images": 90,
+    "ref_words": 13558,
+    "num_acc": -56.7,
+    "ref_numbers": 194,
+    "punct_acc": 53.28,
+    "ref_puncts": 1496
+   }
+  },
+  "z50": {
+   "base/plain/raw": {
+    "word_acc": 38.1,
+    "letter_acc": 74.73,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -84.54,
+    "ref_numbers": 97,
+    "punct_acc": 24.73,
+    "ref_puncts": 748
+   },
+   "base/plain/nomark": {
+    "word_acc": 38.1,
+    "letter_acc": 74.73,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -84.54,
+    "ref_numbers": 97,
+    "punct_acc": 24.73,
+    "ref_puncts": 748
+   },
+   "base/v2lex/raw": {
+    "word_acc": 44.81,
+    "letter_acc": 68.83,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -67.01,
+    "ref_numbers": 97,
+    "punct_acc": 25.8,
+    "ref_puncts": 748
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 44.81,
+    "letter_acc": 68.83,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -65.98,
+    "ref_numbers": 97,
+    "punct_acc": 25.53,
+    "ref_puncts": 748
+   },
+   "base/v2raw/raw": {
+    "word_acc": 37.42,
+    "letter_acc": 68.12,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -67.01,
+    "ref_numbers": 97,
+    "punct_acc": 25.8,
+    "ref_puncts": 748
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 37.42,
+    "letter_acc": 68.12,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -65.98,
+    "ref_numbers": 97,
+    "punct_acc": 25.53,
+    "ref_puncts": 748
+   },
+   "ft/plain/raw": {
+    "word_acc": 49.39,
+    "letter_acc": 80.6,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -82.47,
+    "ref_numbers": 97,
+    "punct_acc": 21.12,
+    "ref_puncts": 748
+   },
+   "ft/plain/nomark": {
+    "word_acc": 49.39,
+    "letter_acc": 80.6,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -82.47,
+    "ref_numbers": 97,
+    "punct_acc": 21.12,
+    "ref_puncts": 748
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 58.06,
+    "letter_acc": 77.59,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -103.09,
+    "ref_numbers": 97,
+    "punct_acc": 33.42,
+    "ref_puncts": 748
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 58.06,
+    "letter_acc": 77.59,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -103.09,
+    "ref_numbers": 97,
+    "punct_acc": 33.42,
+    "ref_puncts": 748
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 51.39,
+    "letter_acc": 77.05,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -103.09,
+    "ref_numbers": 97,
+    "punct_acc": 33.42,
+    "ref_puncts": 748
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 51.39,
+    "letter_acc": 77.05,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -103.09,
+    "ref_numbers": 97,
+    "punct_acc": 33.42,
+    "ref_puncts": 748
+   }
+  },
+  "z75": {
+   "base/plain/raw": {
+    "word_acc": 87.02,
+    "letter_acc": 97.04,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -76.29,
+    "ref_numbers": 97,
+    "punct_acc": 33.69,
+    "ref_puncts": 748
+   },
+   "base/plain/nomark": {
+    "word_acc": 87.14,
+    "letter_acc": 97.04,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -67.01,
+    "ref_numbers": 97,
+    "punct_acc": 35.96,
+    "ref_puncts": 748
+   },
+   "base/v2lex/raw": {
+    "word_acc": 91.55,
+    "letter_acc": 98.19,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -70.1,
+    "ref_numbers": 97,
+    "punct_acc": 56.82,
+    "ref_puncts": 748
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 91.74,
+    "letter_acc": 98.19,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -55.67,
+    "ref_numbers": 97,
+    "punct_acc": 59.89,
+    "ref_puncts": 748
+   },
+   "base/v2raw/raw": {
+    "word_acc": 88.35,
+    "letter_acc": 97.41,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -70.1,
+    "ref_numbers": 97,
+    "punct_acc": 56.82,
+    "ref_puncts": 748
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 88.54,
+    "letter_acc": 97.41,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -55.67,
+    "ref_numbers": 97,
+    "punct_acc": 59.89,
+    "ref_puncts": 748
+   },
+   "ft/plain/raw": {
+    "word_acc": 93.98,
+    "letter_acc": 98.96,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -56.7,
+    "ref_numbers": 97,
+    "punct_acc": 7.09,
+    "ref_puncts": 748
+   },
+   "ft/plain/nomark": {
+    "word_acc": 94.01,
+    "letter_acc": 98.96,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -54.64,
+    "ref_numbers": 97,
+    "punct_acc": 7.62,
+    "ref_puncts": 748
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 95.16,
+    "letter_acc": 99.22,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -69.07,
+    "ref_numbers": 97,
+    "punct_acc": 52.14,
+    "ref_puncts": 748
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 95.18,
+    "letter_acc": 99.22,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -68.04,
+    "ref_numbers": 97,
+    "punct_acc": 52.41,
+    "ref_puncts": 748
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 94.81,
+    "letter_acc": 99.17,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -69.07,
+    "ref_numbers": 97,
+    "punct_acc": 52.14,
+    "ref_puncts": 748
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 94.82,
+    "letter_acc": 99.17,
+    "n_images": 45,
+    "ref_words": 6779,
+    "num_acc": -68.04,
+    "ref_numbers": 97,
+    "punct_acc": 52.41,
+    "ref_puncts": 748
+   }
+  }
+ },
+ "synth": {
+  "all": {
+   "base/plain/raw": {
+    "word_acc": 86.01,
+    "letter_acc": 95.46,
+    "n_images": 72,
+    "ref_words": 3696,
+    "num_acc": 51.85,
+    "ref_numbers": 108,
+    "punct_acc": 31.43,
+    "ref_puncts": 420
+   },
+   "base/plain/nomark": {
+    "word_acc": 86.01,
+    "letter_acc": 95.46,
+    "n_images": 72,
+    "ref_words": 3696,
+    "num_acc": 51.85,
+    "ref_numbers": 108,
+    "punct_acc": 31.43,
+    "ref_puncts": 420
+   },
+   "base/v2lex/raw": {
+    "word_acc": 94.62,
+    "letter_acc": 98.04,
+    "n_images": 72,
+    "ref_words": 3696,
+    "num_acc": 68.52,
+    "ref_numbers": 108,
+    "punct_acc": 31.43,
+    "ref_puncts": 420
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 94.62,
+    "letter_acc": 98.04,
+    "n_images": 72,
+    "ref_words": 3696,
+    "num_acc": 68.52,
+    "ref_numbers": 108,
+    "punct_acc": 31.43,
+    "ref_puncts": 420
+   },
+   "base/v2raw/raw": {
+    "word_acc": 91.96,
+    "letter_acc": 97.41,
+    "n_images": 72,
+    "ref_words": 3696,
+    "num_acc": 68.52,
+    "ref_numbers": 108,
+    "punct_acc": 31.43,
+    "ref_puncts": 420
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 91.96,
+    "letter_acc": 97.41,
+    "n_images": 72,
+    "ref_words": 3696,
+    "num_acc": 68.52,
+    "ref_numbers": 108,
+    "punct_acc": 31.43,
+    "ref_puncts": 420
+   },
+   "ft/plain/raw": {
+    "word_acc": 91.86,
+    "letter_acc": 97.25,
+    "n_images": 72,
+    "ref_words": 3696,
+    "num_acc": 77.78,
+    "ref_numbers": 108,
+    "punct_acc": 16.9,
+    "ref_puncts": 420
+   },
+   "ft/plain/nomark": {
+    "word_acc": 91.86,
+    "letter_acc": 97.25,
+    "n_images": 72,
+    "ref_words": 3696,
+    "num_acc": 77.78,
+    "ref_numbers": 108,
+    "punct_acc": 16.9,
+    "ref_puncts": 420
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 95.18,
+    "letter_acc": 98.39,
+    "n_images": 72,
+    "ref_words": 3696,
+    "num_acc": 79.63,
+    "ref_numbers": 108,
+    "punct_acc": 31.67,
+    "ref_puncts": 420
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 95.18,
+    "letter_acc": 98.39,
+    "n_images": 72,
+    "ref_words": 3696,
+    "num_acc": 79.63,
+    "ref_numbers": 108,
+    "punct_acc": 31.67,
+    "ref_puncts": 420
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 93.02,
+    "letter_acc": 97.9,
+    "n_images": 72,
+    "ref_words": 3696,
+    "num_acc": 79.63,
+    "ref_numbers": 108,
+    "punct_acc": 31.67,
+    "ref_puncts": 420
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 93.02,
+    "letter_acc": 97.9,
+    "n_images": 72,
+    "ref_words": 3696,
+    "num_acc": 79.63,
+    "ref_numbers": 108,
+    "punct_acc": 31.67,
+    "ref_puncts": 420
+   }
+  },
+  "clean": {
+   "base/plain/raw": {
+    "word_acc": 98.11,
+    "letter_acc": 99.71,
+    "n_images": 36,
+    "ref_words": 1848,
+    "num_acc": 68.52,
+    "ref_numbers": 54,
+    "punct_acc": 31.43,
+    "ref_puncts": 210
+   },
+   "base/plain/nomark": {
+    "word_acc": 98.11,
+    "letter_acc": 99.71,
+    "n_images": 36,
+    "ref_words": 1848,
+    "num_acc": 68.52,
+    "ref_numbers": 54,
+    "punct_acc": 31.43,
+    "ref_puncts": 210
+   },
+   "base/v2lex/raw": {
+    "word_acc": 99.3,
+    "letter_acc": 99.91,
+    "n_images": 36,
+    "ref_words": 1848,
+    "num_acc": 75.93,
+    "ref_numbers": 54,
+    "punct_acc": 31.9,
+    "ref_puncts": 210
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 99.3,
+    "letter_acc": 99.91,
+    "n_images": 36,
+    "ref_words": 1848,
+    "num_acc": 75.93,
+    "ref_numbers": 54,
+    "punct_acc": 31.9,
+    "ref_puncts": 210
+   },
+   "base/v2raw/raw": {
+    "word_acc": 99.19,
+    "letter_acc": 99.88,
+    "n_images": 36,
+    "ref_words": 1848,
+    "num_acc": 75.93,
+    "ref_numbers": 54,
+    "punct_acc": 31.9,
+    "ref_puncts": 210
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 99.19,
+    "letter_acc": 99.88,
+    "n_images": 36,
+    "ref_words": 1848,
+    "num_acc": 75.93,
+    "ref_numbers": 54,
+    "punct_acc": 31.9,
+    "ref_puncts": 210
+   },
+   "ft/plain/raw": {
+    "word_acc": 98.7,
+    "letter_acc": 99.79,
+    "n_images": 36,
+    "ref_words": 1848,
+    "num_acc": 79.63,
+    "ref_numbers": 54,
+    "punct_acc": 22.38,
+    "ref_puncts": 210
+   },
+   "ft/plain/nomark": {
+    "word_acc": 98.7,
+    "letter_acc": 99.79,
+    "n_images": 36,
+    "ref_words": 1848,
+    "num_acc": 79.63,
+    "ref_numbers": 54,
+    "punct_acc": 22.38,
+    "ref_puncts": 210
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 99.3,
+    "letter_acc": 99.85,
+    "n_images": 36,
+    "ref_words": 1848,
+    "num_acc": 85.19,
+    "ref_numbers": 54,
+    "punct_acc": 38.57,
+    "ref_puncts": 210
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 99.3,
+    "letter_acc": 99.85,
+    "n_images": 36,
+    "ref_words": 1848,
+    "num_acc": 85.19,
+    "ref_numbers": 54,
+    "punct_acc": 38.57,
+    "ref_puncts": 210
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 99.08,
+    "letter_acc": 99.79,
+    "n_images": 36,
+    "ref_words": 1848,
+    "num_acc": 85.19,
+    "ref_numbers": 54,
+    "punct_acc": 38.57,
+    "ref_puncts": 210
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 99.08,
+    "letter_acc": 99.79,
+    "n_images": 36,
+    "ref_words": 1848,
+    "num_acc": 85.19,
+    "ref_numbers": 54,
+    "punct_acc": 38.57,
+    "ref_puncts": 210
+   }
+  },
+  "low": {
+   "base/plain/raw": {
+    "word_acc": 73.92,
+    "letter_acc": 91.21,
+    "n_images": 36,
+    "ref_words": 1848,
+    "num_acc": 35.19,
+    "ref_numbers": 54,
+    "punct_acc": 31.43,
+    "ref_puncts": 210
+   },
+   "base/plain/nomark": {
+    "word_acc": 73.92,
+    "letter_acc": 91.21,
+    "n_images": 36,
+    "ref_words": 1848,
+    "num_acc": 35.19,
+    "ref_numbers": 54,
+    "punct_acc": 31.43,
+    "ref_puncts": 210
+   },
+   "base/v2lex/raw": {
+    "word_acc": 89.94,
+    "letter_acc": 96.18,
+    "n_images": 36,
+    "ref_words": 1848,
+    "num_acc": 61.11,
+    "ref_numbers": 54,
+    "punct_acc": 30.95,
+    "ref_puncts": 210
+   },
+   "base/v2lex/nomark": {
+    "word_acc": 89.94,
+    "letter_acc": 96.18,
+    "n_images": 36,
+    "ref_words": 1848,
+    "num_acc": 61.11,
+    "ref_numbers": 54,
+    "punct_acc": 30.95,
+    "ref_puncts": 210
+   },
+   "base/v2raw/raw": {
+    "word_acc": 84.74,
+    "letter_acc": 94.95,
+    "n_images": 36,
+    "ref_words": 1848,
+    "num_acc": 61.11,
+    "ref_numbers": 54,
+    "punct_acc": 30.95,
+    "ref_puncts": 210
+   },
+   "base/v2raw/nomark": {
+    "word_acc": 84.74,
+    "letter_acc": 94.95,
+    "n_images": 36,
+    "ref_words": 1848,
+    "num_acc": 61.11,
+    "ref_numbers": 54,
+    "punct_acc": 30.95,
+    "ref_puncts": 210
+   },
+   "ft/plain/raw": {
+    "word_acc": 85.01,
+    "letter_acc": 94.72,
+    "n_images": 36,
+    "ref_words": 1848,
+    "num_acc": 75.93,
+    "ref_numbers": 54,
+    "punct_acc": 11.43,
+    "ref_puncts": 210
+   },
+   "ft/plain/nomark": {
+    "word_acc": 85.01,
+    "letter_acc": 94.72,
+    "n_images": 36,
+    "ref_words": 1848,
+    "num_acc": 75.93,
+    "ref_numbers": 54,
+    "punct_acc": 11.43,
+    "ref_puncts": 210
+   },
+   "ft/v2lex/raw": {
+    "word_acc": 91.07,
+    "letter_acc": 96.93,
+    "n_images": 36,
+    "ref_words": 1848,
+    "num_acc": 74.07,
+    "ref_numbers": 54,
+    "punct_acc": 24.76,
+    "ref_puncts": 210
+   },
+   "ft/v2lex/nomark": {
+    "word_acc": 91.07,
+    "letter_acc": 96.93,
+    "n_images": 36,
+    "ref_words": 1848,
+    "num_acc": 74.07,
+    "ref_numbers": 54,
+    "punct_acc": 24.76,
+    "ref_puncts": 210
+   },
+   "ft/v2raw/raw": {
+    "word_acc": 86.96,
+    "letter_acc": 96.01,
+    "n_images": 36,
+    "ref_words": 1848,
+    "num_acc": 74.07,
+    "ref_numbers": 54,
+    "punct_acc": 24.76,
+    "ref_puncts": 210
+   },
+   "ft/v2raw/nomark": {
+    "word_acc": 86.96,
+    "letter_acc": 96.01,
+    "n_images": 36,
+    "ref_words": 1848,
+    "num_acc": 74.07,
+    "ref_numbers": 54,
+    "punct_acc": 24.76,
+    "ref_puncts": 210
+   }
+  }
+ }
+}
