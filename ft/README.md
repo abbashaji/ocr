@@ -45,3 +45,18 @@ The >99% target is therefore unproven until the Actions run reports numbers on t
 ## Caveats
 Linux-rendered screenshots approximate the client's Windows rendering; real client screenshots (even 10) are a valuable extra test split.
 Wikipedia text is CC BY-SA - the corpus is cached, not committed.
+
+## Bulk corpus from a Wikipedia dump (`corpus_source = dump`)
+`ft/fetch_corpus.py` (API, ~1.2 s per article) only reaches ~1 MB. `ft/fetch_corpus_dump.py` builds 100+ MB in minutes from a bulk source:
+1. `hf`: the parquet snapshot `wikimedia/wikipedia` / `20231101.fa` on huggingface.co (plain text, fast); 2. fallback `dump`: the official
+`https://dumps.wikimedia.org/fawiki/latest/fawiki-latest-pages-articles.xml.bz2` (stream-decoded, resumable, wikitext stripped by regexes).
+Same output as the API fetcher (one cleaned paragraph per line, `common.clean_text`), plus `corpus_stats.json` (source, dump date, paragraphs, MB,
+pinned titles found/not found, paragraphs dropped for overlap, seconds). Pinned evaluation articles (`ft/articles.txt`, plus «ایران») are
+skipped by normalised title, and any paragraph sharing a 10-word shingle with their text (or with `--ground-truth DIR`) is dropped.
+Run: Actions -> finetune-tesseract-fa -> `corpus_source: dump`, `target_mb: 100`, `corpus_minutes: 60` (quick=true builds a 3 MB test corpus).
+The cache key prefix is `corpusdump-`, separate from the API cache (`corpus-`); `refresh_corpus: true` forces a rebuild.
+Unit tests: `python -m pytest ft/test_fetch_corpus_dump.py -q` (needs pyarrow).
+
+## Source and licence of the training text
+Training text comes from Persian Wikipedia (fa.wikipedia.org), (c) Wikipedia contributors, licensed CC BY-SA 4.0
+(https://creativecommons.org/licenses/by-sa/4.0/). The corpus is only cached as a workflow artifact and never committed to this repository.
