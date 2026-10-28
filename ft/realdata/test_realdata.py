@@ -93,3 +93,13 @@ def test_process_page_end_to_end():
     gtn = ' '.join(gt.split())
     for r, c in recs:
         if r['tier']: assert r['label'] in gtn and c is not None
+
+
+@pytest.mark.skipif(not (shutil.which('tesseract') and FONT), reason='needs font')
+def test_dark_border_fallback_recovers_lines():
+    import fixture_page, pageimg
+    from PIL import Image
+    img, lines = fixture_page.render_page(PARA, FONT)
+    framed = Image.new('L', (img.width + 240, img.height + 240), 12); framed.paste(img, (120, 120))      # black scanner frame
+    gray, found, info = pageimg.page_lines(framed)
+    assert len(found) >= 0.7 * len(lines), (len(found), len(lines))
