@@ -42,6 +42,13 @@ def test_presets_differ_only_where_intended():
     assert export.distinct_text('سدهٔ ۱۲٫۵، ٪') == 'سدهٔ ۱۲٫۵، ٪'
     assert export.distinct_text('كتاب ي') == 'کتاب ی'
 
+def test_compat_fold_presentation_forms_and_alef_maksura():
+    s = '\ufe8dتومبیل \ufe81تمسفر آبى'
+    for f in (export.folded_text, export.distinct_text):
+        assert f(s) == 'اتومبیل آتمسفر آبی'
+        assert not any(0xFB50 <= ord(c) <= 0xFEFF for c in f(s))
+    assert export.distinct_text('سدهٔ') == 'سدهٔ'            # ezafe still kept in distinct
+
 def test_dedupe_leak_and_split_by_work(built):
     rows = [json.loads(l) for l in open(built / 'manifest.jsonl', encoding='utf-8')]
     ids = {r['id'] for r in rows}
