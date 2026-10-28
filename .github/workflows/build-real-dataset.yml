@@ -1,22 +1,28 @@
 name: build-real-dataset
 
 # Finds, downloads and labels real Persian line images from fa.wikisource (TASK F). New workflow; does not touch
-# finetune.yml / evaluate-only.yml.
+# finetune.yml / evaluate-only.yml.   stage=build runs: plan -> work (matrix) -> assemble -> benchmark (matrix) -> report
 on:
   workflow_dispatch:
     inputs:
       stage:
         description: 'discover | probe | build'
-        default: 'probe'
+        default: 'build'
       work:
         description: 'probe: work id from ft/realdata/works.json'
         default: 'w01'
       max_pages:
         description: 'probe: pages to process'
         default: '8'
+      only_works:
+        description: 'build: comma separated work ids (empty = all of works.json)'
+        default: ''
       model_run:
         description: 'run id on the results branch that holds train/fas_ft.traineddata'
         default: '39744871706'
+      augment:
+        description: 'build: seeded augmented copies per train line in the *_aug export (0 = none)'
+        default: '1'
 
 permissions:
   contents: write
@@ -33,11 +39,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
-        with: { python-version: '3.12' }
+        with:
+          python-version: '3.12'
       - run: pip install requests
       - run: python ft/realdata/discover.py --out discovery
       - uses: actions/upload-artifact@v4
-        with: { name: discovery, path: discovery, retention-days: 30 }
+        with:
+          name: discovery
+          path: discovery
+          retention-days: 30
 
   probe:
     if: ${{ inputs.stage == 'probe' }}
@@ -46,27 +56,194 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
-        with: { python-version: '3.12' }
+        with:
+          python-version: '3.12'
       - run: |
-          sudo apt-get update -qq && sudo apt-get install -y -qq tesseract-ocr poppler-utils fonts-dejavu-core
-          pip install requests rapidfuzz numpy pillow wordfreq pytest python-docx
+          sudo apt-get update -qq && sudo apt-get install -y -qq tesseract-ocr poppler-utils fonts-dejavu-core libraqm0
+          pip install requests rapidfuzz numpy pillow wordfreq pytest python-docx python-bidi
           pip install --no-deps git+https://github.com/abbashaji/ocr2
           mkdir -p model && curl -sfL -o model/fas.traineddata "$MODEL_URL" && ls -l model
       - name: unit tests
-        run: REALDATA_TESSDATA=$PWD/model python -m pytest -q ft/realdata/test_realdata.py
+        run: REALDATA_TESSDATA=$PWD/model python -m pytest -q ft/realdata
       - name: probe one work
         run: python ft/realdata/build_work.py --work "${{ inputs.work }}" --tessdata $PWD/model --out parts/${{ inputs.work }} --max-pages ${{ inputs.max_pages }} --debug-wikitext 3 2>&1 | tee probe_log.txt
       - name: summary
         run: |
-          cat parts/${{ inputs.work }}/stats.json | head -80
-          wc -l parts/${{ inputs.work }}/lines.jsonl || true
           mkdir -p qa && head -n 40 parts/${{ inputs.work }}/lines.jsonl > qa/sample_lines.jsonl || true
           for id in $(head -n 40 parts/${{ inputs.work }}/lines.jsonl | python -c "import sys,json;[print(json.loads(l)['id']) for l in sys.stdin]"); do cp parts/${{ inputs.work }}/lines/$id.png qa/; done
-          cp parts/${{ inputs.work }}/stats.json qa/ || true
-          cp probe_log.txt qa/ || true
+          cp parts/${{ inputs.work }}/stats.json probe_log.txt qa/ || true
       - uses: actions/upload-artifact@v4
         if: always()
-        with: { name: 'probe-${{ inputs.work }}', path: qa, retention-days: 7 }
+        with:
+          name: probe-${{ inputs.work }}
+          path: qa
+          retention-days: 7
       - if: always()
-        env: { GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}' }
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: bash ft/publish_results.sh realdata-probe-${{ inputs.work }} qa
+
+  plan:
+    if: ${{ inputs.stage == 'build' }}
+    runs-on: ubuntu-24.04
+    outputs:
+      works: ${{ steps.p.outputs.works }}
+      finals: ${{ steps.p.outputs.finals }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: p
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          sel = [x.strip() for x in "${{ inputs.only_works }}".split(',') if x.strip()]
+          ws = [w for w in json.load(open('ft/realdata/works.json', encoding='utf-8'))['works'] if not sel or w['id'] in sel]
+          print('works=' + json.dumps([w['id'] for w in ws]))
+          print('finals=' + json.dumps([w['id'] for w in ws if w['role'] == 'final']))
+          PY
+
+  work:
+    needs: plan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 330
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix:
+        work: ${{ fromJson(needs.plan.outputs.works) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq tesseract-ocr poppler-utils libraqm0
+          pip install requests rapidfuzz numpy pillow wordfreq python-docx python-bidi
+          pip install --no-deps git+https://github.com/abbashaji/ocr2
+          mkdir -p model && curl -sfL -o model/fas.traineddata "$MODEL_URL" && md5sum model/fas.traineddata
+      - run: python ft/realdata/build_work.py --work "${{ matrix.work }}" --tessdata $PWD/model --out parts/${{ matrix.work }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: part-${{ matrix.work }}
+          path: parts/${{ matrix.work }}
+          retention-days: 14
+          if-no-files-found: ignore
+
+  assemble:
+    needs: [plan, work]
+    if: ${{ always() && needs.plan.result == 'success' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq tesseract-ocr libraqm0 fonts-dejavu-core
+          pip install requests rapidfuzz numpy pillow wordfreq pytest python-bidi
+          mkdir -p model && curl -sfL -o model/fas.traineddata "$MODEL_URL"
+          combine_tessdata -u model/fas.traineddata model/fas. >/dev/null && ls model
+          pip install --no-deps git+https://github.com/abbashaji/ocr2
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: part-*
+          path: parts
+      - run: ls parts | head -40
+      - name: tests
+        run: REALDATA_TESSDATA=$PWD/model python -m pytest -q ft/realdata
+      - name: leakage reference text
+        run: |
+          curl -sfL -o client_ref.txt https://raw.githubusercontent.com/abbashaji/ocr2/main/samples/client_ref.txt || true
+          python ft/realdata/leak.py --articles ft/articles.txt --extra client_ref.txt ref.txt --out leak.txt
+      - name: assemble
+        run: python ft/realdata/assemble.py --parts parts --leak leak.txt --out ds --unicharset model/fas.lstm-unicharset --augment ${{ inputs.augment }} | tee assemble_log.txt
+      - name: package
+        run: |
+          mkdir -p rel
+          tar czf rel/dataset-base.tar.gz -C ds lines manifest.jsonl manifest.csv stats.json README.md ATTRIBUTION.md benchmark_pages contact_sheet.html
+          for d in ds/export/*; do n=$(basename $d); tar czf rel/export-$n.tar.gz -C ds/export $n; done
+          cp leak.txt.json rel/leak_reference.json || true
+          cd rel && for f in *.tar.gz; do if [ $(stat -c %s $f) -gt 1900000000 ]; then split -b 1800m -d $f $f.part- && rm $f; fi; done; ls -l
+      - uses: actions/upload-artifact@v4
+        with:
+          name: real-dataset-base
+          path: |
+            ds
+            !ds/export
+          retention-days: 30
+      - uses: actions/upload-artifact@v4
+        with:
+          name: real-dataset-exports
+          path: ds/export
+          retention-days: 30
+          if-no-files-found: warn
+      - name: GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "realdata-${{ github.run_id }}" rel/* --title "Persian real-scan line dataset (run ${{ github.run_id }})" --notes "Built by build-real-dataset run ${{ github.run_id }}. See README.md inside dataset-base.tar.gz. Splits by work; licences in ATTRIBUTION.md." || echo "release failed"
+      - name: QA files to results branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p qa && cp ds/stats.json ds/ATTRIBUTION.md ds/README.md ds/contact_sheet*.png ds/contact_sheet.html assemble_log.txt qa/
+          head -n 300 ds/manifest.jsonl > qa/manifest_sample.jsonl
+          bash ft/publish_results.sh realdata-dataset qa
+
+  benchmark:
+    needs: [plan, assemble]
+    if: ${{ always() && needs.assemble.result == 'success' && needs.plan.outputs.finals != '[]' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      matrix:
+        work: ${{ fromJson(needs.plan.outputs.finals) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq tesseract-ocr libraqm0 fonts-dejavu-core
+          pip install pillow numpy rapidfuzz wordfreq python-bidi
+          pip install --no-deps "git+https://github.com/abbashaji/ocr2"
+          mkdir -p model && curl -sfL -o model/fas.traineddata "$MODEL_URL"
+      - uses: actions/download-artifact@v4
+        with:
+          name: real-dataset-base
+          path: ds
+      - run: python ft/realdata/benchmark.py run --work ${{ matrix.work }} --dataset ds --model-dir $PWD/model --out bench_${{ matrix.work }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bench-${{ matrix.work }}
+          path: bench_${{ matrix.work }}
+          retention-days: 30
+
+  report:
+    needs: benchmark
+    if: ${{ always() && needs.benchmark.result != 'skipped' }}
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq tesseract-ocr libraqm0
+          pip install pillow numpy rapidfuzz wordfreq python-bidi
+          pip install --no-deps "git+https://github.com/abbashaji/ocr2"
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: bench-*
+          path: bench
+      - run: python ft/realdata/benchmark.py report --dirs bench/* --out report
+      - uses: actions/upload-artifact@v4
+        with:
+          name: real-benchmark
+          path: report
+          retention-days: 90
+      - env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bash ft/publish_results.sh realdata-benchmark report
