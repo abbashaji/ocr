@@ -119,9 +119,10 @@ def main():
         pth = os.path.join(a.out, outs[0]); img = Image.open(pth).convert('L')
         recs, pinfo = process_page(img, gt, a.tessdata, a.workers)
         n_pages_done += 1; cnt['pages'] += 1
+        if 'border_crop' in pinfo: cnt['pages_border_cropped'] += 1
         if a.debug_wikitext and n_pages_done == 1:   # visual debugging in probe runs: page thumbnail + first crops
             th = img.copy(); th.thumbnail((900, 1300)); th.convert('L').save(os.path.join(a.out, 'debug_page.jpg'), quality=80)
-            print('PAGE', img.size, 'lines', pinfo.get('n_lines'), 'deskew', pinfo.get('deskew'), [(r['y0'], r['y1'], r['ocr'][:30]) for r, _ in recs[:6]])
+            print('PAGE', img.size, 'lines', pinfo.get('n_lines'), 'deskew', pinfo.get('deskew'), 'border_crop', pinfo.get('border_crop'), [(r['y0'], r['y1'], r['ocr'][:30]) for r, _ in recs[:6]])
             for j, (r, c) in enumerate(recs[:4]):
                 if c is not None: c.save(os.path.join(a.out, f'debug_crop{j}.png'))
         keep = 0
@@ -143,7 +144,8 @@ def main():
             gold = [rec for rec, c in recs if rec['tier'] in ('GOLD', 'GOLD_A')]
             if len(gold) >= 8:
                 y0, y1 = min(g['y0'] for g in gold), max(g['y1'] for g in gold)
-                blk = img.crop((0, max(0, y0 - 6), img.width, min(img.height, y1 + 6)))
+                bx0, by0, bx1, _ = pinfo.get('border_crop') or (0, 0, img.width, img.height)   # bands are relative to the border-cropped page
+                blk = img.crop((bx0, max(0, by0 + y0 - 6), bx1, min(img.height, by0 + y1 + 6)))
                 bid = f"{w['id']}_p{n:04d}"
                 blk.save(os.path.join(a.out, 'pages', bid + '.jpg'), quality=92)
                 open(os.path.join(a.out, 'pages', bid + '.txt'), 'w', encoding='utf-8').write(gt)
