@@ -1,0 +1,39 @@
+{
+ "work": "w15",
+ "file": "Archive of Šarq magazine.pdf",
+ "role": "train",
+ "started": "2026-10-28T20:33:20.717298+00:00",
+ "commons": {
+  "file": "Archive of Šarq magazine.pdf",
+  "license": "Public domain",
+  "license_url": "",
+  "artist": "Mohammad Ramazani",
+  "date": "1924",
+  "credit": "https://digitale-sammlungen.ulb.uni-bonn.de/ulbbnioa/periodical/pageview/7009278",
+  "url": "https://upload.wikimedia.org/wikipedia/commons/4/46/Archive_of_%C5%A0arq_magazine.pdf?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "size": 163167425,
+  "sha1": "5f14679ef85e97931476bc7bba6128163816179b",
+  "mime": "application/pdf",
+  "page_url": "https://commons.wikimedia.org/wiki/File:Archive_of_Šarq_magazine.pdf",
+  "categories": [
+   "Category:Images with extracted images",
+   "Category:PD Iran",
+   "Category:Shargh (magazine)",
+   "Category:Template Unknown (author)"
+  ],
+  "missing": false
+ },
+ "proofread_pages_total": 326,
+ "pages_sampled": 6,
+ "wikitext_missing": 0,
+ "pdf_mb": 163.2,
+ "download_s": 6,
+ "counts": {
+  "pages": 5,
+  "page_skipped_complex": 1
+ },
+ "line_reasons": {
+  "short": 5
+ },
+ "finished": "2026-10-28T20:33:54.094063+00:00"
+}
