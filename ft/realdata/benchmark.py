@@ -31,6 +31,25 @@ def run(a):
               open(os.path.join(a.out, 'outs.json'), 'w', encoding='utf-8'), ensure_ascii=False)
     print({s: len(it) for s, it in sets.items()})
 
+def spacing_breakdown(sets, outs, mode='raw'):
+    """Per set/group: share of character edits (strict form: ya/kaf/digits folded, ZWNJ = space) that only insert/delete/replace a
+    SPACE, and character accuracy with all spaces removed. Explains word accuracy << letter accuracy (word-boundary errors)."""
+    import evaluate as E
+    from rapidfuzz.distance import Levenshtein as Lv
+    B = E.B; agg = {}
+    for sname, items in sets.items():
+        for (name, _, ref, grp), r in zip(items, outs['ocr2'][sname]):
+            R, H = B.strict(ref), B.strict(E.MARK.sub('', r[f'ocr2/{mode}']))
+            sp = oth = 0
+            for op in Lv.editops(R, H):
+                c = H[op.dest_pos] if op.tag == 'insert' else R[op.src_pos]
+                if c == ' ' or (op.tag == 'replace' and (R[op.src_pos] == ' ' or H[op.dest_pos] == ' ')): sp += 1
+                else: oth += 1
+            nr, nh = R.replace(' ', ''), H.replace(' ', '')
+            for g in ('all', grp):
+                d = agg.setdefault((sname, g), [0, 0, 0, 0]); d[0] += sp; d[1] += oth; d[2] += Lv.distance(nr, nh); d[3] += len(nr)
+    return agg
+
 def report(a):
     import evaluate as E
     sets, outs = {'pages': [], 'lines': []}, {'ocr2': {'pages': [], 'lines': []}}
@@ -55,6 +74,12 @@ def report(a):
                 m = res[s][grp].get(f'ocr2/ocr2/{mode}/raw')
                 if m: L.append(f"| {grp} | {mode} | {m['n_images']} | {m['ref_words']} | {m['word_acc']} | {m['letter_acc']} | {m['num_f1']} | {m['punct_f1']} | {m['sec_per_image'] if s == 'pages' else '-'} |")
         L.append('')
+    L += ['## where the errors are (mode raw): spaces vs characters', '',
+          'space edits = insert/delete of a word space; char acc (no spaces) = character accuracy after removing all spaces.', '',
+          '| set | group | space edits | other edits | space share % | char acc no spaces % |', '|---|---|---|---|---|---|']
+    for (sn, g), (sp, ot, ce, nl) in sorted(spacing_breakdown(sets, outs).items(), key=lambda kv: (kv[0][0], kv[0][1] != 'all', kv[0][1])):
+        L.append(f'| {sn} | {g} | {sp} | {ot} | {100 * sp / max(1, sp + ot):.0f} | {100 * (1 - ce / max(1, nl)):.2f} |')
+    L.append('')
     if warns: L += ['## warnings', ''] + warns + ['']
     open(os.path.join(a.out, 'benchmark.md'), 'w', encoding='utf-8').write('\n'.join(L))
     print('\n'.join(L[:60]))
