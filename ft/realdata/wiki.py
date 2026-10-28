@@ -39,14 +39,20 @@ def quality_categories():
     c = {x['name']: x.get('content') for x in m.get('query', {}).get('allmessages', [])}
     return {3: 'Category:' + c['proofreadpage_quality3_category'], 4: 'Category:' + c['proofreadpage_quality4_category']}
 
-def fetch_wikitext(titles):
-    """-> {title: (revid, wikitext)}; 50 titles per request."""
+def fetch_wikitext(titles, batch=20):
+    """-> {title: (revid, wikitext)}. Small batches; titles missing from a batch are retried one by one
+    (a lost 50-title batch silently dropped whole page ranges in the first full run)."""
     out = {}
-    for i in range(0, len(titles), 50):
-        d = api(WS, action='query', prop='revisions', rvprop='ids|content', rvslots='main', titles='|'.join(titles[i:i + 50]))
+    def grab(chunk):
+        d = api(WS, action='query', prop='revisions', rvprop='ids|content', rvslots='main', titles='|'.join(chunk))
         for pg in d.get('query', {}).get('pages', []):
             rv = (pg.get('revisions') or [None])[0]
             if rv: out[pg['title']] = (rv.get('revid'), rv['slots']['main']['content'])
+    for i in range(0, len(titles), batch):
+        chunk = titles[i:i + batch]
+        grab(chunk)
+        for t in chunk:
+            if t not in out and t.replace('_', ' ') not in out: grab([t])
     return out
 
 def commons_info(filename):
