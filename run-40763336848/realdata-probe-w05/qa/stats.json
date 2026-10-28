@@ -1,0 +1,48 @@
+{
+ "work": "w05",
+ "file": "TarikhMashrouteh.pdf",
+ "role": "train",
+ "started": "2026-10-28T20:27:15.915853+00:00",
+ "commons": {
+  "file": "TarikhMashrouteh.pdf",
+  "license": "Public domain",
+  "license_url": "",
+  "artist": "Ahmad Kasravi",
+  "date": "1940-06-30",
+  "credit": "https://archive.org/details/in.ernet.dli.2015.359655",
+  "url": "https://upload.wikimedia.org/wikipedia/commons/d/d2/TarikhMashrouteh.pdf?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "size": 31682636,
+  "sha1": "b7c397857b3a8adc070717d1f29a2fb7f0951fe3",
+  "mime": "application/pdf",
+  "page_url": "https://commons.wikimedia.org/wiki/File:TarikhMashrouteh.pdf",
+  "categories": [
+   "Category:History of the Constitutional Revolution of Iran (Ahmad Kasravi)",
+   "Category:Images with extracted images",
+   "Category:PD Iran",
+   "Category:Taban Print House",
+   "Category:Uploaded from Persian Wikipedia using UploadWizard",
+   "Category:Uploaded via Campaign:fa"
+  ],
+  "missing": false
+ },
+ "proofread_pages_total": 396,
+ "pages_sampled": 8,
+ "pdf_mb": 31.7,
+ "download_s": 1,
+ "counts": {
+  "pages": 6,
+  "tier_GOLD": 126,
+  "tier_SILVER": 32,
+  "page_skipped_complex": 1,
+  "page_skipped_short": 1
+ },
+ "line_reasons": {
+  "ok": 157,
+  "short": 9,
+  "low_sim": 2,
+  "nomatch": 2,
+  "nospan": 1,
+  "anchored": 1
+ },
+ "finished": "2026-10-28T20:27:35.906717+00:00"
+}
