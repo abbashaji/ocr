@@ -1,7 +1,7 @@
 """Exporters. Labels are stored at full fidelity; presets are applied HERE only.
 
 presets
-  folded    exactly ft/common.py clean_text + LABEL_MAP (current recipe; the stock fas unicharset lacks the dropped marks)
+  folded    ft/common.py clean_text + LABEL_MAP (current recipe) after compat_fold (presentation forms, U+0649 -> yeh; the stock fas unicharset lacks the dropped marks)
   distinct  clean_text-style normalisation (ya/kaf, Arabic-Indic digits, spaces, quotes) but KEEPS the ezafe mark U+0654 and the
             Persian punctuation ، ٫ ٬ ٪ (no LABEL_MAP, harakat other than U+0654 are removed)
 formats
@@ -16,13 +16,23 @@ import common as C
 PRESETS = ('folded', 'distinct')
 _HARAKAT_NO_EZAFE = re.compile('[\u064b-\u0653\u0655-\u065f\u0670]')
 
+_PRES = re.compile('[\ufb50-\ufdff\ufe70-\ufeff]')
+
+def compat_fold(s):
+    """Arabic Presentation Forms (e.g. U+FE8D isolated alef, found in some Wikisource transcriptions) -> base letters via
+    NFKC, and alef maksura U+0649 -> Persian yeh. Applied by BOTH presets (export time only; label_full keeps the original).
+    Without it these chars are outside the model unicharset and break/pollute training."""
+    import unicodedata
+    s = _PRES.sub(lambda m: unicodedata.normalize('NFKC', m.group(0)), s)
+    return s.replace('\u0649', '\u06cc')
+
 def distinct_text(s):
-    s = s.translate(C._NORM).translate(C._ARABIC_INDIC)
+    s = compat_fold(s).translate(C._NORM).translate(C._ARABIC_INDIC)
     s = _HARAKAT_NO_EZAFE.sub('', s)
     return re.sub(r'[ \t]+', ' ', s).strip()
 
 def folded_text(s):
-    return C.to_label(C.clean_text(s))
+    return C.to_label(C.clean_text(compat_fold(s)))
 
 def apply_preset(s, preset):
     if preset == 'folded': return folded_text(s)
