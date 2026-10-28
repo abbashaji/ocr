@@ -62,12 +62,20 @@ def main():
         json.dump(stats, open(os.path.join(a.out, 'stats.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
         print('SKIP', stats['skipped']); return 0
 
-    cats = wiki.quality_categories()
     pages = {}
-    for lvl, cat in cats.items():
-        for t in wiki.category_pages(cat):
-            m = re.match(r'^[^:]+:(.+)/(\d+)$', t)
-            if m and m.group(1).replace('_', ' ') == w['file'].replace('_', ' '): pages[int(m.group(2))] = (t, lvl)
+    for attempt in range(4):                      # the category listing failed once for a whole work (transient API error)
+        cats = wiki.quality_categories() if attempt == 0 or not cats else cats
+        pages = {}
+        for lvl, cat in cats.items():
+            for t in wiki.category_pages(cat):
+                m = re.match(r'^[^:]+:(.+)/(\d+)$', t)
+                if m and m.group(1).replace('_', ' ') == w['file'].replace('_', ' '): pages[int(m.group(2))] = (t, lvl)
+        if pages: break
+        time.sleep(15)
+    if not pages:
+        stats['error'] = 'no proofread pages found after 4 attempts'
+        json.dump(stats, open(os.path.join(a.out, 'stats.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+        raise SystemExit('no proofread pages found for ' + w['file'])
     nums = sorted(pages)
     stats['proofread_pages_total'] = len(nums)
     skip = w.get('skip_edges', 4)
@@ -79,6 +87,11 @@ def main():
     stats['pages_sampled'] = len(pool)
 
     texts = wiki.fetch_wikitext([pages[n][0] for n in pool])
+    for _ in range(2):                           # second chance for anything still missing
+        miss = [pages[n][0] for n in pool if pages[n][0] not in texts]
+        if not miss: break
+        texts.update(wiki.fetch_wikitext(miss, batch=5))
+    stats['wikitext_missing'] = sum(1 for n in pool if pages[n][0] not in texts)
     if a.debug_wikitext:
         for n in pool[:a.debug_wikitext]:
             t = pages[n][0]
@@ -106,6 +119,11 @@ def main():
         pth = os.path.join(a.out, outs[0]); img = Image.open(pth).convert('L')
         recs, pinfo = process_page(img, gt, a.tessdata, a.workers)
         n_pages_done += 1; cnt['pages'] += 1
+        if a.debug_wikitext and n_pages_done == 1:   # visual debugging in probe runs: page thumbnail + first crops
+            th = img.copy(); th.thumbnail((900, 1300)); th.convert('L').save(os.path.join(a.out, 'debug_page.jpg'), quality=80)
+            print('PAGE', img.size, 'lines', pinfo.get('n_lines'), 'deskew', pinfo.get('deskew'), [(r['y0'], r['y1'], r['ocr'][:30]) for r, _ in recs[:6]])
+            for j, (r, c) in enumerate(recs[:4]):
+                if c is not None: c.save(os.path.join(a.out, f'debug_crop{j}.png'))
         keep = 0
         for rec, crop in recs:
             reasons[rec['reason'] or 'ok'] += 1
