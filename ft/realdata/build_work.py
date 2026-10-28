@@ -47,14 +47,14 @@ def main():
     ap.add_argument('--tessdata', required=True); ap.add_argument('--out', required=True)
     ap.add_argument('--max-pages', type=int, default=None); ap.add_argument('--dpi', type=int, default=None)
     ap.add_argument('--workers', type=int, default=4); ap.add_argument('--seed', type=int, default=20261027)
-    ap.add_argument('--debug-wikitext', type=int, default=0)
+    ap.add_argument('--debug-wikitext', type=int, default=0); ap.add_argument('--max-h', type=int, default=64)
     a = ap.parse_args()
     import wiki
     cfg = json.load(open(a.config, encoding='utf-8'))
     w = next(x for x in cfg['works'] if x['id'] == a.work)
     max_pages = a.max_pages or w.get('max_pages', 300); dpi = a.dpi or w.get('dpi', 200)
     os.makedirs(os.path.join(a.out, 'lines'), exist_ok=True)
-    stats = dict(work=w['id'], file=w['file'], role=w['role'], started=datetime.datetime.utcnow().isoformat() + 'Z')
+    stats = dict(work=w['id'], file=w['file'], role=w['role'], started=datetime.datetime.now(datetime.timezone.utc).isoformat())
 
     info = wiki.commons_info(w['file']); stats['commons'] = info
     if info['missing'] or not wiki.license_ok(info['license']):
@@ -114,7 +114,10 @@ def main():
                 if key in seen_labels: rec.update(tier=None, reason='duplicate'); continue
                 seen_labels.add(key)
                 lid = f"{w['id']}_p{n:04d}_l{rec['idx']:02d}"
-                crop.save(os.path.join(a.out, 'lines', lid + '.png'))
+                if crop.height > a.max_h:                      # store at <= max_h px height (Tesseract/Paddle rescale anyway)
+                    crop = crop.resize((max(1, round(crop.width * a.max_h / crop.height)), a.max_h), Image.LANCZOS)
+                rec['w'], rec['h'] = crop.size
+                crop.save(os.path.join(a.out, 'lines', lid + '.png'), optimize=True)
                 rec.update(id=lid, work=w['id'], page=n, revid=revid, page_title=title, quality=level, role=w['role'],
                            deskew=pinfo['deskew'], dpi=dpi, page_w=pinfo['size'][0], page_h=pinfo['size'][1])
                 jl.write(json.dumps(rec, ensure_ascii=False) + '\n'); keep += 1; cnt['tier_' + rec['tier']] += 1
@@ -132,7 +135,7 @@ def main():
         os.remove(pth)
         if n_pages_done % 25 == 0: print(f'[{w["id"]}] {n_pages_done}/{len(pool)} pages, {cnt["tier_GOLD"]} GOLD lines', flush=True)
     jl.close(); os.remove(pdf)
-    stats.update(counts=dict(cnt), line_reasons=dict(reasons), finished=datetime.datetime.utcnow().isoformat() + 'Z')
+    stats.update(counts=dict(cnt), line_reasons=dict(reasons), finished=datetime.datetime.now(datetime.timezone.utc).isoformat())
     json.dump(stats, open(os.path.join(a.out, 'stats.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     print(json.dumps(stats['counts'], ensure_ascii=False)); return 0
 
