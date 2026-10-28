@@ -19,6 +19,19 @@ def deskew_angle(gray, max_deg=2.0, step=0.25):
         if v > best_v: best, best_v = float(ang), v
     return best
 
+def strip_dark_borders(gray, dark_frac=0.5):
+    """Trim scanner borders / dark margins: peel rows and columns off each edge while more than dark_frac of their pixels are dark."""
+    a = np.asarray(gray); dark = a < segment.otsu(a)
+    def span(v):
+        i, j = 0, len(v)
+        while i < j and v[i] > dark_frac: i += 1
+        while j > i and v[j - 1] > dark_frac: j -= 1
+        return i, j
+    x0, x1 = span(dark.mean(0)); y0, y1 = span(dark.mean(1))
+    if (x1 - x0) > 0.5 * gray.width and (y1 - y0) > 0.5 * gray.height and (x0, y0, x1, y1) != (0, 0, gray.width, gray.height):
+        return gray.crop((x0, y0, x1, y1)), (x0, y0, x1, y1)
+    return gray, None
+
 def page_lines(img, deskew_if_over=0.4):
     """-> (gray, [dict(band=(y0,y1), crop=PIL gray crop (full width, product crop), top=int)], info)"""
     rgb = imageprep.load_image(img)
@@ -30,6 +43,11 @@ def page_lines(img, deskew_if_over=0.4):
         gray = gray.rotate(ang, resample=Image.BICUBIC, expand=False, fillcolor=int(np.median(np.asarray(gray))))
         info['deskew'] = ang
     bands = segment.segment_lines(gray)
+    if len(bands) <= 2:                       # fallback only when the product segmenter fails (e.g. black scanner borders)
+        g2, box = strip_dark_borders(gray)
+        if box is not None:
+            b2 = segment.segment_lines(g2)
+            if len(b2) > len(bands): gray, bands = g2, b2; info['border_crop'] = list(box)
     cr = segment.crops(gray, bands)
     return gray, [dict(band=b, crop=c, top=t) for b, (c, t) in zip(bands, cr)], info
 
