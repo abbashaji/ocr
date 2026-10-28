@@ -10,14 +10,14 @@ page text (never OCR output). Built 2026-10-28; rebuild: GitHub Actions -> `buil
 | final/GOLD | 3382 |
 | final/GOLD_A | 6 |
 | final/SILVER | 2788 |
-| train/GOLD | 14465 |
-| train/GOLD_A | 19 |
-| train/SILVER | 7958 |
+| train/GOLD | 19786 |
+| train/GOLD_A | 25 |
+| train/SILVER | 10739 |
 | tune/GOLD | 2859 |
 | tune/GOLD_A | 6 |
 | tune/SILVER | 407 |
 
-Total lines: 31890. Splits are by WORK: train / tune / final (final = held-out real-scan benchmark).
+Total lines: 39998. Splits are by WORK: train / tune / final (final = held-out real-scan benchmark).
 Tiers: GOLD = unambiguous alignment, similarity >= 0.93; GOLD_A = anchored between two GOLD neighbours; SILVER = weaker alignment
 (0.80-0.93) - train on GOLD/GOLD_A first. Dropped lines and reasons: see `stats.json` (`drops`, `line_reasons_total`).
 

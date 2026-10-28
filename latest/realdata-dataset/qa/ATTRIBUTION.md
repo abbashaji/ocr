@@ -6,22 +6,22 @@ Each underlying work carries the Commons licence shown below at retrieval time. 
 
 | id | split | work (Commons file) | author | date | Commons licence | lines used | Commons page |
 |---|---|---|---|---|---|---|---|
-| w01 | train | Tarikh-e Iran-e Bastan.pdf | Hassan Pirnia | 1926 | Public domain | 3773 | https://commons.wikimedia.org/wiki/File:Tarikh-e_Iran-e_Bastan.pdf |
-| w02 | train | SeyrHekmatDarOrupa.pdf | Mohammad Ali Foroughi |  | Public domain | 1537 | https://commons.wikimedia.org/wiki/File:SeyrHekmatDarOrupa.pdf |
+| w01 | train | Tarikh-e Iran-e Bastan.pdf | Hassan Pirnia | 1926 | Public domain | 3648 | https://commons.wikimedia.org/wiki/File:Tarikh-e_Iran-e_Bastan.pdf |
+| w02 | train | SeyrHekmatDarOrupa.pdf | Mohammad Ali Foroughi |  | Public domain | 2638 | https://commons.wikimedia.org/wiki/File:SeyrHekmatDarOrupa.pdf |
 | w03 | train | IranDarZamanSasanian.pdf | آرتور کریستین سن | 1935 | Public domain | 1434 | https://commons.wikimedia.org/wiki/File:IranDarZamanSasanian.pdf |
-| w04 | train | Tarikhe 500 Saleh Khouzestan.pdf | Ahmad Kasrawi | 1933 | Public domain | 1330 | https://commons.wikimedia.org/wiki/File:Tarikhe_500_Saleh_Khouzestan.pdf |
-| w05 | train | TarikhMashrouteh.pdf | Ahmad Kasravi | 1940-06-30 | Public domain | 0 | https://commons.wikimedia.org/wiki/File:TarikhMashrouteh.pdf |
+| w04 | train | Tarikhe 500 Saleh Khouzestan.pdf | Ahmad Kasrawi | 1933 | Public domain | 2271 | https://commons.wikimedia.org/wiki/File:Tarikhe_500_Saleh_Khouzestan.pdf |
+| w05 | train | TarikhMashrouteh.pdf | Ahmad Kasravi | 1940-06-30 | Public domain | 1968 | https://commons.wikimedia.org/wiki/File:TarikhMashrouteh.pdf |
 | w06 | train | 3 Sal Dar Darbar-e Iran.pdf | Jean-Baptiste Feuvrier | 1947 | Public domain | 1951 | https://commons.wikimedia.org/wiki/File:3_Sal_Dar_Darbar-e_Iran.pdf |
 | w07 | train | Tarikh-e Tabarestan.pdf | Ibn Isfandiyar | 1945 | Public domain | 998 | https://commons.wikimedia.org/wiki/File:Tarikh-e_Tabarestan.pdf |
 | w08 | train | Gharbzadegi.pdf | Jalal Al-e-Ahmad | 2017-06-01 | Public domain | 1664 | https://commons.wikimedia.org/wiki/File:Gharbzadegi.pdf |
 | w09 | train | ModireMadrese.pdf | جلال آل‌احمد | 1966-05-05 | Public domain | 1689 | https://commons.wikimedia.org/wiki/File:ModireMadrese.pdf |
 | w10 | train | Neyrangestaan.pdf | Sadegh Hedayat |  | Public domain | 1387 | https://commons.wikimedia.org/wiki/File:Neyrangestaan.pdf |
-| w11 | train | Jondi Shapour Magazine, no. 2.pdf | JondiShapour magazine | 2015 | CC BY-SA 4.0 | 1583 | https://commons.wikimedia.org/wiki/File:Jondi_Shapour_Magazine,_no._2.pdf |
+| w11 | train | Jondi Shapour Magazine, no. 2.pdf | JondiShapour magazine | 2015 | CC BY-SA 4.0 | 1584 | https://commons.wikimedia.org/wiki/File:Jondi_Shapour_Magazine,_no._2.pdf |
 | w12 | train | IOHP-Interview-Alikhani.pdf | حبیب لاجوردی | 1984-10-09 | CC BY 4.0 | 2343 | https://commons.wikimedia.org/wiki/File:IOHP-Interview-Alikhani.pdf |
-| w13 | train | تاریخ روابط ایران و انگلیس (جلد۱).pdf | Mahmud Mahmud | 1949-11-06 | CC0 | 314 | https://commons.wikimedia.org/wiki/File:تاریخ_روابط_ایران_و_انگلیس_(جلد۱).pdf |
+| w13 | train | تاریخ روابط ایران و انگلیس (جلد۱).pdf | Mahmud Mahmud | 1949-11-06 | CC0 | 1920 | https://commons.wikimedia.org/wiki/File:تاریخ_روابط_ایران_و_انگلیس_(جلد۱).pdf |
 | w14 | train | GheseHayeBehrang.pdf | Samad Behrangi | 1977 | Public domain | 1940 | https://commons.wikimedia.org/wiki/File:GheseHayeBehrang.pdf |
 | w15 | train | Archive of Šarq magazine.pdf | Mohammad Ramazani | 1924 | Public domain | 0 | https://commons.wikimedia.org/wiki/File:Archive_of_Šarq_magazine.pdf |
-| w16 | train | تاریخ جراید و مجلات ایران از محمد صدر هاشمی جلد اول.pdf | Mohammad Sadr Hashemi |  | Public domain | 499 | https://commons.wikimedia.org/wiki/File:تاریخ_جراید_و_مجلات_ایران_از_محمد_صدر_هاشمی_جلد_اول.pdf |
+| w16 | train | تاریخ جراید و مجلات ایران از محمد صدر هاشمی جلد اول.pdf | Mohammad Sadr Hashemi |  | Public domain | 3115 | https://commons.wikimedia.org/wiki/File:تاریخ_جراید_و_مجلات_ایران_از_محمد_صدر_هاشمی_جلد_اول.pdf |
 | w17 | tune | Sage-velgard.pdf | Sadegh Hedayat | 1936-01-01 | Public domain | 1122 | https://commons.wikimedia.org/wiki/File:Sage-velgard.pdf |
 | w18 | tune | Tarikhe Now.pdf | A book by Abbas Eghbal | 1958 | Public domain | 1148 | https://commons.wikimedia.org/wiki/File:Tarikhe_Now.pdf |
 | w19 | tune | Jondi Shapour Magazine, no. 3.pdf | JondiShapour magazine | 2015 | CC BY-SA 4.0 | 1002 | https://commons.wikimedia.org/wiki/File:Jondi_Shapour_Magazine,_no._3.pdf |
