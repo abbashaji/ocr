@@ -1,61 +1,61 @@
 {
- "built": "2026-10-29T10:19:03.719719+00:00",
- "n_lines": 40182,
+ "built": "2026-10-29T23:02:10.840077+00:00",
+ "n_lines": 38391,
  "drops": {
-  "loaded": 40282,
+  "loaded": 38615,
   "duplicate_across_works": 25,
-  "leak_eval_shingle": 8,
-  "leak_train_vs_final": 67
+  "leak_eval_shingle": 131,
+  "leak_eval_substring": 4,
+  "leak_train_vs_final": 64
  },
  "by_split_tier": {
-  "final/GOLD": 3382,
+  "final/GOLD": 3372,
   "final/GOLD_A": 6,
-  "final/SILVER": 2788,
-  "train/GOLD": 19859,
+  "final/SILVER": 2783,
+  "train/GOLD": 18177,
   "train/GOLD_A": 24,
-  "train/SILVER": 10851,
-  "tune/GOLD": 2859,
+  "train/SILVER": 10770,
+  "tune/GOLD": 2847,
   "tune/GOLD_A": 6,
-  "tune/SILVER": 407
+  "tune/SILVER": 406
  },
  "by_work": {
-  "w01": 3648,
-  "w02": 2638,
-  "w03": 1434,
-  "w04": 2271,
-  "w05": 1968,
-  "w06": 1951,
-  "w07": 1182,
-  "w08": 1664,
-  "w09": 1689,
+  "w01": 3631,
+  "w02": 2628,
+  "w03": 1431,
+  "w04": 2267,
+  "w05": 1967,
+  "w06": 1945,
+  "w07": 1166,
+  "w09": 1688,
   "w10": 1387,
-  "w11": 1584,
-  "w12": 2343,
-  "w13": 1920,
+  "w11": 1562,
+  "w12": 2335,
+  "w13": 1917,
   "w14": 1940,
-  "w16": 3115,
+  "w16": 3107,
   "w17": 1122,
-  "w18": 1148,
-  "w19": 1002,
-  "w20": 2293,
-  "w21": 2039,
-  "w22": 1704,
-  "w23": 140
+  "w18": 1147,
+  "w19": 990,
+  "w20": 2288,
+  "w21": 2032,
+  "w22": 1702,
+  "w23": 139
  },
  "chars": {
-  "train": 1926212,
-  "tune": 210999,
-  "final": 436195
+  "train": 1812079,
+  "tune": 210025,
+  "final": 435042
  },
  "line_reasons_total": {
-  "short": 5254,
-  "ok": 41326,
-  "ambiguous": 6206,
-  "low_sim": 1955,
-  "nomatch": 1980,
-  "anchored": 127,
+  "short": 5070,
+  "ok": 39535,
+  "ambiguous": 6078,
+  "low_sim": 1923,
+  "nomatch": 1717,
+  "anchored": 125,
   "nospan": 61,
-  "non_persian": 6
+  "non_persian": 5
  },
  "works": {
   "w01": {
@@ -155,17 +155,11 @@
    }
   },
   "w08": {
-   "commons_license": "Public domain",
-   "skipped": null,
-   "proofread_pages_total": 188,
-   "pages_sampled": 120,
-   "counts": {
-    "page_skipped_short": 3,
-    "pages": 115,
-    "tier_GOLD": 1616,
-    "tier_SILVER": 51,
-    "page_skipped_complex": 2
-   }
+   "commons_license": "",
+   "skipped": "licence not accepted: '' missing=True",
+   "proofread_pages_total": null,
+   "pages_sampled": null,
+   "counts": null
   },
   "w09": {
    "commons_license": "Public domain",
@@ -365,5 +359,11 @@
     "page_skipped_complex": 23
    }
   }
+ },
+ "leak_reference": {
+  "titles_requested": 31,
+  "titles_fetched": 31,
+  "missing": [],
+  "chars": 1432480
  }
 }

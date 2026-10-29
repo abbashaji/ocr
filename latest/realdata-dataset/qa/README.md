@@ -7,17 +7,17 @@ page text (never OCR output). Built 2026-10-29; rebuild: GitHub Actions -> `buil
 ## Counts (after dedupe and leakage filtering)
 | split/tier | lines |
 |---|---|
-| final/GOLD | 3382 |
+| final/GOLD | 3372 |
 | final/GOLD_A | 6 |
-| final/SILVER | 2788 |
-| train/GOLD | 19859 |
+| final/SILVER | 2783 |
+| train/GOLD | 18177 |
 | train/GOLD_A | 24 |
-| train/SILVER | 10851 |
-| tune/GOLD | 2859 |
+| train/SILVER | 10770 |
+| tune/GOLD | 2847 |
 | tune/GOLD_A | 6 |
-| tune/SILVER | 407 |
+| tune/SILVER | 406 |
 
-Total lines: 40182. Splits are by WORK: train / tune / final (final = held-out real-scan benchmark).
+Total lines: 38391. Splits are by WORK: train / tune / final (final = held-out real-scan benchmark).
 Tiers: GOLD = unambiguous alignment, similarity >= 0.93; GOLD_A = anchored between two GOLD neighbours; SILVER = weaker alignment
 (0.80-0.93) - train on GOLD/GOLD_A first. Dropped lines and reasons: see `stats.json` (`drops`, `line_reasons_total`).
 
@@ -32,7 +32,7 @@ Tiers: GOLD = unambiguous alignment, similarity >= 0.93; GOLD_A = anchored betwe
 - `ATTRIBUTION.md`, `stats.json`, `contact_sheet.html` (100 random GOLD lines, RTL)
 
 ## Presets (applied only when exporting; the manifest keeps full fidelity)
-- folded  = `ft/common.py` clean_text + LABEL_MAP (ezafe and harakat dropped, ، ٬ -> ",", ٫ -> ".", ٪ and % -> "#", ; -> ؛, dashes -> "-").
+- folded  = `ft/common.py` clean_text + LABEL_MAP applied AFTER `export.compat_fold` (Arabic presentation forms and U+0649 folded to base letters; both presets do this) (ezafe and harakat dropped, ، ٬ -> ",", ٫ -> ".", ٪ and % -> "#", ; -> ؛, dashes -> "-").
   With `--unicharset` lines containing characters outside the model's unicharset are dropped (as in make_train_data.py).
 - distinct = same normalisation of ya/kaf/digits/spaces/quotes, but KEEPS the ezafe mark U+0654 and ، ٫ ٬ ٪.
 
