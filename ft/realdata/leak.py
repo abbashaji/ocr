@@ -9,23 +9,24 @@ def titles_from(path):
     return [t.strip() for t in open(path, encoding='utf-8') if t.strip() and not t.startswith('#')]
 
 def fetch_texts(titles):
-    """-> {title: plain text}. Uses the TextExtracts API (explaintext); 20 titles per request."""
+    """-> {title: plain text}. One request per title: TextExtracts returns only ONE full-text extract per request
+    (the first full run fetched 2 of 31 articles with a 20-title batch, so the leakage check was nearly empty)."""
     out = {}
-    for i in range(0, len(titles), 20):
-        d = wiki.api('https://fa.wikipedia.org/w/api.php', action='query', prop='extracts', explaintext=1, exlimit='max',
-                     titles='|'.join(titles[i:i + 20]), redirects=1)
+    for t in titles:
+        d = wiki.api('https://fa.wikipedia.org/w/api.php', action='query', prop='extracts', explaintext=1, titles=t, redirects=1)
         for pg in d.get('query', {}).get('pages', []):
-            if pg.get('extract'): out[pg['title']] = pg['extract']
+            if pg.get('extract'): out[t] = pg['extract']
     return out
 
-def build(articles_path, extra_files=(), out_path=None):
+def build(articles_path, extra_files=(), out_path=None, min_coverage=0.9):
     titles = titles_from(articles_path) + EXTRA_TITLES
     texts = fetch_texts(titles)
+    if len(texts) < min_coverage * len(titles):          # fail loudly: a silent partial reference makes the leakage check meaningless
+        raise SystemExit(f'leakage reference incomplete: {len(texts)}/{len(titles)} articles fetched')
     blob = '\n'.join(texts.values())
     for f in extra_files:
         if os.path.exists(f): blob += '\n' + open(f, encoding='utf-8').read()
-    meta = dict(titles_requested=len(titles), titles_fetched=len(texts), missing=[t for t in titles if t not in texts and t not in {k for k in texts}],
-                chars=len(blob))
+    meta = dict(titles_requested=len(titles), titles_fetched=len(texts), missing=[t for t in titles if t not in texts], chars=len(blob))
     if out_path:
         open(out_path, 'w', encoding='utf-8').write(blob)
         json.dump(meta, open(out_path + '.json', 'w', encoding='utf-8'), ensure_ascii=False)
