@@ -38,7 +38,28 @@ TEXT_COLORS = [(0, 0, 0), (32, 33, 34), (32, 33, 34), (6, 69, 173), (51, 102, 20
 # lstmtraining --old_traineddata was tested and is lossy (BCER 15% -> 28% on lines without any new character), so
 # instead the glyphs are trained onto existing, otherwise unused classes and restored by context rules afterwards
 # (pipeline2.restore_placeholders). The image keeps the real glyph; only the training LABEL is mapped.
-LABEL_MAP = {'،': ',', '٬': ',', '٫': '.', '٪': '#', '%': '#', ';': '؛', '–': '-', '—': '-'}
+# That is the `folded` scheme (default). The schemes below are the TASK C experiment: distinct classes with a properly extended unicharset.
+# ---- label schemes ----------------------------------------------------------------------------
+# FT_LABEL_SCHEME (env, read at import; or call set_scheme()):
+#   folded          current recipe: FOLDED_MAP below, harakat (incl. the ezafe mark U+0654) removed.
+#   distinct        keeps the Persian punctuation classes ، ٫ ٬ ٪ as labels (needs a unicharset that contains them, see
+#                   ft/extend_unicharset.py); only % -> ٪ is folded.
+#   distinct_ezafe  distinct + the ezafe mark: ۀ and ه+U+0654 are both labelled as ه + U+0654 (a separate class).
+FOLDED_MAP = {'،': ',', '٬': ',', '٫': '.', '٪': '#', '%': '#', ';': '؛', '–': '-', '—': '-'}
+DISTINCT_MAP = {'%': '٪', ';': '؛', '–': '-', '—': '-'}
+NEW_CLASSES = {'folded': '', 'distinct': '،٫٬٪', 'distinct_ezafe': '،٫٬٪\u0654'}   # chars missing from the stock unicharset
+EZAFE = '\u0654'
+SCHEMES = tuple(NEW_CLASSES)
+LABEL_SCHEME = os.environ.get('FT_LABEL_SCHEME', 'folded')
+LABEL_MAP = dict(FOLDED_MAP if LABEL_SCHEME == 'folded' else DISTINCT_MAP)   # kept as a module-level dict for old callers
+
+def set_scheme(name):
+    """Switch the label scheme at run time (also updates LABEL_MAP in place so `C.LABEL_MAP` users see it)."""
+    global LABEL_SCHEME
+    if name not in SCHEMES: raise ValueError(f'unknown label scheme {name!r}; use one of {SCHEMES}')
+    LABEL_SCHEME = name
+    LABEL_MAP.clear(); LABEL_MAP.update(FOLDED_MAP if name == 'folded' else DISTINCT_MAP)
+
 def to_label(text):
     return ''.join(LABEL_MAP.get(c, c) for c in text)
 PERSIAN_DIGITS = '۰۱۲۳۴۵۶۷۸۹'
@@ -46,10 +67,17 @@ _ARABIC_INDIC = str.maketrans('٠١٢٣٤٥٦٧٨٩', PERSIAN_DIGITS)
 _NORM = str.maketrans({'ي': 'ی', 'ك': 'ک', 'ة': 'ه', 'ۀ': 'ه', '\u00a0': ' ', '\u2009': ' ', '\u202f': ' ', '\u200b': '', '\u200e': '', '\u200f': '', '\u202a': '', '\u202b': '', '\u202c': '', '\ufeff': '', '‐': '-', '‑': '-', '−': '-', '“': '«', '”': '»', '‘': "'", '’': "'", '…': '...'})
 MARKER = re.compile(r'\[\s*[0-9۰-۹٠-٩]+\s*\]')                    # citation markers like [۱۱]
 HARAKAT = re.compile('[\u064b-\u065f\u0670]')
+_HARAKAT_KEEP_EZAFE = re.compile('[\u064b-\u0653\u0655-\u065f\u0670]')
+_STRAY_EZAFE = re.compile('(?<!ه)\u0654')                         # the mark is only kept after heh (سدهٔ); after other letters it is dropped
 
 def clean_text(s):
-    s = s.translate(_NORM).translate(_ARABIC_INDIC)
-    s = HARAKAT.sub('', s)
+    if LABEL_SCHEME == 'distinct_ezafe':
+        s = s.replace('ۀ', 'ه' + EZAFE)                            # precomposed heh-with-yeh-above carries the same ezafe
+        s = s.translate(_NORM).translate(_ARABIC_INDIC)
+        s = _STRAY_EZAFE.sub('', _HARAKAT_KEEP_EZAFE.sub('', s))
+    else:
+        s = s.translate(_NORM).translate(_ARABIC_INDIC)
+        s = HARAKAT.sub('', s)
     return re.sub(r'[ \t]+', ' ', s).strip()
 
 def load_unicharset(path):
@@ -63,7 +91,8 @@ def load_unicharset(path):
     return chars
 
 def keep_line(s, allowed):
-    """True when every non-space char is in the model's unicharset or has a placeholder label."""
+    """True when every non-space char is in the model's unicharset or has a placeholder label.
+    (With a distinct scheme the extended unicharset must already contain the new classes, otherwise those lines are dropped.)"""
     return all((c in allowed) or (c in LABEL_MAP) or c == ' ' for c in s)
 
 # ---- rendering --------------------------------------------------------------------------------
@@ -172,6 +201,20 @@ def digit_phrase(rng):
     ]
     rng.shuffle(pieces)
     return ' '.join(pieces[:rng.randint(2, 5)])
+
+def inject_ezafe(text, rng, p=0.25):
+    """distinct_ezafe only: put the ezafe mark on a share p of the words that end in heh (and have none yet), except the last word.
+    Wikipedia text rarely contains the mark, but printed books do (سدهٔ), so the glyph is taught by rendering it; the label gets it too.
+    No grammar is checked: the model must learn the SHAPE of the mark, not when it is grammatical."""
+    w = text.split(' ')
+    for i in range(len(w) - 1):
+        if w[i].endswith('ه') and rng.random() < p: w[i] += EZAFE
+    return ' '.join(w)
+
+# characters whose label differs between schemes; a line without any of them has the same label in every scheme ("plain" line)
+SCHEME_SENSITIVE = set('،٫٬٪%;–—' + EZAFE)
+def is_plain(text):
+    return not any(c in SCHEME_SENSITIVE for c in text)
 
 def corpus_line(words, rng, lo=4, hi=15):
     n = rng.randint(lo, hi)
