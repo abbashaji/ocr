@@ -1,0 +1,232 @@
+name: label-experiment
+
+# TASK C: does a distinct label design (separate classes for ، ٫ ٬ ٪ and the ezafe mark ٔ) beat the folded recipe?
+# One training job per label scheme (same corpus, same real lines, same seed, same budget), one evaluation job per scheme on the SAME
+# freshly screenshotted tests, then a summary table. The default scheme list is folded (control), distinct, distinct_ezafe.
+# Results (train_summary.json, fas_ft_<scheme>.traineddata, eval.md/json, labels.json, summary.md) go to the `results` branch.
+on:
+  workflow_dispatch:
+    inputs:
+      quick:
+        description: 'Smoke run: 3 MB corpus, 6 articles, 1500 synthetic + 300 real lines, 1500 iterations'
+        type: boolean
+        default: true
+      schemes:
+        description: 'Comma separated label schemes to run (folded,distinct,distinct_ezafe)'
+        default: 'folded,distinct,distinct_ezafe'
+      n_train:
+        description: 'Synthetic training lines per scheme (full run)'
+        default: '30000'
+      n_real:
+        description: 'Real scanned lines (realdata GOLD train) mixed in per scheme; 0 = none (full run)'
+        default: '20000'
+      max_it:
+        description: 'Max training iterations (full run)'
+        default: '150000'
+      max_minutes:
+        description: 'Training time limit in minutes (job cap is 350, data generation needs about 50)'
+        default: '235'
+      lr:
+        description: 'Learning rate (train.sh sets --reset_learning_rate)'
+        default: '0.00001'
+      ezafe_p:
+        description: 'distinct_ezafe: share of heh-final words rendered with the mark'
+        default: '0.25'
+      corpus_mb:
+        description: 'Corpus size in MB (full run, bulk dump source)'
+        default: '100'
+      real_release:
+        description: 'GitHub release tag with the realdata exports (TASK F)'
+        default: 'realdata-40763772759'
+      evaluate_sets:
+        description: 'Sets for evaluate.py'
+        default: 'client,real_tune,real_final'
+
+permissions:
+  contents: write
+
+env:
+  QUICK: ${{ inputs.quick && '1' || '0' }}
+  FT_FONTS: ${{ github.workspace }}/fonts
+
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+    steps:
+      - id: m
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          s = [x.strip() for x in "${{ inputs.schemes }}".split(',') if x.strip()]
+          assert s and all(x in ('folded', 'distinct', 'distinct_ezafe') for x in s), s
+          print('matrix=' + json.dumps({'scheme': s}))
+          PY
+
+  corpus:
+    # ONE corpus for all schemes, built with the ezafe-KEEPING cleaner (FT_LABEL_SCHEME=distinct_ezafe); every scheme's own clean_text
+    # drops what it does not label. Cache prefix corpusdump-ez- is separate from the old corpusdump- cache (that one has no ezafe marks).
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install beautifulsoup4 lxml python-bidi numpy pillow pyarrow
+      - id: cache
+        if: ${{ env.QUICK == '0' }}
+        uses: actions/cache/restore@v4
+        with:
+          path: corpus.txt
+          key: corpusdump-ez-none
+          restore-keys: corpusdump-ez-
+      - name: Build corpus (bulk dump, ezafe kept)
+        if: ${{ steps.cache.outputs.cache-matched-key == '' }}
+        env: { FT_LABEL_SCHEME: distinct_ezafe }
+        run: |
+          MB=${{ inputs.corpus_mb }}; MIN=60
+          if [ "$QUICK" = "1" ]; then MB=3; MIN=30; fi
+          mkdir -p out; cat ft/articles.txt ft/corpus_exclude_extra.txt > excl_all.txt
+          python ft/fetch_corpus_dump.py --out corpus.txt --exclude excl_all.txt --stats out/corpus_stats.json --target-mb "$MB" --max-minutes "$MIN"
+      - name: Save corpus cache
+        if: ${{ env.QUICK == '0' && steps.cache.outputs.cache-matched-key == '' }}
+        uses: actions/cache/save@v4
+        with:
+          path: corpus.txt
+          key: corpusdump-ez-${{ github.run_id }}
+      - name: Corpus statistics for the label classes
+        run: |
+          mkdir -p out
+          python3 - <<'PY' > out/corpus_labels.json
+          import json, re
+          L = [l.rstrip('\n') for l in open('corpus.txt', encoding='utf-8') if l.strip()]
+          txt = '\n'.join(L)
+          c = lambda ch: txt.count(ch)
+          heh = len(re.findall('ه(?=[\\s.,؛:،)»]|$)', txt))
+          print(json.dumps(dict(paragraphs=len(L), mb=round(len(txt.encode()) / 1e6, 2), ezafe_marks=c('\u0654'), heh_final_words=heh, ezafe_share_of_heh_final=round(c('\u0654') / max(1, heh + c('\u0654')), 4),
+                                comma_arabic=c('،'), decimal_sep=c('٫'), thousands_sep=c('٬'), percent_arabic=c('٪'), percent_ascii=c('%'), ascii_comma=c(','), ascii_period=c('.')), ensure_ascii=False))
+          PY
+          cat out/corpus_labels.json
+      - uses: actions/upload-artifact@v4
+        with: { name: corpus_ez, path: corpus.txt, retention-days: 7 }
+      - if: always()
+        env: { GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}' }
+        run: bash ft/publish_results.sh corpus out
+
+  tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Persian fonts for the browser
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq fonts-noto-core fonts-dejavu-core fontconfig
+          mkdir -p ~/.fonts
+          curl -sL -o ~/.fonts/Vazirmatn-Regular.ttf https://github.com/rastikerdar/vazirmatn/raw/master/fonts/ttf/Vazirmatn-Regular.ttf
+          fc-cache -f
+      - run: pip install playwright pillow && python -m playwright install --with-deps chromium
+      - name: Screenshot pinned articles
+        shell: bash
+        run: |
+          grep -v '^#' ft/articles.txt | grep -v '^$' > arts.txt
+          B=3; if [ "$QUICK" = "1" ]; then head -n 6 arts.txt > arts_q.txt; mv arts_q.txt arts.txt; B=2; fi
+          python ft/make_tests.py --articles arts.txt --out tests --blocks $B 2>&1 | tee tests_log.txt
+          echo "{\"images\": $(ls tests/*/*.txt | wc -l), \"tune\": $(ls tests/tune/*.txt 2>/dev/null | wc -l), \"final\": $(ls tests/final/*.txt 2>/dev/null | wc -l)}" | tee tests_stats.json
+      - uses: actions/upload-artifact@v4
+        with: { name: tests, path: tests, retention-days: 7 }
+      - if: always()
+        env: { GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}' }
+        run: bash ft/publish_results.sh tests tests_log.txt tests_stats.json
+
+  train:
+    needs: [plan, corpus, tests]
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.plan.outputs.matrix) }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Install tools and fonts
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-eng libraqm0 fonts-dejavu-core
+          pip install pillow numpy python-bidi fonttools
+          mkdir -p fonts tess
+          B=https://github.com/notofonts/notofonts.github.io/raw/main/fonts
+          curl -sL -o fonts/Vazirmatn.ttf     https://github.com/rastikerdar/vazirmatn/raw/master/fonts/ttf/Vazirmatn-Regular.ttf
+          curl -sL -o fonts/VazirmatnBold.ttf https://github.com/rastikerdar/vazirmatn/raw/master/fonts/ttf/Vazirmatn-Bold.ttf
+          curl -sL -o fonts/NotoNaskh.ttf     $B/NotoNaskhArabic/hinted/ttf/NotoNaskhArabic-Regular.ttf
+          curl -sL -o fonts/NotoNaskhBold.ttf $B/NotoNaskhArabic/hinted/ttf/NotoNaskhArabic-Bold.ttf
+          curl -sL -o fonts/NotoKufi.ttf      $B/NotoKufiArabic/hinted/ttf/NotoKufiArabic-Regular.ttf
+          cp /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf fonts/DejaVu.ttf; cp /usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf fonts/DejaVuBold.ttf
+          curl -sL -o tess/fas.traineddata https://github.com/tesseract-ocr/tessdata_best/raw/main/fas.traineddata
+          which combine_lang_model unicharset_extractor merge_unicharsets lstmtraining; tesseract --version | head -1
+      - uses: actions/download-artifact@v4
+        with: { name: corpus_ez, path: . }
+      - name: Real scanned lines (TASK F release, distinct preset, GOLD train + tune; never the final split)
+        if: ${{ env.QUICK == '1' || inputs.n_real != '0' }}
+        run: |
+          mkdir -p real
+          curl -sL --retry 3 -o real.tgz "https://github.com/abbashaji/ocr/releases/download/${{ inputs.real_release }}/export-tesseract_distinct_gold.tar.gz"
+          tar -xzf real.tgz -C real --wildcards '*/train/*' '*/tune/*'; rm real.tgz
+          D=$(dirname "$(find real -maxdepth 2 -type d -name train | head -1)"); echo "REAL_DIR=$PWD/$D" >> "$GITHUB_ENV"
+          ls "$D/train" | wc -l; ls "$D/tune" | wc -l
+      - name: Fine-tune (${{ matrix.scheme }})
+        run: |
+          export CORPUS=$PWD/corpus.txt BASE=$PWD/tess/fas.traineddata OUT=$PWD/ftwork LR=${{ inputs.lr }} SCHEME=${{ matrix.scheme }} EZAFE_P=${{ inputs.ezafe_p }}
+          if [ "$QUICK" = "1" ]; then export N_TRAIN=1500 N_EVAL=200 MAX_IT=1500 MAX_MIN=40 N_REAL=300 N_REAL_EVAL=100
+          else export N_TRAIN=${{ inputs.n_train }} N_EVAL=1500 MAX_IT=${{ inputs.max_it }} MAX_MIN=${{ inputs.max_minutes }} N_REAL=${{ inputs.n_real }} N_REAL_EVAL=500; fi
+          if [ -z "${REAL_DIR:-}" ]; then export REAL_DIR=; fi
+          bash ft/train.sh 2>&1 | tee train_console.txt
+      - run: |
+          mkdir -p out && cp ftwork/fas_ft.traineddata out/fas_ft_${{ matrix.scheme }}.traineddata && cp ftwork/train_summary.json out/ && cp train_console.txt out/
+          tail -n 400 ftwork/train.log > out/train_log_tail.txt; cp ftwork/data/holdout_paras.txt out/holdout_paras.txt
+          [ -f ftwork/ext/ext.lstm-unicharset ] && cp ftwork/ext/ext.lstm-unicharset out/
+          md5sum out/fas_ft_${{ matrix.scheme }}.traineddata; ls -la out
+      - uses: actions/upload-artifact@v4
+        with: { name: 'fas_ft_${{ matrix.scheme }}', path: out, retention-days: 21 }
+      - if: always()
+        env: { GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}' }
+        run: bash ft/publish_results.sh train-${{ matrix.scheme }} out/fas_ft_${{ matrix.scheme }}.traineddata out/train_summary.json out/train_log_tail.txt out/train_console.txt
+
+  evaluate:
+    needs: [plan, train, tests]
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.plan.outputs.matrix) }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Install
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq tesseract-ocr libraqm0 fonts-dejavu-core
+          pip install pillow numpy rapidfuzz wordfreq python-bidi
+          pip install --no-deps git+https://github.com/abbashaji/ocr2
+          mkdir -p fonts tess; B=https://github.com/notofonts/notofonts.github.io/raw/main/fonts
+          curl -sL -o fonts/Vazirmatn.ttf https://github.com/rastikerdar/vazirmatn/raw/master/fonts/ttf/Vazirmatn-Regular.ttf
+          curl -sL -o fonts/NotoNaskh.ttf  $B/NotoNaskhArabic/hinted/ttf/NotoNaskhArabic-Regular.ttf
+          curl -sL -o fonts/NotoKufi.ttf   $B/NotoKufiArabic/hinted/ttf/NotoKufiArabic-Regular.ttf
+          cp /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf fonts/DejaVu.ttf
+          curl -sL -o tess/fas.traineddata https://github.com/tesseract-ocr/tessdata_best/raw/main/fas.traineddata
+      - uses: actions/download-artifact@v4
+        with: { name: 'fas_ft_${{ matrix.scheme }}', path: ftout }
+      - uses: actions/download-artifact@v4
+        with: { name: tests, path: tests }
+      - name: Evaluate (legacy pipeline incl. plain Tesseract + product engine ocr2@main)
+        run: |
+          mkdir -p results
+          python ft/evaluate.py --base-dir tess --ft-file ftout/fas_ft_${{ matrix.scheme }}.traineddata --tests tests --sets "${{ inputs.evaluate_sets }}" --engines legacy,ocr2 --out results 2>&1 | tee results/console.txt || true
+          python ft/eval_labels.py results --tag ft --out results/labels_ft.json > results/labels_ft.txt || true
+          python ft/eval_labels.py results --tag base --out results/labels_base.json > results/labels_base.txt || true
+          cat results/labels_ft.txt | head -60
+      - if: always()
+        env: { GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}' }
+        run: bash ft/publish_results.sh evaluate-${{ matrix.scheme }} results
