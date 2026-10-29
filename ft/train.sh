@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Fine-tune tessdata_best fas on rendered corpus lines (+ optional real scanned lines). Resumable: re-run with the same OUT after restoring it.
 # env: CORPUS BASE OUT  [N_TRAIN=30000 N_EVAL=1500 MAX_MIN=300 MAX_IT=60000 LR=0.00001 JOBS=nproc]
-#      [SCHEME=folded|distinct|distinct_ezafe  (label scheme, see ft/common.py; default folded = the original recipe, byte-for-byte the same steps)]
+#      [SCHEME=folded|distinct|distinct_ezafe|alias|alias_ezafe  (label scheme, see ft/common.py; default folded = the original recipe, byte-for-byte the same steps)]
 #      [REAL_DIR=<realdata tesseract export, distinct preset> N_REAL=0 N_REAL_EVAL=500   (real scanned lines mixed into the training list)]
 #      [EZAFE_P=0.25 (distinct_ezafe: share of heh-final words rendered with the mark)]
 set -uo pipefail
@@ -14,10 +14,10 @@ export FT_LABEL_SCHEME="$SCHEME"
 [ -f base.lstm ] || combine_tessdata -u "$BASE" base. >/dev/null 2>&1
 # TD = traineddata whose unicharset the model is trained with; stock for folded, stock + new classes otherwise
 TD="$BASE"; UNI=base.lstm-unicharset; OLD=()
-if [ "$SCHEME" != folded ]; then
+case "$SCHEME" in distinct|distinct_ezafe)
   [ -s ext/fas_ext.traineddata ] || python3 "$HERE/extend_unicharset.py" --base "$BASE" --scheme "$SCHEME" --out "$OUT/ext" || { echo "FATAL: unicharset extension failed"; exit 1; }
-  TD="$OUT/ext/fas_ext.traineddata"; UNI="$OUT/ext/ext.lstm-unicharset"; OLD=(--old_traineddata "$BASE")
-fi
+  TD="$OUT/ext/fas_ext.traineddata"; UNI="$OUT/ext/ext.lstm-unicharset"; OLD=(--old_traineddata "$BASE") ;;
+esac   # folded, alias, alias_ezafe: stock unicharset, nothing is extended
 if [ ! -s data/list.train ]; then
   python3 "$HERE/make_train_data.py" --corpus "$CORPUS" --unicharset "$UNI" --out "$OUT/data" \
       --n-train "$N_TRAIN" --n-eval "$N_EVAL" --jobs "$JOBS" --scheme "$SCHEME" --ezafe-p "$EZAFE_P" \
@@ -43,7 +43,8 @@ for c in ft_checkpoint $(ls ft_*.checkpoint 2>/dev/null | sort -t_ -k2 -n | head
 done
 [ -n "$BEST" ] || { echo "no usable checkpoint"; exit 1; }
 lstmtraining --stop_training --continue_from "$BEST" --traineddata "$TD" --model_output fas_ft.traineddata 2>&1 | tail -1
-if [ "$SCHEME" != folded ]; then   # keep the stock dictionaries (their class ids are unchanged: new classes are appended)
+case "$SCHEME" in alias) python3 "$HERE/rename_classes.py" fas_ft.traineddata ;; alias_ezafe) python3 "$HERE/rename_classes.py" fas_ft.traineddata --ezafe ;; esac
+if [ "$SCHEME" = distinct ] || [ "$SCHEME" = distinct_ezafe ]; then   # keep the stock dictionaries (their class ids are unchanged: new classes are appended)
   combine_tessdata -o fas_ft.traineddata base.lstm-punc-dawg base.lstm-word-dawg base.lstm-number-dawg >/dev/null 2>&1 || echo "WARNING: could not restore dawgs"
 fi
 B_PLAIN_BASE=$(bcer base.lstm "$BASE" data/list.eval_plain); B_PLAIN_FT=$(bcer "$BEST" "$TD" data/list.eval_plain)
