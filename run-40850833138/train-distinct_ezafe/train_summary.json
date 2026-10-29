@@ -1,0 +1,17 @@
+{
+ "scheme": "distinct_ezafe",
+ "base_bcer": null,
+ "ft_bcer": 36.199,
+ "checkpoint": "ft_35.725_100_100.checkpoint",
+ "lr": "0.00001",
+ "n_train": 1500,
+ "n_eval": 200,
+ "n_real": 300,
+ "ezafe_p": 0.25,
+ "bcer_plain_base": 18.782,
+ "bcer_plain_ft": 34.439,
+ "bcer_real_plain_base": 5.505,
+ "bcer_real_plain_ft": 23.061,
+ "bcer_real_all_ft": 27.027,
+ "note": "BCER = character error % of the raw LSTM on held-out lines (never trained on). base_bcer/ft_bcer: synthetic eval list of the scheme (base_bcer only for folded). *_plain: only lines whose label is identical in every scheme (no \u060c \u066b \u066c \u066a % ; ezafe), same images for all schemes -> use these to compare schemes. bcer_real_*: real scanned lines of the tune split of the realdata export."
+}
