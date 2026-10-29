@@ -1,31 +1,13 @@
 [0] تهران: page title='تهران - ویکی\u200cپدیا، دانشنامهٔ آزاد', 30 paragraphs, {'short': 13, 'ok': 16, 'lines': 1}
 [1] اصفهان: page title='اصفهان - ویکی\u200cپدیا، دانشنامهٔ آزاد', 38 paragraphs, {'odd_markup': 1, 'ok': 11, 'short': 24, 'lines': 2}
+  retry 1 اصفهان block 0 z100: 'Page.screenshot: Timeout 120000ms exceeded.\nCall log:\n  - ta'
+  retry 2 اصفهان block 0 z100: 'Page.screenshot: Timeout 120000ms exceeded.\nCall log:\n  - ta'
+  retry 3 اصفهان block 0 z100: 'Page.screenshot: Timeout 120000ms exceeded.\nCall log:\n  - ta'
+  retry 1 اصفهان block 1 z100: 'Page.screenshot: Timeout 120000ms exceeded.\nCall log:\n  - ta'
+  retry 2 اصفهان block 1 z100: 'Page.screenshot: Timeout 120000ms exceeded.\nCall log:\n  - ta'
+  retry 3 اصفهان block 1 z100: 'Page.screenshot: Timeout 120000ms exceeded.\nCall log:\n  - ta'
 [2] شیراز: page title='شیراز - ویکی\u200cپدیا، دانشنامهٔ آزاد', 19 paragraphs, {'odd_markup': 1, 'ok': 13, 'lines': 4, 'short': 1}
 [3] تبریز: page title='تبریز - ویکی\u200cپدیا، دانشنامهٔ آزاد', 13 paragraphs, {'short': 5, 'odd_markup': 1, 'ok': 7}
 [4] مشهد: page title='مشهد - ویکی\u200cپدیا، دانشنامهٔ آزاد', 19 paragraphs, {'odd_markup': 1, 'ok': 10, 'short': 4, 'overlap': 1, 'lines': 3}
 [5] فردوسی: page title='فردوسی - ویکی\u200cپدیا، دانشنامهٔ آزاد', 31 paragraphs, {'short': 3, 'lines': 3, 'ok': 25}
-[6] سعدی: page title='سعدی - ویکی\u200cپدیا، دانشنامهٔ آزاد', 22 paragraphs, {'short': 5, 'ok': 17}
-[7] حافظ: page title='حافظ - ویکی\u200cپدیا، دانشنامهٔ آزاد', 31 paragraphs, {'short': 4, 'ok': 26, 'odd_markup': 1}
-[8] مولوی: page title='مولوی - ویکی\u200cپدیا، دانشنامهٔ آزاد', 21 paragraphs, {'short': 12, 'ok': 6, 'lines': 3}
-[9] خیام: page title='خیام - ویکی\u200cپدیا، دانشنامهٔ آزاد', 14 paragraphs, {'overlap': 1, 'ok': 5, 'lines': 2, 'short': 3, 'odd_markup': 3}
-[10] کورش بزرگ: page title='کوروش بزرگ - ویکی\u200cپدیا، دانشنامهٔ آزاد', 51 paragraphs, {'short': 5, 'latin': 1, 'ok': 42, 'lines': 3}
-[11] داریوش یکم: page title='داریوش بزرگ - ویکی\u200cپدیا، دانشنامهٔ آزاد', 30 paragraphs, {'latin': 5, 'ok': 18, 'short': 6, 'lines': 1}
-[12] خلیج فارس: page title='خلیج فارس - ویکی\u200cپدیا، دانشنامهٔ آزاد', 28 paragraphs, {'short': 11, 'ok': 14, 'lines': 2, 'latin': 1}
-[13] دریای خزر: page title='دریای خزر - ویکی\u200cپدیا، دانشنامهٔ آزاد', 36 paragraphs, {'ok': 15, 'short': 14, 'lines': 6, 'latin': 1}
-[14] دماوند: page title='دماوند - ویکی\u200cپدیا، دانشنامهٔ آزاد', 30 paragraphs, {'overlap': 1, 'ok': 13, 'lines': 2, 'short': 14}
-[15] زبان فارسی: page title='زبان فارسی - ویکی\u200cپدیا، دانشنامهٔ آزاد', 34 paragraphs, {'short': 5, 'ok': 26, 'lines': 3}
-[16] نوروز: page title='نوروز - ویکی\u200cپدیا، دانشنامهٔ آزاد', 60 paragraphs, {'overlap': 1, 'ok': 12, 'short': 43, 'latin': 1, 'lines': 3}
-[17] شاهنامه: page title='شاهنامه - ویکی\u200cپدیا، دانشنامهٔ آزاد', 18 paragraphs, {'short': 9, 'ok': 7, 'lines': 1, 'latin': 1}
-[18] دانشگاه تهران: page title='دانشگاه تهران - ویکی\u200cپدیا، دانشنامهٔ آزاد', 11 paragraphs, {'ok': 7, 'odd_markup': 1, 'short': 2, 'lines': 1}
-[19] فوتبال: page title='فوتبال - ویکی\u200cپدیا، دانشنامهٔ آزاد', 57 paragraphs, {'short': 15, 'latin': 2, 'ok': 29, 'lines': 11}
-[20] ریاضیات: page title='ریاضیات - ویکی\u200cپدیا، دانشنامهٔ آزاد', 16 paragraphs, {'ok': 13, 'lines': 1, 'short': 1, 'latin': 1}
-[21] فیزیک: page title='فیزیک - ویکی\u200cپدیا، دانشنامهٔ آزاد', 17 paragraphs, {'ok': 9, 'short': 7, 'latin': 1}
-[22] شیمی: page title='شیمی - ویکی\u200cپدیا، دانشنامهٔ آزاد', 6 paragraphs, {'latin': 2, 'ok': 3, 'lines': 1}
-[23] اینترنت: page title='اینترنت - ویکی\u200cپدیا، دانشنامهٔ آزاد', 38 paragraphs, {'latin': 21, 'ok': 8, 'short': 5, 'odd_markup': 3, 'lines': 1}
-[24] نفت: page title='نفت خام - ویکی\u200cپدیا، دانشنامهٔ آزاد', 32 paragraphs, {'latin': 4, 'short': 23, 'ok': 4, 'lines': 1}
-[25] تاریخ: page title='تاریخ - ویکی\u200cپدیا، دانشنامهٔ آزاد', 21 paragraphs, {'ok': 19, 'lines': 2}
-[26] جمعیت: page title='جمعیت - ویکی\u200cپدیا، دانشنامهٔ آزاد', 5 paragraphs, {'ok': 2, 'short': 3}
-[27] خورشید: page title='خورشید - ویکی\u200cپدیا، دانشنامهٔ آزاد', 46 paragraphs, {'odd_markup': 4, 'ok': 24, 'latin': 7, 'short': 9, 'lines': 2}
-[28] زمین: page title='زمین - ویکی\u200cپدیا، دانشنامهٔ آزاد', 31 paragraphs, {'ok': 24, 'lines': 3, 'odd_markup': 1, 'short': 2, 'latin': 1}
-[29] اقتصاد: page title='اقتصاد - ویکی\u200cپدیا، دانشنامهٔ آزاد', 12 paragraphs, {'ok': 7, 'lines': 2, 'short': 3}
-made 267 images from 30/30 articles; skipped: []
+made 30 images from 5/6 articles; skipped: [('اصفهان#0', 'Page.screenshot: Timeout 120000ms exceeded.\nCall log:\n  - taking page screenshot'), ('اصفهان#1', 'Page.screenshot: Timeout 120000ms exceeded.\nCall log:\n  - taking page screenshot')]
