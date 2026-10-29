@@ -12,8 +12,8 @@ on:
         type: boolean
         default: true
       schemes:
-        description: 'Comma separated label schemes to run (folded,distinct,distinct_ezafe)'
-        default: 'folded,distinct,distinct_ezafe'
+        description: 'Comma separated label schemes to run (folded,distinct,distinct_ezafe,alias,alias_ezafe)'
+        default: 'folded,alias,alias_ezafe'
       n_train:
         description: 'Synthetic training lines per scheme (full run)'
         default: '30000'
@@ -60,7 +60,7 @@ jobs:
           python3 - <<'PY' >> "$GITHUB_OUTPUT"
           import json
           s = [x.strip() for x in "${{ inputs.schemes }}".split(',') if x.strip()]
-          assert s and all(x in ('folded', 'distinct', 'distinct_ezafe') for x in s), s
+          assert s and all(x in ('folded', 'distinct', 'distinct_ezafe', 'alias', 'alias_ezafe') for x in s), s
           print('matrix=' + json.dumps({'scheme': s}))
           PY
 
