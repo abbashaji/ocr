@@ -126,7 +126,7 @@ Tiers: GOLD = unambiguous alignment, similarity >= {0.93}; GOLD_A = anchored bet
 - `ATTRIBUTION.md`, `stats.json`, `contact_sheet.html` (100 random GOLD lines, RTL)
 
 ## Presets (applied only when exporting; the manifest keeps full fidelity)
-- folded  = `ft/common.py` clean_text + LABEL_MAP (ezafe and harakat dropped, ، ٬ -> ",", ٫ -> ".", ٪ and % -> "#", ; -> ؛, dashes -> "-").
+- folded  = `ft/common.py` clean_text + LABEL_MAP applied AFTER `export.compat_fold` (Arabic presentation forms and U+0649 folded to base letters; both presets do this) (ezafe and harakat dropped, ، ٬ -> ",", ٫ -> ".", ٪ and % -> "#", ; -> ؛, dashes -> "-").
   With `--unicharset` lines containing characters outside the model's unicharset are dropped (as in make_train_data.py).
 - distinct = same normalisation of ya/kaf/digits/spaces/quotes, but KEEPS the ezafe mark U+0654 and ، ٫ ٬ ٪.
 
@@ -172,6 +172,7 @@ def main():
                  line_reasons_total=dict(sum((collections.Counter(st.get('line_reasons', {})) for st in wstats.values()), collections.Counter())),
                  works={w: dict(commons_license=st['commons']['license'], skipped=st.get('skipped'), proofread_pages_total=st.get('proofread_pages_total'),
                                 pages_sampled=st.get('pages_sampled'), counts=st.get('counts')) for w, st in wstats.items()})
+    if os.path.exists(a.leak + '.json'): stats['leak_reference'] = json.load(open(a.leak + '.json', encoding='utf-8'))   # articles actually fetched
     json.dump(stats, open(os.path.join(a.out, 'stats.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     open(os.path.join(a.out, 'ATTRIBUTION.md'), 'w', encoding='utf-8').write(attribution(works, wstats, per_work))
     open(os.path.join(a.out, 'README.md'), 'w', encoding='utf-8').write(readme(stats, works))
