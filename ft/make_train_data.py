@@ -49,7 +49,7 @@ def make_one(args):
             if rng.random() < 0.12: text += ' ' + C.digit_phrase(rng)
         plain = C.is_plain(text)                                                  # decided BEFORE the scheme-specific cleaning: identical in every scheme
         text = C.clean_text(text)
-        if scheme == 'distinct_ezafe' and ezafe_p > 0: text = C.inject_ezafe(text, ez_rng, ezafe_p)   # own rng: the image stream stays the same in every scheme
+        if scheme in C.KEEPS_EZAFE and ezafe_p > 0: text = C.inject_ezafe(text, ez_rng, ezafe_p)   # own rng: the image stream stays the same in every scheme
         if text and C.keep_line(text, allowed):
             img = C.make_line_image(text, fonts, rng)
             if img is not None: break
@@ -73,9 +73,9 @@ def real_label(gt, scheme):
     """label text of a real line from a realdata 'distinct' export (full fidelity: ezafe, ، ٫ ٬ ٪). The same line set is used for every
     scheme so results are comparable; folded = clean_text (drops the ezafe mark), the fold of ، ٫ ٬ ٪ happens in write_box via to_label."""
     t = gt.strip()
-    if scheme == 'distinct': return t.replace(C.EZAFE, '')
+    if scheme in C.KEEPS_EZAFE: return t
     if scheme == 'folded': return C.clean_text(t)
-    return t
+    return t.replace(C.EZAFE, '')
 
 def make_real(args):
     idx, split, png, gt, out, allowed, scheme = args
