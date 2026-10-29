@@ -75,3 +75,18 @@ def test_augment_is_seeded_and_leaves_input_untouched():
     im = Image.new('L', (300, 40), 255); ImageDraw.Draw(im).rectangle([20, 10, 280, 30], fill=0); before = im.tobytes()
     a1 = augment.augment(im, random.Random('s:1:1')); a2 = augment.augment(im, random.Random('s:1:1')); a3 = augment.augment(im, random.Random('s:1:2'))
     assert a1.tobytes() == a2.tobytes() and a1.tobytes() != a3.tobytes() and im.tobytes() == before
+
+
+def test_leak_fetches_one_title_per_request_and_fails_when_incomplete(monkeypatch, tmp_path):
+    import leak, wiki
+    calls = []
+    def fake_api(url, **p):
+        calls.append(p['titles'])
+        if p['titles'] in ('الف', 'ب'): return {'query': {'pages': [{'title': p['titles'], 'extract': 'متن ' + p['titles']}]}}
+        return {'query': {'pages': [{'title': p['titles'], 'missing': True}]}}
+    monkeypatch.setattr(wiki, 'api', fake_api)
+    assert leak.fetch_texts(['الف', 'ب', 'ج']) == {'الف': 'متن الف', 'ب': 'متن ب'}
+    assert calls == ['الف', 'ب', 'ج']                                   # never batched
+    art = tmp_path / 'a.txt'; art.write_text('الف\nب\nج\nد\n', encoding='utf-8')
+    monkeypatch.setattr(leak, 'EXTRA_TITLES', [])
+    with pytest.raises(SystemExit): leak.build(str(art))                # 2/4 < 90% -> loud failure
