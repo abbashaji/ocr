@@ -1,13 +1,7 @@
 [0] تهران: page title='تهران - ویکی\u200cپدیا، دانشنامهٔ آزاد', 30 paragraphs, {'short': 13, 'ok': 16, 'lines': 1}
 [1] اصفهان: page title='اصفهان - ویکی\u200cپدیا، دانشنامهٔ آزاد', 38 paragraphs, {'odd_markup': 1, 'ok': 11, 'short': 24, 'lines': 2}
-  retry 1 اصفهان block 0 z100: 'Page.screenshot: Timeout 120000ms exceeded.\nCall log:\n  - ta'
-  retry 2 اصفهان block 0 z100: 'Page.screenshot: Timeout 120000ms exceeded.\nCall log:\n  - ta'
-  retry 3 اصفهان block 0 z100: 'Page.screenshot: Timeout 120000ms exceeded.\nCall log:\n  - ta'
-  retry 1 اصفهان block 1 z100: 'Page.screenshot: Timeout 120000ms exceeded.\nCall log:\n  - ta'
-  retry 2 اصفهان block 1 z100: 'Page.screenshot: Timeout 120000ms exceeded.\nCall log:\n  - ta'
-  retry 3 اصفهان block 1 z100: 'Page.screenshot: Timeout 120000ms exceeded.\nCall log:\n  - ta'
 [2] شیراز: page title='شیراز - ویکی\u200cپدیا، دانشنامهٔ آزاد', 19 paragraphs, {'odd_markup': 1, 'ok': 13, 'lines': 4, 'short': 1}
 [3] تبریز: page title='تبریز - ویکی\u200cپدیا، دانشنامهٔ آزاد', 13 paragraphs, {'short': 5, 'odd_markup': 1, 'ok': 7}
 [4] مشهد: page title='مشهد - ویکی\u200cپدیا، دانشنامهٔ آزاد', 19 paragraphs, {'odd_markup': 1, 'ok': 10, 'short': 4, 'overlap': 1, 'lines': 3}
 [5] فردوسی: page title='فردوسی - ویکی\u200cپدیا، دانشنامهٔ آزاد', 31 paragraphs, {'short': 3, 'lines': 3, 'ok': 25}
-made 30 images from 5/6 articles; skipped: [('اصفهان#0', 'Page.screenshot: Timeout 120000ms exceeded.\nCall log:\n  - taking page screenshot'), ('اصفهان#1', 'Page.screenshot: Timeout 120000ms exceeded.\nCall log:\n  - taking page screenshot')]
+made 36 images from 6/6 articles; skipped: []
