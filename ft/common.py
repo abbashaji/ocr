@@ -45,20 +45,32 @@ TEXT_COLORS = [(0, 0, 0), (32, 33, 34), (32, 33, 34), (6, 69, 173), (51, 102, 20
 #   distinct        keeps the Persian punctuation classes ، ٫ ٬ ٪ as labels (needs a unicharset that contains them, see
 #                   ft/extend_unicharset.py); only % -> ٪ is folded.
 #   distinct_ezafe  distinct + the ezafe mark: ۀ and ه+U+0654 are both labelled as ه + U+0654 (a separate class).
+#   alias / alias_ezafe  same labels as distinct / distinct_ezafe but WITHOUT extending the unicharset: unused harakat classes carry the new
+#                   characters during training (ALIAS_MAP) and ft/rename_classes.py renames them in the finished model.
 FOLDED_MAP = {'،': ',', '٬': ',', '٫': '.', '٪': '#', '%': '#', ';': '؛', '–': '-', '—': '-'}
 DISTINCT_MAP = {'%': '٪', ';': '؛', '–': '-', '—': '-'}
-NEW_CLASSES = {'folded': '', 'distinct': '،٫٬٪', 'distinct_ezafe': '،٫٬٪\u0654'}   # chars missing from the stock unicharset
 EZAFE = '\u0654'
+# alias schemes: NO unicharset change. The stock model has 8 harakat classes that our labels never use (clean_text removes harakat), so they
+# are borrowed as the classes of ، ٫ ٬ ٪ and the ezafe mark during training, and ft/rename_classes.py renames them inside the finished
+# model (the network only knows class ids). The model then outputs the real characters; nothing is lost because the model never outputs harakat.
+ALIAS_MAP = {'،': '\u064d', '٫': '\u064c', '٬': '\u064b', '٪': '\u064f', EZAFE: '\u0651'}
+ALIAS_LABEL_MAP = {**DISTINCT_MAP, **ALIAS_MAP, '%': '\u064f'}
+NEW_CLASSES = {'folded': '', 'distinct': '،٫٬٪', 'distinct_ezafe': '،٫٬٪' + EZAFE, 'alias': '', 'alias_ezafe': ''}   # chars missing from the stock unicharset that must be ADDED
 SCHEMES = tuple(NEW_CLASSES)
+ALIASED = ('alias', 'alias_ezafe')
+KEEPS_EZAFE = ('distinct_ezafe', 'alias_ezafe')
 LABEL_SCHEME = os.environ.get('FT_LABEL_SCHEME', 'folded')
-LABEL_MAP = dict(FOLDED_MAP if LABEL_SCHEME == 'folded' else DISTINCT_MAP)   # kept as a module-level dict for old callers
+
+def _label_map(name):
+    return FOLDED_MAP if name == 'folded' else (ALIAS_LABEL_MAP if name in ALIASED else DISTINCT_MAP)
+LABEL_MAP = dict(_label_map(LABEL_SCHEME))   # kept as a module-level dict for old callers
 
 def set_scheme(name):
     """Switch the label scheme at run time (also updates LABEL_MAP in place so `C.LABEL_MAP` users see it)."""
     global LABEL_SCHEME
     if name not in SCHEMES: raise ValueError(f'unknown label scheme {name!r}; use one of {SCHEMES}')
     LABEL_SCHEME = name
-    LABEL_MAP.clear(); LABEL_MAP.update(FOLDED_MAP if name == 'folded' else DISTINCT_MAP)
+    LABEL_MAP.clear(); LABEL_MAP.update(_label_map(name))
 
 def to_label(text):
     return ''.join(LABEL_MAP.get(c, c) for c in text)
@@ -71,7 +83,7 @@ _HARAKAT_KEEP_EZAFE = re.compile('[\u064b-\u0653\u0655-\u065f\u0670]')
 _STRAY_EZAFE = re.compile('(?<!ه)\u0654')                         # the mark is only kept after heh (سدهٔ); after other letters it is dropped
 
 def clean_text(s):
-    if LABEL_SCHEME == 'distinct_ezafe':
+    if LABEL_SCHEME in KEEPS_EZAFE:
         s = s.replace('ۀ', 'ه' + EZAFE)                            # precomposed heh-with-yeh-above carries the same ezafe
         s = s.translate(_NORM).translate(_ARABIC_INDIC)
         s = _STRAY_EZAFE.sub('', _HARAKAT_KEEP_EZAFE.sub('', s))
