@@ -34,6 +34,29 @@ def test_distinct_ezafe_keeps_mark_after_heh_only():
     assert C.clean_text('کُتُب') == 'کتب'                  # other harakat are still removed
     assert C.to_label(t).count('٪') == 2                   # % folded into ٪, nothing else mapped
 
+def test_alias_labels_use_unused_harakat_classes():
+    for name, ez in (('alias', False), ('alias_ezafe', True)):
+        C.set_scheme(name)
+        t = C.to_label(C.clean_text(SAMPLE))
+        assert ('\u0651' in t) == ez                                  # ezafe alias only when the scheme keeps the mark
+        assert '،' not in t and '٫' not in t and '٬' not in t and '٪' not in t and '%' not in t
+        assert '\u064d' in t and '\u064c' in t and '\u064b' in t and '\u064f' in t
+    # the aliases are harakat classes of the stock unicharset that clean_text never lets into a label
+    assert all(0x064b <= ord(a) <= 0x0651 for a in C.ALIAS_MAP.values())
+    assert C.NEW_CLASSES['alias'] == '' and C.NEW_CLASSES['alias_ezafe'] == ''
+
+def test_rename_classes_rewrites_only_the_alias_lines():
+    import rename_classes as R
+    def line(ch, i, script='Inherited', d=17): return f'{ch} 0 0,255,0,255,0,0,0,0,0,0 {script} {i} {d} {i} {ch}\t# {ch} [{ord(ch):x} ]'
+    lines = ['5'] + [line('ا', 1, 'Arabic', 1)] + [line(a, 10 + k) for k, a in enumerate(C.ALIAS_MAP.values())]
+    out, done = R.rename(lines, ezafe=True)
+    assert [d[1] for d in done] == list(C.ALIAS_MAP)
+    assert out[1] == lines[1] and out[0] == '5'
+    assert out[2].startswith('، 16 0,255,0,255,0,0,0,0,0,0 Common 10 6 10 ،')
+    assert out[-1].startswith('\u0654 0 0,255,0,255,0,0,0,0,0,0 Inherited 14 17 14 \u0654')
+    out2, done2 = R.rename(lines, ezafe=False)
+    assert len(done2) == 4 and out2[-1] == lines[-1]                   # ezafe alias class left alone without --ezafe
+
 def test_set_scheme_rejects_unknown():
     with pytest.raises(ValueError): C.set_scheme('nope')
 
