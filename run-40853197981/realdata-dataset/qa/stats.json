@@ -1,0 +1,369 @@
+{
+ "built": "2026-10-29T10:19:03.719719+00:00",
+ "n_lines": 40182,
+ "drops": {
+  "loaded": 40282,
+  "duplicate_across_works": 25,
+  "leak_eval_shingle": 8,
+  "leak_train_vs_final": 67
+ },
+ "by_split_tier": {
+  "final/GOLD": 3382,
+  "final/GOLD_A": 6,
+  "final/SILVER": 2788,
+  "train/GOLD": 19859,
+  "train/GOLD_A": 24,
+  "train/SILVER": 10851,
+  "tune/GOLD": 2859,
+  "tune/GOLD_A": 6,
+  "tune/SILVER": 407
+ },
+ "by_work": {
+  "w01": 3648,
+  "w02": 2638,
+  "w03": 1434,
+  "w04": 2271,
+  "w05": 1968,
+  "w06": 1951,
+  "w07": 1182,
+  "w08": 1664,
+  "w09": 1689,
+  "w10": 1387,
+  "w11": 1584,
+  "w12": 2343,
+  "w13": 1920,
+  "w14": 1940,
+  "w16": 3115,
+  "w17": 1122,
+  "w18": 1148,
+  "w19": 1002,
+  "w20": 2293,
+  "w21": 2039,
+  "w22": 1704,
+  "w23": 140
+ },
+ "chars": {
+  "train": 1926212,
+  "tune": 210999,
+  "final": 436195
+ },
+ "line_reasons_total": {
+  "short": 5254,
+  "ok": 41326,
+  "ambiguous": 6206,
+  "low_sim": 1955,
+  "nomatch": 1980,
+  "anchored": 127,
+  "nospan": 61,
+  "non_persian": 6
+ },
+ "works": {
+  "w01": {
+   "commons_license": "Public domain",
+   "skipped": null,
+   "proofread_pages_total": 3216,
+   "pages_sampled": 200,
+   "counts": {
+    "page_skipped_short": 7,
+    "pages": 192,
+    "tier_GOLD": 1616,
+    "tier_SILVER": 2036,
+    "tier_GOLD_A": 1,
+    "page_skipped_markup": 1
+   }
+  },
+  "w02": {
+   "commons_license": "Public domain",
+   "skipped": null,
+   "proofread_pages_total": 833,
+   "pages_sampled": 120,
+   "counts": {
+    "pages": 116,
+    "tier_GOLD": 2114,
+    "tier_SILVER": 527,
+    "tier_GOLD_A": 3,
+    "page_skipped_short": 1,
+    "page_skipped_complex": 3
+   }
+  },
+  "w03": {
+   "commons_license": "Public domain",
+   "skipped": null,
+   "proofread_pages_total": 707,
+   "pages_sampled": 120,
+   "counts": {
+    "page_skipped_short": 4,
+    "pages": 113,
+    "tier_SILVER": 902,
+    "tier_GOLD": 534,
+    "tier_GOLD_A": 1,
+    "page_skipped_complex": 3
+   }
+  },
+  "w04": {
+   "commons_license": "Public domain",
+   "skipped": null,
+   "proofread_pages_total": 420,
+   "pages_sampled": 120,
+   "counts": {
+    "pages": 116,
+    "tier_GOLD": 2093,
+    "tier_SILVER": 180,
+    "page_skipped_complex": 4,
+    "tier_GOLD_A": 2
+   }
+  },
+  "w05": {
+   "commons_license": "Public domain",
+   "skipped": null,
+   "proofread_pages_total": 396,
+   "pages_sampled": 120,
+   "counts": {
+    "page_skipped_complex": 7,
+    "pages": 104,
+    "tier_SILVER": 526,
+    "tier_GOLD": 1442,
+    "page_skipped_short": 9,
+    "tier_GOLD_A": 4
+   }
+  },
+  "w06": {
+   "commons_license": "Public domain",
+   "skipped": null,
+   "proofread_pages_total": 408,
+   "pages_sampled": 120,
+   "counts": {
+    "pages": 88,
+    "tier_GOLD": 1870,
+    "tier_SILVER": 83,
+    "page_skipped_complex": 1,
+    "tier_GOLD_A": 1,
+    "page_skipped_short": 31
+   }
+  },
+  "w07": {
+   "commons_license": "Public domain",
+   "skipped": null,
+   "proofread_pages_total": 121,
+   "pages_sampled": 120,
+   "counts": {
+    "pages": 62,
+    "tier_GOLD": 560,
+    "tier_SILVER": 622,
+    "page_skipped_complex": 58,
+    "tier_GOLD_A": 1
+   }
+  },
+  "w08": {
+   "commons_license": "Public domain",
+   "skipped": null,
+   "proofread_pages_total": 188,
+   "pages_sampled": 120,
+   "counts": {
+    "page_skipped_short": 3,
+    "pages": 115,
+    "tier_GOLD": 1616,
+    "tier_SILVER": 51,
+    "page_skipped_complex": 2
+   }
+  },
+  "w09": {
+   "commons_license": "Public domain",
+   "skipped": null,
+   "proofread_pages_total": 171,
+   "pages_sampled": 120,
+   "counts": {
+    "pages": 118,
+    "tier_GOLD": 1196,
+    "tier_SILVER": 491,
+    "tier_GOLD_A": 4,
+    "page_skipped_short": 1,
+    "page_skipped_complex": 1
+   }
+  },
+  "w10": {
+   "commons_license": "Public domain",
+   "skipped": null,
+   "proofread_pages_total": 201,
+   "pages_sampled": 120,
+   "counts": {
+    "page_skipped_short": 2,
+    "pages": 87,
+    "tier_GOLD": 986,
+    "tier_SILVER": 401,
+    "page_skipped_complex": 31
+   }
+  },
+  "w11": {
+   "commons_license": "CC BY-SA 4.0",
+   "skipped": null,
+   "proofread_pages_total": 174,
+   "pages_sampled": 120,
+   "counts": {
+    "page_skipped_complex": 16,
+    "pages": 101,
+    "tier_GOLD": 1541,
+    "tier_GOLD_A": 2,
+    "page_skipped_short": 3,
+    "tier_SILVER": 58
+   }
+  },
+  "w12": {
+   "commons_license": "CC BY 4.0",
+   "skipped": null,
+   "proofread_pages_total": 298,
+   "pages_sampled": 120,
+   "counts": {
+    "pages": 120,
+    "tier_SILVER": 1295,
+    "tier_GOLD": 1060
+   }
+  },
+  "w13": {
+   "commons_license": "CC0",
+   "skipped": null,
+   "proofread_pages_total": 398,
+   "pages_sampled": 120,
+   "counts": {
+    "pages": 119,
+    "tier_SILVER": 1552,
+    "page_skipped_short": 1,
+    "tier_GOLD": 389,
+    "tier_GOLD_A": 1
+   }
+  },
+  "w14": {
+   "commons_license": "Public domain",
+   "skipped": null,
+   "proofread_pages_total": 368,
+   "pages_sampled": 120,
+   "counts": {
+    "page_skipped_complex": 12,
+    "pages": 108,
+    "tier_GOLD": 948,
+    "tier_SILVER": 991,
+    "tier_GOLD_A": 3
+   }
+  },
+  "w15": {
+   "commons_license": "Public domain",
+   "skipped": null,
+   "proofread_pages_total": 326,
+   "pages_sampled": 120,
+   "counts": {
+    "pages": 101,
+    "pages_border_cropped": 56,
+    "page_skipped_complex": 19
+   }
+  },
+  "w16": {
+   "commons_license": "Public domain",
+   "skipped": null,
+   "proofread_pages_total": 357,
+   "pages_sampled": 120,
+   "counts": {
+    "pages": 120,
+    "tier_GOLD": 1948,
+    "tier_SILVER": 1169,
+    "tier_GOLD_A": 3
+   }
+  },
+  "w17": {
+   "commons_license": "Public domain",
+   "skipped": null,
+   "proofread_pages_total": 167,
+   "pages_sampled": 60,
+   "counts": {
+    "page_skipped_short": 2,
+    "pages": 56,
+    "tier_GOLD": 774,
+    "tier_SILVER": 348,
+    "tier_GOLD_A": 1,
+    "page_skipped_complex": 2
+   }
+  },
+  "w18": {
+   "commons_license": "Public domain",
+   "skipped": null,
+   "proofread_pages_total": 329,
+   "pages_sampled": 60,
+   "counts": {
+    "pages": 51,
+    "tier_GOLD": 1129,
+    "tier_SILVER": 24,
+    "page_skipped_complex": 9
+   }
+  },
+  "w19": {
+   "commons_license": "CC BY-SA 4.0",
+   "skipped": null,
+   "proofread_pages_total": 171,
+   "pages_sampled": 60,
+   "counts": {
+    "pages": 58,
+    "tier_GOLD": 965,
+    "tier_SILVER": 35,
+    "tier_GOLD_A": 5,
+    "page_skipped_short": 1,
+    "page_skipped_complex": 1
+   }
+  },
+  "w20": {
+   "commons_license": "Public domain",
+   "skipped": null,
+   "proofread_pages_total": 334,
+   "pages_sampled": 100,
+   "counts": {
+    "pages": 91,
+    "tier_SILVER": 1413,
+    "tier_GOLD": 879,
+    "bench_pages": 63,
+    "page_skipped_short": 7,
+    "page_skipped_complex": 2,
+    "tier_GOLD_A": 2
+   }
+  },
+  "w21": {
+   "commons_license": "CC BY 4.0",
+   "skipped": null,
+   "proofread_pages_total": 147,
+   "pages_sampled": 100,
+   "counts": {
+    "pages": 97,
+    "tier_GOLD": 1457,
+    "tier_SILVER": 581,
+    "bench_pages": 87,
+    "page_skipped_complex": 3,
+    "tier_GOLD_A": 1
+   }
+  },
+  "w22": {
+   "commons_license": "Public domain",
+   "skipped": null,
+   "proofread_pages_total": 241,
+   "pages_sampled": 100,
+   "counts": {
+    "pages": 95,
+    "tier_GOLD": 933,
+    "page_skipped_short": 1,
+    "tier_SILVER": 768,
+    "bench_pages": 69,
+    "tier_GOLD_A": 3,
+    "page_skipped_complex": 4
+   }
+  },
+  "w23": {
+   "commons_license": "Public domain",
+   "skipped": null,
+   "proofread_pages_total": 192,
+   "pages_sampled": 100,
+   "counts": {
+    "pages": 77,
+    "tier_SILVER": 26,
+    "tier_GOLD": 115,
+    "bench_pages": 6,
+    "page_skipped_complex": 23
+   }
+  }
+ }
+}

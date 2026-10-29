@@ -1,19 +1,19 @@
 {
- "built": "2026-10-28T20:53:58.344207+00:00",
- "n_lines": 39998,
+ "built": "2026-10-29T10:19:03.719719+00:00",
+ "n_lines": 40182,
  "drops": {
-  "loaded": 40099,
+  "loaded": 40282,
   "duplicate_across_works": 25,
   "leak_eval_shingle": 8,
-  "leak_train_vs_final": 68
+  "leak_train_vs_final": 67
  },
  "by_split_tier": {
   "final/GOLD": 3382,
   "final/GOLD_A": 6,
   "final/SILVER": 2788,
-  "train/GOLD": 19786,
-  "train/GOLD_A": 25,
-  "train/SILVER": 10739,
+  "train/GOLD": 19859,
+  "train/GOLD_A": 24,
+  "train/SILVER": 10851,
   "tune/GOLD": 2859,
   "tune/GOLD_A": 6,
   "tune/SILVER": 407
@@ -25,7 +25,7 @@
   "w04": 2271,
   "w05": 1968,
   "w06": 1951,
-  "w07": 998,
+  "w07": 1182,
   "w08": 1664,
   "w09": 1689,
   "w10": 1387,
@@ -43,18 +43,18 @@
   "w23": 140
  },
  "chars": {
-  "train": 1912648,
+  "train": 1926212,
   "tune": 210999,
   "final": 436195
  },
  "line_reasons_total": {
-  "short": 4922,
-  "ok": 41035,
-  "ambiguous": 5708,
-  "low_sim": 1951,
-  "nomatch": 1953,
-  "anchored": 129,
-  "nospan": 53,
+  "short": 5254,
+  "ok": 41326,
+  "ambiguous": 6206,
+  "low_sim": 1955,
+  "nomatch": 1980,
+  "anchored": 127,
+  "nospan": 61,
   "non_persian": 6
  },
  "works": {
@@ -144,15 +144,14 @@
   "w07": {
    "commons_license": "Public domain",
    "skipped": null,
-   "proofread_pages_total": 230,
+   "proofread_pages_total": 121,
    "pages_sampled": 120,
    "counts": {
-    "pages": 63,
-    "tier_GOLD": 487,
-    "tier_SILVER": 511,
-    "tier_GOLD_A": 2,
-    "page_skipped_complex": 54,
-    "page_skipped_short": 3
+    "pages": 62,
+    "tier_GOLD": 560,
+    "tier_SILVER": 622,
+    "page_skipped_complex": 58,
+    "tier_GOLD_A": 1
    }
   },
   "w08": {
@@ -253,6 +252,7 @@
    "pages_sampled": 120,
    "counts": {
     "pages": 101,
+    "pages_border_cropped": 56,
     "page_skipped_complex": 19
    }
   },

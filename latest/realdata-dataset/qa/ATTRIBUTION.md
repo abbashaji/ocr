@@ -12,7 +12,7 @@ Each underlying work carries the Commons licence shown below at retrieval time. 
 | w04 | train | Tarikhe 500 Saleh Khouzestan.pdf | Ahmad Kasrawi | 1933 | Public domain | 2271 | https://commons.wikimedia.org/wiki/File:Tarikhe_500_Saleh_Khouzestan.pdf |
 | w05 | train | TarikhMashrouteh.pdf | Ahmad Kasravi | 1940-06-30 | Public domain | 1968 | https://commons.wikimedia.org/wiki/File:TarikhMashrouteh.pdf |
 | w06 | train | 3 Sal Dar Darbar-e Iran.pdf | Jean-Baptiste Feuvrier | 1947 | Public domain | 1951 | https://commons.wikimedia.org/wiki/File:3_Sal_Dar_Darbar-e_Iran.pdf |
-| w07 | train | Tarikh-e Tabarestan.pdf | Ibn Isfandiyar | 1945 | Public domain | 998 | https://commons.wikimedia.org/wiki/File:Tarikh-e_Tabarestan.pdf |
+| w07 | train | Tarikh-e Tabarestan.pdf | Ibn Isfandiyar | 1945 | Public domain | 1182 | https://commons.wikimedia.org/wiki/File:Tarikh-e_Tabarestan.pdf |
 | w08 | train | Gharbzadegi.pdf | Jalal Al-e-Ahmad | 2017-06-01 | Public domain | 1664 | https://commons.wikimedia.org/wiki/File:Gharbzadegi.pdf |
 | w09 | train | ModireMadrese.pdf | جلال آل‌احمد | 1966-05-05 | Public domain | 1689 | https://commons.wikimedia.org/wiki/File:ModireMadrese.pdf |
 | w10 | train | Neyrangestaan.pdf | Sadegh Hedayat |  | Public domain | 1387 | https://commons.wikimedia.org/wiki/File:Neyrangestaan.pdf |

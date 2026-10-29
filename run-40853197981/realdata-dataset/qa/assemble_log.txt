@@ -1,0 +1,1 @@
+{"n_lines": 40182, "by_split_tier": {"final/GOLD": 3382, "final/GOLD_A": 6, "final/SILVER": 2788, "train/GOLD": 19859, "train/GOLD_A": 24, "train/SILVER": 10851, "tune/GOLD": 2859, "tune/GOLD_A": 6, "tune/SILVER": 407}, "drops": {"loaded": 40282, "duplicate_across_works": 25, "leak_eval_shingle": 8, "leak_train_vs_final": 67}}

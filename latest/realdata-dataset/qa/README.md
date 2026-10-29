@@ -2,7 +2,7 @@
 
 Real scanned Persian book/periodical pages with human-proofread text. Lines were cut with the product segmenter
 (`matnyab.engine.segment`), the label of each line is the human text found by monotone edit-distance alignment against the
-page text (never OCR output). Built 2026-10-28; rebuild: GitHub Actions -> `build-real-dataset` -> stage `build`.
+page text (never OCR output). Built 2026-10-29; rebuild: GitHub Actions -> `build-real-dataset` -> stage `build`.
 
 ## Counts (after dedupe and leakage filtering)
 | split/tier | lines |
@@ -10,14 +10,14 @@ page text (never OCR output). Built 2026-10-28; rebuild: GitHub Actions -> `buil
 | final/GOLD | 3382 |
 | final/GOLD_A | 6 |
 | final/SILVER | 2788 |
-| train/GOLD | 19786 |
-| train/GOLD_A | 25 |
-| train/SILVER | 10739 |
+| train/GOLD | 19859 |
+| train/GOLD_A | 24 |
+| train/SILVER | 10851 |
 | tune/GOLD | 2859 |
 | tune/GOLD_A | 6 |
 | tune/SILVER | 407 |
 
-Total lines: 39998. Splits are by WORK: train / tune / final (final = held-out real-scan benchmark).
+Total lines: 40182. Splits are by WORK: train / tune / final (final = held-out real-scan benchmark).
 Tiers: GOLD = unambiguous alignment, similarity >= 0.93; GOLD_A = anchored between two GOLD neighbours; SILVER = weaker alignment
 (0.80-0.93) - train on GOLD/GOLD_A first. Dropped lines and reasons: see `stats.json` (`drops`, `line_reasons_total`).
 
