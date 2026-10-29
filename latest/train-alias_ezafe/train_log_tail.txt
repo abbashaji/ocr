@@ -1,0 +1,32 @@
+Loaded file base.lstm, unpacking...
+Warning: LSTMTrainer deserialized an LSTMRecognizer!
+Continuing from base.lstm
+Set learning rate to 0.000010
+2 Percent improvement time=100, best error was 100 @ 0
+At iteration 100/100/100, mean rms=2.832%, delta=10.142%, BCER train=18.324%, BWER train=42.837%, skip ratio=0.000%, New best BCER = 18.324 wrote best model:ft_18.324_100_100.checkpoint wrote checkpoint.
+2 Percent improvement time=200, best error was 100 @ 0
+At iteration 200/200/200, mean rms=2.738%, delta=9.599%, BCER train=17.118%, BWER train=41.264%, skip ratio=0.000%, New best BCER = 17.118 wrote best model:ft_17.118_200_200.checkpoint wrote checkpoint.
+2 Percent improvement time=299, best error was 100 @ 0
+At iteration 299/300/300, mean rms=2.708%, delta=9.311%, BCER train=16.697%, BWER train=40.012%, skip ratio=0.000%, New best BCER = 16.697 wrote checkpoint.
+At iteration 398/400/400, mean rms=2.732%, delta=9.415%, BCER train=16.961%, BWER train=41.389%, skip ratio=0.000%, New worst BCER = 16.961 wrote checkpoint.
+At iteration 497/500/500, mean rms=2.709%, delta=9.226%, BCER train=16.710%, BWER train=41.025%, skip ratio=0.000%, New worst BCER = 16.710 wrote checkpoint.
+2 Percent improvement time=494, best error was 18.324 @ 100
+At iteration 594/600/600, mean rms=2.677%, delta=9.030%, BCER train=16.298%, BWER train=40.284%, skip ratio=0.000%, New best BCER = 16.298 wrote best model:ft_16.298_594_600.checkpoint wrote checkpoint.
+At iteration 693/700/700, mean rms=2.680%, delta=9.024%, BCER train=16.356%, BWER train=40.419%, skip ratio=0.000%, New worst BCER = 16.356 wrote checkpoint.
+2 Percent improvement time=692, best error was 18.324 @ 100
+At iteration 792/800/800, mean rms=2.653%, delta=8.834%, BCER train=15.998%, BWER train=39.820%, skip ratio=0.000%, New best BCER = 15.998 wrote checkpoint.
+2 Percent improvement time=791, best error was 18.324 @ 100
+At iteration 891/900/900, mean rms=2.629%, delta=8.662%, BCER train=15.822%, BWER train=39.346%, skip ratio=0.000%, New best BCER = 15.822 wrote checkpoint.
+2 Percent improvement time=889, best error was 18.324 @ 100
+At iteration 989/1000/1000, mean rms=2.599%, delta=8.444%, BCER train=15.445%, BWER train=38.971%, skip ratio=0.000%, New best BCER = 15.445 wrote best model:ft_15.445_989_1000.checkpoint wrote checkpoint.
+2 Percent improvement time=889, best error was 17.118 @ 200
+At iteration 1089/1100/1100, mean rms=2.552%, delta=8.104%, BCER train=15.012%, BWER train=38.586%, skip ratio=0.000%, New best BCER = 15.012 wrote checkpoint.
+2 Percent improvement time=986, best error was 17.118 @ 200
+At iteration 1186/1200/1200, mean rms=2.525%, delta=7.898%, BCER train=14.726%, BWER train=38.165%, skip ratio=0.000%, New best BCER = 14.726 wrote best model:ft_14.726_1186_1200.checkpoint wrote checkpoint.
+2 Percent improvement time=984, best error was 16.697 @ 299
+At iteration 1283/1300/1300, mean rms=2.498%, delta=7.697%, BCER train=14.424%, BWER train=37.913%, skip ratio=0.000%, New best BCER = 14.424 wrote checkpoint.
+2 Percent improvement time=584, best error was 15.998 @ 792
+At iteration 1376/1400/1400, mean rms=2.447%, delta=7.377%, BCER train=13.906%, BWER train=36.899%, skip ratio=0.000%, New best BCER = 13.906 wrote best model:ft_13.906_1376_1400.checkpoint wrote checkpoint.
+2 Percent improvement time=581, best error was 15.822 @ 891
+At iteration 1472/1500/1500, mean rms=2.423%, delta=7.205%, BCER train=13.702%, BWER train=36.730%, skip ratio=0.000%, New best BCER = 13.702 wrote checkpoint.
+Finished! Selected model with minimal training error rate (BCER) = 13.702
