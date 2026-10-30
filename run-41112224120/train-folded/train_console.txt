@@ -1,0 +1,49 @@
+label scheme: folded
+fonts: ['DejaVu', 'DejaVuBold', 'NotoKufi', 'NotoNaskh', 'NotoNaskhBold', 'Vazirmatn', 'VazirmatnBold']
+{'train': 137024, 'eval': 7647, 'holdout': 7534}
+train 2000 / 30000
+train 4000 / 30000
+train 6000 / 30000
+train 8000 / 30000
+train 10000 / 30000
+train 12000 / 30000
+train 14000 / 30000
+train 16000 / 30000
+train 18000 / 30000
+train 20000 / 30000
+train 22000 / 30000
+train 24000 / 30000
+train 26000 / 30000
+train 28000 / 30000
+train 30000 / 30000
+train lstmf files: 30000 plain: 14535
+eval lstmf files: 1500 plain: 728
+real train lines: 19811 -> lstmf 19532 plain 13508
+real tune lines: 500 -> lstmf 494 plain 266
+ft/train.sh: line 31: 56098 Aborted                 OMP_THREAD_LIMIT=1 timeout "${MAX_MIN}m" lstmtraining --model_output ft --continue_from "$CONT" --traineddata "$TD" ${OLD[@]+"${OLD[@]}"} --train_listfile data/list.train --eval_listfile data/list.eval --max_iterations "$MAX_IT" --learning_rate "$LR" --reset_learning_rate > train.log 2>&1
+lstmtraining exit 134 (124 = time limit reached, fine)
+Finished! Selected model with minimal training error rate (BCER) = 3.768
+Fatal glibc error: pthread_mutex_lock.c:450 (__pthread_mutex_lock_full): assertion failed: e != ESRCH || !robust
+timeout: the monitored command dumped core
+candidate ft_checkpoint BCER=4.509
+candidate ft_3.832_49771_72200.checkpoint BCER=4.774
+candidate ft_3.999_47393_68100.checkpoint BCER=4.917
+candidate ft_4.213_42082_59000.checkpoint BCER=5.081
+Loaded file ft_checkpoint, unpacking...
+{
+ "scheme": "folded",
+ "base_bcer": 18.458,
+ "ft_bcer": 4.509,
+ "checkpoint": "ft_checkpoint",
+ "lr": "0.00001",
+ "n_train": 30000,
+ "n_eval": 1500,
+ "n_real": 20000,
+ "ezafe_p": 0.25,
+ "bcer_plain_base": 17.679,
+ "bcer_plain_ft": 4.748,
+ "bcer_real_plain_base": 5.466,
+ "bcer_real_plain_ft": 1.481,
+ "bcer_real_all_ft": 1.491,
+ "note": "BCER = character error % of the raw LSTM on held-out lines (never trained on). base_bcer/ft_bcer: synthetic eval list of the scheme (base_bcer only for folded). *_plain: only lines whose label is identical in every scheme (no \u060c \u066b \u066c \u066a % ; ezafe), same images for all schemes -> use these to compare schemes. bcer_real_*: real scanned lines of the tune split of the realdata export."
+}
