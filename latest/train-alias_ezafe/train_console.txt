@@ -1,18 +1,33 @@
 label scheme: alias_ezafe
 fonts: ['DejaVu', 'DejaVuBold', 'NotoKufi', 'NotoNaskh', 'NotoNaskhBold', 'Vazirmatn', 'VazirmatnBold']
-{'train': 4170, 'eval': 232, 'holdout': 223}
-train lstmf files: 1500 plain: 732
-eval lstmf files: 200 plain: 115
-real train lines: 300 -> lstmf 293 plain 216
-real tune lines: 100 -> lstmf 100 plain 42
+{'train': 137024, 'eval': 7647, 'holdout': 7534}
+train 2000 / 30000
+train 4000 / 30000
+train 6000 / 30000
+train 8000 / 30000
+train 10000 / 30000
+train 12000 / 30000
+train 14000 / 30000
+train 16000 / 30000
+train 18000 / 30000
+train 20000 / 30000
+train 22000 / 30000
+train 24000 / 30000
+train 26000 / 30000
+train 28000 / 30000
+train 30000 / 30000
+train lstmf files: 30000 plain: 14535
+eval lstmf files: 1500 plain: 728
+real train lines: 19811 -> lstmf 19532 plain 13508
+real tune lines: 500 -> lstmf 494 plain 266
 lstmtraining exit 0 (124 = time limit reached, fine)
-2 Percent improvement time=581, best error was 15.822 @ 891
-At iteration 1472/1500/1500, mean rms=2.423%, delta=7.205%, BCER train=13.702%, BWER train=36.730%, skip ratio=0.000%, New best BCER = 13.702 wrote checkpoint.
-Finished! Selected model with minimal training error rate (BCER) = 13.702
-candidate ft_checkpoint BCER=12.915
-candidate ft_13.906_1376_1400.checkpoint BCER=13.123
-candidate ft_14.726_1186_1200.checkpoint BCER=13.361
-candidate ft_15.445_989_1000.checkpoint BCER=13.879
+At iteration 99693/149900/149900, mean rms=1.044%, delta=1.681%, BCER train=3.975%, BWER train=14.937%, skip ratio=0.000%, wrote checkpoint.
+At iteration 99751/150000/150000, mean rms=1.046%, delta=1.658%, BCER train=4.011%, BWER train=14.994%, skip ratio=0.000%, wrote checkpoint.
+Finished! Selected model with minimal training error rate (BCER) = 3.718
+candidate ft_checkpoint BCER=4.562
+candidate ft_3.775_75959_108500.checkpoint BCER=5.001
+candidate ft_3.936_72766_103100.checkpoint BCER=5.044
+candidate ft_4.126_71066_100200.checkpoint BCER=5.087
 Loaded file ft_checkpoint, unpacking...
 class 94: U+064D -> U+060C
 class 90: U+064C -> U+066B
@@ -22,17 +37,17 @@ class 85: U+0651 -> U+0654
 {
  "scheme": "alias_ezafe",
  "base_bcer": null,
- "ft_bcer": 12.915,
+ "ft_bcer": 4.562,
  "checkpoint": "ft_checkpoint",
  "lr": "0.00001",
- "n_train": 1500,
- "n_eval": 200,
- "n_real": 300,
+ "n_train": 30000,
+ "n_eval": 1500,
+ "n_real": 20000,
  "ezafe_p": 0.25,
- "bcer_plain_base": 19.879,
- "bcer_plain_ft": 11.55,
- "bcer_real_plain_base": 5.505,
- "bcer_real_plain_ft": 3.55,
- "bcer_real_all_ft": 6.276,
+ "bcer_plain_base": 19.223,
+ "bcer_plain_ft": 4.577,
+ "bcer_real_plain_base": 5.466,
+ "bcer_real_plain_ft": 1.275,
+ "bcer_real_all_ft": 1.43,
  "note": "BCER = character error % of the raw LSTM on held-out lines (never trained on). base_bcer/ft_bcer: synthetic eval list of the scheme (base_bcer only for folded). *_plain: only lines whose label is identical in every scheme (no \u060c \u066b \u066c \u066a % ; ezafe), same images for all schemes -> use these to compare schemes. bcer_real_*: real scanned lines of the tune split of the realdata export."
 }
