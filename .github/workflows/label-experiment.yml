@@ -2,8 +2,9 @@ name: label-experiment
 
 # TASK C: does a distinct label design (separate classes for ، ٫ ٬ ٪ and the ezafe mark ٔ) beat the folded recipe?
 # One training job per label scheme (same corpus, same real lines, same seed, same budget), one evaluation job per scheme on the SAME
-# freshly screenshotted tests, then a summary table. The default scheme list is folded (control), distinct, distinct_ezafe.
-# Results (train_summary.json, fas_ft_<scheme>.traineddata, eval.md/json, labels.json, summary.md) go to the `results` branch.
+# screenshot tests, then results on the `results` branch (train_summary.json, fas_ft_<scheme>.traineddata, eval.md/json, labels_*.json).
+# Schemes: folded (control) | distinct, distinct_ezafe (extend the unicharset; failed, kept for the record) | alias, alias_ezafe (recommended to try).
+# A scheme whose model already exists can be re-evaluated without retraining (reuse_run_id + reuse_schemes), on the tests of an earlier run (tests_run_id).
 on:
   workflow_dispatch:
     inputs:
@@ -41,6 +42,15 @@ on:
       evaluate_sets:
         description: 'Sets for evaluate.py'
         default: 'client,real_tune,real_final'
+      reuse_run_id:
+        description: 'Reuse trained models (artifact fas_ft_<scheme>) of this earlier run for the schemes in reuse_schemes: they are evaluated, not retrained'
+        default: ''
+      reuse_schemes:
+        description: 'Comma separated schemes taken from reuse_run_id'
+        default: ''
+      tests_run_id:
+        description: 'Reuse the screenshot tests (artifact tests) of this earlier run instead of making new ones (same images for every scheme)'
+        default: ''
 
 permissions:
   contents: write
@@ -53,15 +63,23 @@ jobs:
   plan:
     runs-on: ubuntu-24.04
     outputs:
-      matrix: ${{ steps.m.outputs.matrix }}
+      train: ${{ steps.m.outputs.train }}
+      evaluate: ${{ steps.m.outputs.evaluate }}
+      train_any: ${{ steps.m.outputs.train_any }}
     steps:
       - id: m
         run: |
           python3 - <<'PY' >> "$GITHUB_OUTPUT"
           import json
+          ok = ('folded', 'distinct', 'distinct_ezafe', 'alias', 'alias_ezafe')
           s = [x.strip() for x in "${{ inputs.schemes }}".split(',') if x.strip()]
-          assert s and all(x in ('folded', 'distinct', 'distinct_ezafe', 'alias', 'alias_ezafe') for x in s), s
-          print('matrix=' + json.dumps({'scheme': s}))
+          r = [x.strip() for x in "${{ inputs.reuse_schemes }}".split(',') if x.strip()]
+          assert s and all(x in ok for x in s), s
+          assert all(x in s for x in r) and (not r or "${{ inputs.reuse_run_id }}"), (s, r)
+          t = [x for x in s if x not in r]
+          print('train=' + json.dumps({'scheme': t}))
+          print('evaluate=' + json.dumps({'scheme': s}))
+          print('train_any=' + ('true' if t else 'false'))
           PY
 
   corpus:
@@ -115,6 +133,7 @@ jobs:
         run: bash ft/publish_results.sh corpus out
 
   tests:
+    if: ${{ inputs.tests_run_id == '' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 90
     steps:
@@ -143,9 +162,10 @@ jobs:
 
   train:
     needs: [plan, corpus, tests]
+    if: ${{ !cancelled() && needs.plan.outputs.train_any == 'true' && needs.corpus.result == 'success' && (needs.tests.result == 'success' || needs.tests.result == 'skipped') }}
     strategy:
       fail-fast: false
-      matrix: ${{ fromJson(needs.plan.outputs.matrix) }}
+      matrix: ${{ fromJson(needs.plan.outputs.train) }}
     runs-on: ubuntu-24.04
     timeout-minutes: 350
     steps:
@@ -196,9 +216,10 @@ jobs:
 
   evaluate:
     needs: [plan, train, tests]
+    if: ${{ !cancelled() && needs.plan.result == 'success' && (needs.train.result == 'success' || needs.train.result == 'skipped') && (needs.tests.result == 'success' || needs.tests.result == 'skipped') }}
     strategy:
       fail-fast: false
-      matrix: ${{ fromJson(needs.plan.outputs.matrix) }}
+      matrix: ${{ fromJson(needs.plan.outputs.evaluate) }}
     runs-on: ubuntu-24.04
     timeout-minutes: 300
     steps:
@@ -217,9 +238,17 @@ jobs:
           cp /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf fonts/DejaVu.ttf
           curl -sL -o tess/fas.traineddata https://github.com/tesseract-ocr/tessdata_best/raw/main/fas.traineddata
       - uses: actions/download-artifact@v4
-        with: { name: 'fas_ft_${{ matrix.scheme }}', path: ftout }
+        with:
+          name: 'fas_ft_${{ matrix.scheme }}'
+          path: ftout
+          run-id: ${{ contains(format(',{0},', inputs.reuse_schemes), format(',{0},', matrix.scheme)) && inputs.reuse_run_id || github.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/download-artifact@v4
-        with: { name: tests, path: tests }
+        with:
+          name: tests
+          path: tests
+          run-id: ${{ inputs.tests_run_id || github.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Evaluate (legacy pipeline incl. plain Tesseract + product engine ocr2@main)
         run: |
           mkdir -p results
