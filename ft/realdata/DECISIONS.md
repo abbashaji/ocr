@@ -10,3 +10,6 @@
 8. Benchmark reports space-vs-character errors (see benchmark.md), because on real scans word accuracy is dominated by word-boundary errors, not letter errors.
 9. Augmentation: one seeded copy (`aug1`) per GOLD train line, train split only, originals untouched.
 10. Hugging Face and other third-party datasets were not mixed in (provenance/label quality unverified).
+11. CORRECTION (leakage check): the first two full builds used a leakage reference that contained only 2 of 31 Wikipedia articles (TextExtracts returns one full extract per request). With all 31 fetched (run 40967573452) the filter removed 131 shingle + 4 substring lines instead of 8, so about 130 lines in earlier releases (realdata-40655209632, realdata-40853197981) overlap evaluation text. Use the newest release. leak.py now fails if fewer than 90% of articles are fetched.
+12. Alignment uses a single-scale per-line Tesseract call with the shipped model (not the ocr2 7-scale engine, too slow for ~6,000 pages); the product segmenter is used unchanged, plus a border-stripping fallback only when it finds <= 2 bands.
+13. Selection bias: lines are labelled only when the shipped model reads them well enough to align, so line-level scores are optimistic and hard lines are under-represented. w23 (1851 newspaper) has only 141 lines / 6 benchmark pages for this reason; do not read its 85% as typical.
