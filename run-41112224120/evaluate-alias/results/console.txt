@@ -1,0 +1,467 @@
+{'client': 2, 'real_tune': 132, 'real_final': 135}
+[base] client: 2 images, 11s
+[base] real_tune: 132 images, 158s
+[base] real_final: 135 images, 174s
+[ft] client: 2 images, 11s
+[ft] real_tune: 132 images, 142s
+[ft] real_final: 135 images, 164s
+[base] ocr2 client: 2 images, 7s
+[base] ocr2 real_tune: 132 images, 142s
+[base] ocr2 real_final: 135 images, 167s
+[ft] ocr2 client: 2 images, 7s
+[ft] ocr2 real_tune: 132 images, 137s
+[ft] ocr2 real_final: 135 images, 162s
+WARNING - real_tune [base/plain]: 1/132 images returned < 30% of the reference length, e.g. 02_2_z100.png
+WARNING - real_tune [base/v2raw]: 4/132 images returned < 30% of the reference length, e.g. 02_1_z50.jpg, 02_2_z100.png, 14_0_z50.jpg, 14_2_z50.jpg
+WARNING - real_tune [base/v2lex]: 5/132 images returned < 30% of the reference length, e.g. 02_1_z50.jpg, 02_2_z100.png, 04_1_z50.jpg, 14_0_z50.jpg
+WARNING - real_tune [base/ocr2/auto]: 4/132 images returned < 30% of the reference length, e.g. 02_1_z50.jpg, 02_2_z100.png, 14_0_z50.jpg, 14_2_z50.jpg
+WARNING - real_tune [base/ocr2/raw]: 4/132 images returned < 30% of the reference length, e.g. 02_1_z50.jpg, 02_2_z100.png, 14_0_z50.jpg, 14_2_z50.jpg
+WARNING - real_tune [base/ocr2/lex]: 4/132 images returned < 30% of the reference length, e.g. 02_1_z50.jpg, 02_2_z100.png, 14_0_z50.jpg, 14_2_z50.jpg
+WARNING - real_tune [ft/plain]: 1/132 images returned < 30% of the reference length, e.g. 02_2_z100.png
+WARNING - real_tune [ft/v2raw]: 3/132 images returned < 30% of the reference length, e.g. 02_2_z100.png, 14_0_z50.jpg, 14_2_z50.jpg
+WARNING - real_tune [ft/v2lex]: 3/132 images returned < 30% of the reference length, e.g. 02_2_z100.png, 14_0_z50.jpg, 14_2_z50.jpg
+WARNING - real_tune [ft/ocr2/auto]: 3/132 images returned < 30% of the reference length, e.g. 02_2_z100.png, 14_0_z50.jpg, 14_2_z50.jpg
+WARNING - real_tune [ft/ocr2/raw]: 3/132 images returned < 30% of the reference length, e.g. 02_2_z100.png, 14_0_z50.jpg, 14_2_z50.jpg
+WARNING - real_tune [ft/ocr2/lex]: 3/132 images returned < 30% of the reference length, e.g. 02_2_z100.png, 14_0_z50.jpg, 14_2_z50.jpg
+WARNING - real_final [base/v2raw]: 2/135 images returned < 30% of the reference length, e.g. 01_0_z50.jpg, 03_2_z50.jpg
+WARNING - real_final [base/v2lex]: 2/135 images returned < 30% of the reference length, e.g. 01_0_z50.jpg, 03_2_z50.jpg
+WARNING - real_final [base/ocr2/auto]: 2/135 images returned < 30% of the reference length, e.g. 01_0_z50.jpg, 03_2_z50.jpg
+WARNING - real_final [base/ocr2/raw]: 2/135 images returned < 30% of the reference length, e.g. 01_0_z50.jpg, 03_2_z50.jpg
+WARNING - real_final [base/ocr2/lex]: 2/135 images returned < 30% of the reference length, e.g. 01_0_z50.jpg, 03_2_z50.jpg
+WARNING - real_final [ft/v2raw]: 2/135 images returned < 30% of the reference length, e.g. 01_0_z50.jpg, 03_2_z50.jpg
+WARNING - real_final [ft/v2lex]: 2/135 images returned < 30% of the reference length, e.g. 01_0_z50.jpg, 03_2_z50.jpg
+WARNING - real_final [ft/ocr2/auto]: 2/135 images returned < 30% of the reference length, e.g. 01_0_z50.jpg, 03_2_z50.jpg
+WARNING - real_final [ft/ocr2/raw]: 2/135 images returned < 30% of the reference length, e.g. 01_0_z50.jpg, 03_2_z50.jpg
+WARNING - real_final [ft/ocr2/lex]: 2/135 images returned < 30% of the reference length, e.g. 01_0_z50.jpg, 03_2_z50.jpg
+# Results (micro-averaged accuracy %, word / letter)
+
+`nomark` = citation markers like [۱۱] removed from OCR output before scoring. Strict tables show numbers F1 % / punctuation F1 %.
+
+
+## WARNINGS (check before trusting the tables)
+
+- real_tune [base/plain]: 1/132 images returned < 30% of the reference length, e.g. 02_2_z100.png
+- real_tune [base/v2raw]: 4/132 images returned < 30% of the reference length, e.g. 02_1_z50.jpg, 02_2_z100.png, 14_0_z50.jpg, 14_2_z50.jpg
+- real_tune [base/v2lex]: 5/132 images returned < 30% of the reference length, e.g. 02_1_z50.jpg, 02_2_z100.png, 04_1_z50.jpg, 14_0_z50.jpg
+- real_tune [base/ocr2/auto]: 4/132 images returned < 30% of the reference length, e.g. 02_1_z50.jpg, 02_2_z100.png, 14_0_z50.jpg, 14_2_z50.jpg
+- real_tune [base/ocr2/raw]: 4/132 images returned < 30% of the reference length, e.g. 02_1_z50.jpg, 02_2_z100.png, 14_0_z50.jpg, 14_2_z50.jpg
+- real_tune [base/ocr2/lex]: 4/132 images returned < 30% of the reference length, e.g. 02_1_z50.jpg, 02_2_z100.png, 14_0_z50.jpg, 14_2_z50.jpg
+- real_tune [ft/plain]: 1/132 images returned < 30% of the reference length, e.g. 02_2_z100.png
+- real_tune [ft/v2raw]: 3/132 images returned < 30% of the reference length, e.g. 02_2_z100.png, 14_0_z50.jpg, 14_2_z50.jpg
+- real_tune [ft/v2lex]: 3/132 images returned < 30% of the reference length, e.g. 02_2_z100.png, 14_0_z50.jpg, 14_2_z50.jpg
+- real_tune [ft/ocr2/auto]: 3/132 images returned < 30% of the reference length, e.g. 02_2_z100.png, 14_0_z50.jpg, 14_2_z50.jpg
+- real_tune [ft/ocr2/raw]: 3/132 images returned < 30% of the reference length, e.g. 02_2_z100.png, 14_0_z50.jpg, 14_2_z50.jpg
+- real_tune [ft/ocr2/lex]: 3/132 images returned < 30% of the reference length, e.g. 02_2_z100.png, 14_0_z50.jpg, 14_2_z50.jpg
+- real_final [base/v2raw]: 2/135 images returned < 30% of the reference length, e.g. 01_0_z50.jpg, 03_2_z50.jpg
+- real_final [base/v2lex]: 2/135 images returned < 30% of the reference length, e.g. 01_0_z50.jpg, 03_2_z50.jpg
+- real_final [base/ocr2/auto]: 2/135 images returned < 30% of the reference length, e.g. 01_0_z50.jpg, 03_2_z50.jpg
+- real_final [base/ocr2/raw]: 2/135 images returned < 30% of the reference length, e.g. 01_0_z50.jpg, 03_2_z50.jpg
+- real_final [base/ocr2/lex]: 2/135 images returned < 30% of the reference length, e.g. 01_0_z50.jpg, 03_2_z50.jpg
+- real_final [ft/v2raw]: 2/135 images returned < 30% of the reference length, e.g. 01_0_z50.jpg, 03_2_z50.jpg
+- real_final [ft/v2lex]: 2/135 images returned < 30% of the reference length, e.g. 01_0_z50.jpg, 03_2_z50.jpg
+- real_final [ft/ocr2/auto]: 2/135 images returned < 30% of the reference length, e.g. 01_0_z50.jpg, 03_2_z50.jpg
+- real_final [ft/ocr2/raw]: 2/135 images returned < 30% of the reference length, e.g. 01_0_z50.jpg, 03_2_z50.jpg
+- real_final [ft/ocr2/lex]: 2/135 images returned < 30% of the reference length, e.g. 01_0_z50.jpg, 03_2_z50.jpg
+
+
+## client / all  (n=2 images, 672 ref words)
+
+| engine | base raw | ft raw | base nomark | ft nomark |
+|---|---|---|---|---|
+| plain | 92.56 / 98.09 | 84.38 / 98.78 | 92.56 / 98.09 | 84.38 / 98.78 |
+| v2raw | 95.68 / 99.08 | 85.12 / 99.12 | 95.83 / 99.08 | 85.12 / 99.12 |
+| v2lex | 97.92 / 99.66 | 86.61 / 99.27 | 98.07 / 99.66 | 86.61 / 99.27 |
+| ocr2/auto | 98.07 / 99.66 | 87.05 / 99.39 | 98.07 / 99.66 | 87.05 / 99.39 |
+| ocr2/raw | 95.98 / 99.12 | 86.46 / 99.35 | 95.98 / 99.12 | 86.46 / 99.35 |
+| ocr2/lex | 98.07 / 99.66 | 87.20 / 99.31 | 98.07 / 99.66 | 87.20 / 99.31 |
+
+Strict F1 % (numbers incl. separators, 6 in ref / punctuation marks, 96 in ref):
+
+| engine | base raw | ft raw | base nomark | ft nomark |
+|---|---|---|---|---|
+| plain | 15.38 / 32.29 | 42.86 / 87.83 | 15.38 / 32.29 | 42.86 / 87.83 |
+| v2raw | 26.67 / 63.21 | 42.86 / 92.47 | 28.57 / 63.87 | 42.86 / 92.47 |
+| v2lex | 26.67 / 63.21 | 42.86 / 92.47 | 28.57 / 63.87 | 42.86 / 92.47 |
+| ocr2/auto | 42.86 / 63.87 | 46.15 / 91.40 | 42.86 / 63.87 | 46.15 / 91.40 |
+| ocr2/raw | 42.86 / 63.87 | 46.15 / 91.40 | 42.86 / 63.87 | 46.15 / 91.40 |
+| ocr2/lex | 42.86 / 63.87 | 46.15 / 91.40 | 42.86 / 63.87 | 46.15 / 91.40 |
+
+## client / client  (n=2 images, 672 ref words)
+
+| engine | base raw | ft raw | base nomark | ft nomark |
+|---|---|---|---|---|
+| plain | 92.56 / 98.09 | 84.38 / 98.78 | 92.56 / 98.09 | 84.38 / 98.78 |
+| v2raw | 95.68 / 99.08 | 85.12 / 99.12 | 95.83 / 99.08 | 85.12 / 99.12 |
+| v2lex | 97.92 / 99.66 | 86.61 / 99.27 | 98.07 / 99.66 | 86.61 / 99.27 |
+| ocr2/auto | 98.07 / 99.66 | 87.05 / 99.39 | 98.07 / 99.66 | 87.05 / 99.39 |
+| ocr2/raw | 95.98 / 99.12 | 86.46 / 99.35 | 95.98 / 99.12 | 86.46 / 99.35 |
+| ocr2/lex | 98.07 / 99.66 | 87.20 / 99.31 | 98.07 / 99.66 | 87.20 / 99.31 |
+
+Strict F1 % (numbers incl. separators, 6 in ref / punctuation marks, 96 in ref):
+
+| engine | base raw | ft raw | base nomark | ft nomark |
+|---|---|---|---|---|
+| plain | 15.38 / 32.29 | 42.86 / 87.83 | 15.38 / 32.29 | 42.86 / 87.83 |
+| v2raw | 26.67 / 63.21 | 42.86 / 92.47 | 28.57 / 63.87 | 42.86 / 92.47 |
+| v2lex | 26.67 / 63.21 | 42.86 / 92.47 | 28.57 / 63.87 | 42.86 / 92.47 |
+| ocr2/auto | 42.86 / 63.87 | 46.15 / 91.40 | 42.86 / 63.87 | 46.15 / 91.40 |
+| ocr2/raw | 42.86 / 63.87 | 46.15 / 91.40 | 42.86 / 63.87 | 46.15 / 91.40 |
+| ocr2/lex | 42.86 / 63.87 | 46.15 / 91.40 | 42.86 / 63.87 | 46.15 / 91.40 |
+
+## real_tune / all  (n=132 images, 17217 ref words)
+
+| engine | base raw | ft raw | base nomark | ft nomark |
+|---|---|---|---|---|
+| plain | 74.28 / 90.47 | 67.36 / 92.64 | 74.52 / 90.47 | 67.51 / 92.64 |
+| v2raw | 74.00 / 87.95 | 67.47 / 91.07 | 74.49 / 87.95 | 67.64 / 91.07 |
+| v2lex | 77.30 / 88.34 | 70.17 / 91.33 | 77.80 / 88.34 | 70.34 / 91.33 |
+| ocr2/auto | 78.40 / 88.39 | 70.68 / 91.52 | 78.40 / 88.39 | 70.68 / 91.52 |
+| ocr2/raw | 74.94 / 87.86 | 67.88 / 91.02 | 74.94 / 87.86 | 67.88 / 91.02 |
+| ocr2/lex | 78.40 / 88.39 | 70.70 / 91.51 | 78.40 / 88.39 | 70.70 / 91.51 |
+
+Strict F1 % (numbers incl. separators, 252 in ref / punctuation marks, 2109 in ref):
+
+| engine | base raw | ft raw | base nomark | ft nomark |
+|---|---|---|---|---|
+| plain | 34.71 / 50.91 | 41.90 / 64.70 | 36.68 / 51.81 | 44.51 / 65.97 |
+| v2raw | 39.50 / 60.93 | 46.24 / 67.87 | 44.32 / 63.58 | 48.66 / 69.04 |
+| v2lex | 39.50 / 60.93 | 46.24 / 67.87 | 44.32 / 63.58 | 48.66 / 69.04 |
+| ocr2/auto | 53.61 / 64.77 | 53.08 / 70.45 | 53.61 / 64.77 | 53.08 / 70.45 |
+| ocr2/raw | 53.61 / 64.77 | 53.08 / 70.45 | 53.61 / 64.77 | 53.08 / 70.45 |
+| ocr2/lex | 53.61 / 64.77 | 53.08 / 70.45 | 53.61 / 64.77 | 53.08 / 70.45 |
+
+## real_tune / z100  (n=44 images, 5739 ref words)
+
+| engine | base raw | ft raw | base nomark | ft nomark |
+|---|---|---|---|---|
+| plain | 92.91 / 96.27 | 79.00 / 96.26 | 93.34 / 96.27 | 79.09 / 96.26 |
+| v2raw | 93.55 / 96.39 | 79.40 / 96.36 | 94.35 / 96.39 | 79.54 / 96.36 |
+| v2lex | 92.68 / 96.13 | 78.88 / 96.02 | 93.48 / 96.13 | 79.02 / 96.02 |
+| ocr2/auto | 94.79 / 96.24 | 79.93 / 96.26 | 94.79 / 96.24 | 79.93 / 96.26 |
+| ocr2/raw | 95.30 / 96.41 | 80.14 / 96.35 | 95.30 / 96.41 | 80.14 / 96.35 |
+| ocr2/lex | 94.79 / 96.24 | 79.74 / 96.17 | 94.79 / 96.24 | 79.74 / 96.17 |
+
+Strict F1 % (numbers incl. separators, 84 in ref / punctuation marks, 703 in ref):
+
+| engine | base raw | ft raw | base nomark | ft nomark |
+|---|---|---|---|---|
+| plain | 49.49 / 53.70 | 57.71 / 76.41 | 54.48 / 55.66 | 61.60 / 77.79 |
+| v2raw | 47.02 / 64.59 | 58.20 / 78.70 | 55.91 / 68.99 | 60.17 / 79.58 |
+| v2lex | 47.02 / 64.59 | 58.20 / 78.70 | 55.91 / 68.99 | 60.17 / 79.58 |
+| ocr2/auto | 71.57 / 70.45 | 73.20 / 81.24 | 71.57 / 70.45 | 73.20 / 81.24 |
+| ocr2/raw | 71.57 / 70.45 | 73.20 / 81.24 | 71.57 / 70.45 | 73.20 / 81.24 |
+| ocr2/lex | 71.57 / 70.45 | 73.20 / 81.24 | 71.57 / 70.45 | 73.20 / 81.24 |
+
+## real_tune / z100+z75  (n=88 images, 11478 ref words)
+
+| engine | base raw | ft raw | base nomark | ft nomark |
+|---|---|---|---|---|
+| plain | 90.02 / 96.64 | 78.04 / 97.18 | 90.36 / 96.64 | 78.24 / 97.18 |
+| v2raw | 91.23 / 96.90 | 78.54 / 97.33 | 91.97 / 96.90 | 78.79 / 97.33 |
+| v2lex | 92.61 / 97.23 | 79.00 / 97.22 | 93.35 / 97.23 | 79.25 / 97.22 |
+| ocr2/auto | 94.49 / 97.34 | 79.91 / 97.43 | 94.49 / 97.34 | 79.91 / 97.43 |
+| ocr2/raw | 92.80 / 96.91 | 79.27 / 97.33 | 92.80 / 96.91 | 79.27 / 97.33 |
+| ocr2/lex | 94.49 / 97.34 | 79.94 / 97.42 | 94.49 / 97.34 | 79.94 / 97.42 |
+
+Strict F1 % (numbers incl. separators, 168 in ref / punctuation marks, 1406 in ref):
+
+| engine | base raw | ft raw | base nomark | ft nomark |
+|---|---|---|---|---|
+| plain | 43.31 / 54.31 | 52.93 / 70.17 | 46.77 / 55.66 | 57.46 / 71.90 |
+| v2raw | 48.03 / 66.06 | 58.82 / 74.35 | 56.45 / 70.00 | 63.04 / 76.02 |
+| v2lex | 48.03 / 66.06 | 58.82 / 74.35 | 56.45 / 70.00 | 63.04 / 76.02 |
+| ocr2/auto | 71.68 / 71.83 | 73.66 / 77.95 | 71.68 / 71.83 | 73.66 / 77.95 |
+| ocr2/raw | 71.68 / 71.83 | 73.66 / 77.95 | 71.68 / 71.83 | 73.66 / 77.95 |
+| ocr2/lex | 71.68 / 71.83 | 73.66 / 77.95 | 71.68 / 71.83 | 73.66 / 77.95 |
+
+## real_tune / z50  (n=44 images, 5739 ref words)
+
+| engine | base raw | ft raw | base nomark | ft nomark |
+|---|---|---|---|---|
+| plain | 42.81 / 78.15 | 46.00 / 83.56 | 42.83 / 78.15 | 46.05 / 83.56 |
+| v2raw | 39.54 / 70.04 | 45.34 / 78.57 | 39.54 / 70.04 | 45.36 / 78.57 |
+| v2lex | 46.68 / 70.56 | 52.50 / 79.55 | 46.68 / 70.56 | 52.52 / 79.55 |
+| ocr2/auto | 46.21 / 70.48 | 52.22 / 79.69 | 46.21 / 70.48 | 52.22 / 79.69 |
+| ocr2/raw | 39.22 / 69.74 | 45.09 / 78.42 | 39.22 / 69.74 | 45.09 / 78.42 |
+| ocr2/lex | 46.21 / 70.48 | 52.22 / 79.68 | 46.21 / 70.48 | 52.22 / 79.68 |
+
+Strict F1 % (numbers incl. separators, 84 in ref / punctuation marks, 703 in ref):
+
+| engine | base raw | ft raw | base nomark | ft nomark |
+|---|---|---|---|---|
+| plain | 13.73 / 42.55 | 19.17 / 50.81 | 13.79 / 42.62 | 19.49 / 51.15 |
+| v2raw | 16.59 / 45.89 | 16.98 / 50.84 | 16.59 / 45.89 | 17.14 / 51.03 |
+| v2lex | 16.59 / 45.89 | 16.98 / 50.84 | 16.59 / 45.89 | 17.14 / 51.03 |
+| ocr2/auto | 14.21 / 45.58 | 11.40 / 51.09 | 14.21 / 45.58 | 11.40 / 51.09 |
+| ocr2/raw | 14.21 / 45.58 | 11.40 / 51.09 | 14.21 / 45.58 | 11.40 / 51.09 |
+| ocr2/lex | 14.21 / 45.58 | 11.40 / 51.09 | 14.21 / 45.58 | 11.40 / 51.09 |
+
+## real_tune / z75  (n=44 images, 5739 ref words)
+
+| engine | base raw | ft raw | base nomark | ft nomark |
+|---|---|---|---|---|
+| plain | 87.12 / 97.01 | 77.07 / 98.09 | 87.38 / 97.01 | 77.38 / 98.09 |
+| v2raw | 88.90 / 97.41 | 77.68 / 98.29 | 89.58 / 97.41 | 78.03 / 98.29 |
+| v2lex | 92.54 / 98.34 | 79.13 / 98.42 | 93.22 / 98.34 | 79.47 / 98.42 |
+| ocr2/auto | 94.20 / 98.44 | 79.89 / 98.60 | 94.20 / 98.44 | 79.89 / 98.60 |
+| ocr2/raw | 90.31 / 97.42 | 78.41 / 98.30 | 90.31 / 97.42 | 78.41 / 98.30 |
+| ocr2/lex | 94.20 / 98.44 | 80.15 / 98.67 | 94.20 / 98.44 | 80.15 / 98.67 |
+
+Strict F1 % (numbers incl. separators, 84 in ref / punctuation marks, 703 in ref):
+
+| engine | base raw | ft raw | base nomark | ft nomark |
+|---|---|---|---|---|
+| plain | 36.63 / 54.93 | 47.93 / 64.12 | 38.76 / 55.66 | 52.97 / 66.12 |
+| v2raw | 49.11 / 67.54 | 59.44 / 70.16 | 57.02 / 71.00 | 66.07 / 72.52 |
+| v2lex | 49.11 / 67.54 | 59.44 / 70.16 | 57.02 / 71.00 | 66.07 / 72.52 |
+| ocr2/auto | 71.79 / 73.22 | 74.11 / 74.65 | 71.79 / 73.22 | 74.11 / 74.65 |
+| ocr2/raw | 71.79 / 73.22 | 74.11 / 74.65 | 71.79 / 73.22 | 74.11 / 74.65 |
+| ocr2/lex | 71.79 / 73.22 | 74.11 / 74.65 | 71.79 / 73.22 | 74.11 / 74.65 |
+
+## real_final / all  (n=135 images, 20337 ref words)
+
+| engine | base raw | ft raw | base nomark | ft nomark |
+|---|---|---|---|---|
+| plain | 73.79 / 90.45 | 66.06 / 92.69 | 73.89 / 90.45 | 66.09 / 92.69 |
+| v2raw | 74.33 / 88.49 | 66.71 / 91.67 | 74.61 / 88.49 | 66.77 / 91.67 |
+| v2lex | 77.60 / 88.92 | 69.48 / 91.86 | 77.88 / 88.92 | 69.54 / 91.86 |
+| ocr2/auto | 78.41 / 88.89 | 70.16 / 92.05 | 78.44 / 88.89 | 70.17 / 92.05 |
+| ocr2/raw | 75.10 / 88.39 | 67.10 / 91.62 | 75.13 / 88.39 | 67.11 / 91.62 |
+| ocr2/lex | 78.41 / 88.89 | 70.04 / 92.00 | 78.44 / 88.89 | 70.06 / 92.00 |
+
+Strict F1 % (numbers incl. separators, 291 in ref / punctuation marks, 2244 in ref):
+
+| engine | base raw | ft raw | base nomark | ft nomark |
+|---|---|---|---|---|
+| plain | 28.82 / 46.96 | 40.10 / 64.80 | 29.55 / 47.31 | 40.85 / 65.20 |
+| v2raw | 32.93 / 59.08 | 44.67 / 68.15 | 35.20 / 60.63 | 45.62 / 68.59 |
+| v2lex | 32.93 / 59.08 | 44.67 / 68.15 | 35.20 / 60.63 | 45.62 / 68.59 |
+| ocr2/auto | 43.82 / 62.22 | 54.18 / 70.40 | 44.41 / 62.25 | 54.38 / 70.49 |
+| ocr2/raw | 43.82 / 62.22 | 54.18 / 70.40 | 44.41 / 62.25 | 54.38 / 70.49 |
+| ocr2/lex | 43.82 / 62.22 | 54.18 / 70.40 | 44.41 / 62.25 | 54.38 / 70.49 |
+
+## real_final / z100  (n=45 images, 6779 ref words)
+
+| engine | base raw | ft raw | base nomark | ft nomark |
+|---|---|---|---|---|
+| plain | 96.18 / 99.55 | 80.44 / 99.53 | 96.37 / 99.55 | 80.41 / 99.53 |
+| v2raw | 96.86 / 99.75 | 81.37 / 99.75 | 97.48 / 99.75 | 81.37 / 99.75 |
+| v2lex | 96.12 / 99.53 | 80.81 / 99.37 | 96.74 / 99.53 | 80.81 / 99.37 |
+| ocr2/auto | 98.02 / 99.59 | 82.02 / 99.69 | 98.08 / 99.59 | 82.02 / 99.69 |
+| ocr2/raw | 98.64 / 99.79 | 82.05 / 99.75 | 98.70 / 99.79 | 82.05 / 99.75 |
+| ocr2/lex | 98.01 / 99.59 | 81.62 / 99.55 | 98.07 / 99.59 | 81.62 / 99.55 |
+
+Strict F1 % (numbers incl. separators, 97 in ref / punctuation marks, 748 in ref):
+
+| engine | base raw | ft raw | base nomark | ft nomark |
+|---|---|---|---|---|
+| plain | 41.59 / 51.29 | 59.26 / 79.69 | 43.45 / 51.92 | 59.18 / 79.85 |
+| v2raw | 43.03 / 64.19 | 61.94 / 81.79 | 49.31 / 67.82 | 61.89 / 81.85 |
+| v2lex | 43.03 / 64.19 | 61.94 / 81.79 | 49.31 / 67.82 | 61.89 / 81.85 |
+| ocr2/auto | 66.67 / 70.50 | 83.33 / 84.77 | 68.25 / 70.83 | 83.58 / 84.82 |
+| ocr2/raw | 66.67 / 70.50 | 83.33 / 84.77 | 68.25 / 70.83 | 83.58 / 84.82 |
+| ocr2/lex | 66.67 / 70.50 | 83.33 / 84.77 | 68.25 / 70.83 | 83.58 / 84.82 |
+
+## real_final / z100+z75  (n=90 images, 13558 ref words)
+
+| engine | base raw | ft raw | base nomark | ft nomark |
+|---|---|---|---|---|
+| plain | 91.61 / 98.31 | 77.93 / 98.76 | 91.76 / 98.31 | 77.98 / 98.76 |
+| v2raw | 92.62 / 98.59 | 78.52 / 98.90 | 93.04 / 98.59 | 78.61 / 98.90 |
+| v2lex | 93.84 / 98.86 | 79.11 / 98.82 | 94.26 / 98.86 | 79.20 / 98.82 |
+| ocr2/auto | 95.39 / 98.87 | 80.09 / 99.05 | 95.43 / 98.87 | 80.11 / 99.05 |
+| ocr2/raw | 93.95 / 98.54 | 79.14 / 98.87 | 94.00 / 98.54 | 79.16 / 98.87 |
+| ocr2/lex | 95.38 / 98.87 | 79.92 / 98.98 | 95.43 / 98.87 | 79.94 / 98.98 |
+
+Strict F1 % (numbers incl. separators, 194 in ref / punctuation marks, 1496 in ref):
+
+| engine | base raw | ft raw | base nomark | ft nomark |
+|---|---|---|---|---|
+| plain | 36.70 / 50.39 | 50.46 / 71.53 | 38.06 / 50.92 | 51.89 / 72.12 |
+| v2raw | 39.75 / 65.92 | 55.27 / 76.15 | 43.65 / 68.36 | 56.87 / 76.76 |
+| v2lex | 39.75 / 65.92 | 55.27 / 76.15 | 43.65 / 68.36 | 56.87 / 76.76 |
+| ocr2/auto | 58.33 / 70.74 | 72.39 / 79.29 | 59.38 / 70.92 | 72.77 / 79.41 |
+| ocr2/raw | 58.33 / 70.74 | 72.39 / 79.29 | 59.38 / 70.92 | 72.77 / 79.41 |
+| ocr2/lex | 58.33 / 70.74 | 72.39 / 79.29 | 59.38 / 70.92 | 72.77 / 79.41 |
+
+## real_final / z50  (n=45 images, 6779 ref words)
+
+| engine | base raw | ft raw | base nomark | ft nomark |
+|---|---|---|---|---|
+| plain | 38.16 / 74.75 | 42.32 / 80.54 | 38.16 / 74.75 | 42.32 / 80.54 |
+| v2raw | 37.73 / 68.30 | 43.09 / 77.22 | 37.73 / 68.30 | 43.10 / 77.22 |
+| v2lex | 45.11 / 69.04 | 50.21 / 77.94 | 45.11 / 69.04 | 50.23 / 77.94 |
+| ocr2/auto | 44.46 / 68.94 | 50.29 / 78.04 | 44.46 / 68.94 | 50.30 / 78.04 |
+| ocr2/raw | 37.41 / 68.07 | 43.02 / 77.10 | 37.41 / 68.07 | 43.03 / 77.10 |
+| ocr2/lex | 44.46 / 68.94 | 50.29 / 78.04 | 44.46 / 68.94 | 50.30 / 78.04 |
+
+Strict F1 % (numbers incl. separators, 97 in ref / punctuation marks, 748 in ref):
+
+| engine | base raw | ft raw | base nomark | ft nomark |
+|---|---|---|---|---|
+| plain | 11.15 / 37.65 | 19.57 / 46.74 | 11.15 / 37.65 | 19.64 / 46.82 |
+| v2raw | 16.42 / 38.53 | 21.05 / 46.83 | 16.48 / 38.23 | 21.22 / 46.99 |
+| v2lex | 16.42 / 38.53 | 21.05 / 46.83 | 16.48 / 38.23 | 21.22 / 46.99 |
+| ocr2/auto | 14.29 / 38.27 | 17.67 / 47.15 | 14.35 / 37.97 | 17.76 / 47.23 |
+| ocr2/raw | 14.29 / 38.27 | 17.67 / 47.15 | 14.35 / 37.97 | 17.76 / 47.23 |
+| ocr2/lex | 14.29 / 38.27 | 17.67 / 47.15 | 14.35 / 37.97 | 17.76 / 47.23 |
+
+## real_final / z75  (n=45 images, 6779 ref words)
+
+| engine | base raw | ft raw | base nomark | ft nomark |
+|---|---|---|---|---|
+| plain | 87.03 / 97.06 | 75.42 / 98.00 | 87.15 / 97.06 | 75.54 / 98.00 |
+| v2raw | 88.39 / 97.42 | 75.67 / 98.04 | 88.61 / 97.42 | 75.85 / 98.04 |
+| v2lex | 91.56 / 98.19 | 77.42 / 98.27 | 91.78 / 98.19 | 77.59 / 98.27 |
+| ocr2/auto | 92.76 / 98.15 | 78.17 / 98.40 | 92.79 / 98.15 | 78.20 / 98.40 |
+| ocr2/raw | 89.26 / 97.30 | 76.24 / 97.99 | 89.29 / 97.30 | 76.26 / 97.99 |
+| ocr2/lex | 92.76 / 98.15 | 78.23 / 98.42 | 92.79 / 98.15 | 78.26 / 98.42 |
+
+Strict F1 % (numbers incl. separators, 97 in ref / punctuation marks, 748 in ref):
+
+| engine | base raw | ft raw | base nomark | ft nomark |
+|---|---|---|---|---|
+| plain | 31.65 / 49.50 | 41.88 / 63.49 | 32.57 / 49.94 | 44.44 / 64.41 |
+| v2raw | 36.36 / 67.74 | 48.94 / 70.59 | 38.28 / 68.90 | 51.88 / 71.66 |
+| v2lex | 36.36 / 67.74 | 48.94 / 70.59 | 38.28 / 68.90 | 51.88 / 71.66 |
+| ocr2/auto | 50.83 / 70.99 | 62.56 / 73.68 | 51.48 / 71.01 | 63.11 / 73.88 |
+| ocr2/raw | 50.83 / 70.99 | 62.56 / 73.68 | 51.48 / 71.01 | 63.11 / 73.88 |
+| ocr2/lex | 50.83 / 70.99 | 62.56 / 73.68 | 51.48 / 71.01 | 63.11 / 73.88 |
+
+# Product engine (ocr2): all metrics, raw view
+
+word / letter accuracy %, numbers F1 %, punctuation F1 %, mean seconds per image (this machine, all CPU cores, images one at a time).
+
+
+## client / all  (n=2 images, 672 ref words)
+
+| model | mode | word | letter | numbers F1 | punct F1 | s/image |
+|---|---|---|---|---|---|---|
+| base | auto | 98.07 | 99.66 | 42.86 | 63.87 | 3.54 |
+| base | raw | 95.98 | 99.12 | 42.86 | 63.87 | 3.47 |
+| base | lex | 98.07 | 99.66 | 42.86 | 63.87 | 3.47 |
+| ft | auto | 87.05 | 99.39 | 46.15 | 91.40 | 3.40 |
+| ft | raw | 86.46 | 99.35 | 46.15 | 91.40 | 3.38 |
+| ft | lex | 87.20 | 99.31 | 46.15 | 91.40 | 3.40 |
+
+## client / client  (n=2 images, 672 ref words)
+
+| model | mode | word | letter | numbers F1 | punct F1 | s/image |
+|---|---|---|---|---|---|---|
+| base | auto | 98.07 | 99.66 | 42.86 | 63.87 | 3.54 |
+| base | raw | 95.98 | 99.12 | 42.86 | 63.87 | 3.47 |
+| base | lex | 98.07 | 99.66 | 42.86 | 63.87 | 3.47 |
+| ft | auto | 87.05 | 99.39 | 46.15 | 91.40 | 3.40 |
+| ft | raw | 86.46 | 99.35 | 46.15 | 91.40 | 3.38 |
+| ft | lex | 87.20 | 99.31 | 46.15 | 91.40 | 3.40 |
+
+## real_tune / all  (n=132 images, 17217 ref words)
+
+| model | mode | word | letter | numbers F1 | punct F1 | s/image |
+|---|---|---|---|---|---|---|
+| base | auto | 78.40 | 88.39 | 53.61 | 64.77 | 1.07 |
+| base | raw | 74.94 | 87.86 | 53.61 | 64.77 | 1.04 |
+| base | lex | 78.40 | 88.39 | 53.61 | 64.77 | 1.04 |
+| ft | auto | 70.68 | 91.52 | 53.08 | 70.45 | 1.03 |
+| ft | raw | 67.88 | 91.02 | 53.08 | 70.45 | 1.00 |
+| ft | lex | 70.70 | 91.51 | 53.08 | 70.45 | 1.01 |
+
+## real_tune / z100  (n=44 images, 5739 ref words)
+
+| model | mode | word | letter | numbers F1 | punct F1 | s/image |
+|---|---|---|---|---|---|---|
+| base | auto | 94.79 | 96.24 | 71.57 | 70.45 | 1.15 |
+| base | raw | 95.30 | 96.41 | 71.57 | 70.45 | 1.14 |
+| base | lex | 94.79 | 96.24 | 71.57 | 70.45 | 1.14 |
+| ft | auto | 79.93 | 96.26 | 73.20 | 81.24 | 1.15 |
+| ft | raw | 80.14 | 96.35 | 73.20 | 81.24 | 1.14 |
+| ft | lex | 79.74 | 96.17 | 73.20 | 81.24 | 1.15 |
+
+## real_tune / z100+z75  (n=88 images, 11478 ref words)
+
+| model | mode | word | letter | numbers F1 | punct F1 | s/image |
+|---|---|---|---|---|---|---|
+| base | auto | 94.49 | 97.34 | 71.68 | 71.83 | 1.12 |
+| base | raw | 92.80 | 96.91 | 71.68 | 71.83 | 1.11 |
+| base | lex | 94.49 | 97.34 | 71.68 | 71.83 | 1.11 |
+| ft | auto | 79.91 | 97.43 | 73.66 | 77.95 | 1.11 |
+| ft | raw | 79.27 | 97.33 | 73.66 | 77.95 | 1.10 |
+| ft | lex | 79.94 | 97.42 | 73.66 | 77.95 | 1.11 |
+
+## real_tune / z50  (n=44 images, 5739 ref words)
+
+| model | mode | word | letter | numbers F1 | punct F1 | s/image |
+|---|---|---|---|---|---|---|
+| base | auto | 46.21 | 70.48 | 14.21 | 45.58 | 0.96 |
+| base | raw | 39.22 | 69.74 | 14.21 | 45.58 | 0.90 |
+| base | lex | 46.21 | 70.48 | 14.21 | 45.58 | 0.90 |
+| ft | auto | 52.22 | 79.69 | 11.40 | 51.09 | 0.86 |
+| ft | raw | 45.09 | 78.42 | 11.40 | 51.09 | 0.81 |
+| ft | lex | 52.22 | 79.68 | 11.40 | 51.09 | 0.81 |
+
+## real_tune / z75  (n=44 images, 5739 ref words)
+
+| model | mode | word | letter | numbers F1 | punct F1 | s/image |
+|---|---|---|---|---|---|---|
+| base | auto | 94.20 | 98.44 | 71.79 | 73.22 | 1.09 |
+| base | raw | 90.31 | 97.42 | 71.79 | 73.22 | 1.08 |
+| base | lex | 94.20 | 98.44 | 71.79 | 73.22 | 1.08 |
+| ft | auto | 79.89 | 98.60 | 74.11 | 74.65 | 1.07 |
+| ft | raw | 78.41 | 98.30 | 74.11 | 74.65 | 1.06 |
+| ft | lex | 80.15 | 98.67 | 74.11 | 74.65 | 1.06 |
+
+## real_final / all  (n=135 images, 20337 ref words)
+
+| model | mode | word | letter | numbers F1 | punct F1 | s/image |
+|---|---|---|---|---|---|---|
+| base | auto | 78.41 | 88.89 | 43.82 | 62.22 | 1.23 |
+| base | raw | 75.10 | 88.39 | 43.82 | 62.22 | 1.19 |
+| base | lex | 78.41 | 88.89 | 43.82 | 62.22 | 1.19 |
+| ft | auto | 70.16 | 92.05 | 54.18 | 70.40 | 1.19 |
+| ft | raw | 67.10 | 91.62 | 54.18 | 70.40 | 1.16 |
+| ft | lex | 70.04 | 92.00 | 54.18 | 70.40 | 1.16 |
+
+## real_final / z100  (n=45 images, 6779 ref words)
+
+| model | mode | word | letter | numbers F1 | punct F1 | s/image |
+|---|---|---|---|---|---|---|
+| base | auto | 98.02 | 99.59 | 66.67 | 70.50 | 1.34 |
+| base | raw | 98.64 | 99.79 | 66.67 | 70.50 | 1.33 |
+| base | lex | 98.01 | 99.59 | 66.67 | 70.50 | 1.33 |
+| ft | auto | 82.02 | 99.69 | 83.33 | 84.77 | 1.33 |
+| ft | raw | 82.05 | 99.75 | 83.33 | 84.77 | 1.33 |
+| ft | lex | 81.62 | 99.55 | 83.33 | 84.77 | 1.34 |
+
+## real_final / z100+z75  (n=90 images, 13558 ref words)
+
+| model | mode | word | letter | numbers F1 | punct F1 | s/image |
+|---|---|---|---|---|---|---|
+| base | auto | 95.39 | 98.87 | 58.33 | 70.74 | 1.30 |
+| base | raw | 93.95 | 98.54 | 58.33 | 70.74 | 1.28 |
+| base | lex | 95.38 | 98.87 | 58.33 | 70.74 | 1.28 |
+| ft | auto | 80.09 | 99.05 | 72.39 | 79.29 | 1.29 |
+| ft | raw | 79.14 | 98.87 | 72.39 | 79.29 | 1.27 |
+| ft | lex | 79.92 | 98.98 | 72.39 | 79.29 | 1.28 |
+
+## real_final / z50  (n=45 images, 6779 ref words)
+
+| model | mode | word | letter | numbers F1 | punct F1 | s/image |
+|---|---|---|---|---|---|---|
+| base | auto | 44.46 | 68.94 | 14.29 | 38.27 | 1.09 |
+| base | raw | 37.41 | 68.07 | 14.29 | 38.27 | 1.02 |
+| base | lex | 44.46 | 68.94 | 14.29 | 38.27 | 1.02 |
+| ft | auto | 50.29 | 78.04 | 17.67 | 47.15 | 0.99 |
+| ft | raw | 43.02 | 77.10 | 17.67 | 47.15 | 0.92 |
+| ft | lex | 50.29 | 78.04 | 17.67 | 47.15 | 0.92 |
+
+## real_final / z75  (n=45 images, 6779 ref words)
+
+| model | mode | word | letter | numbers F1 | punct F1 | s/image |
+|---|---|---|---|---|---|---|
+| base | auto | 92.76 | 98.15 | 50.83 | 70.99 | 1.25 |
+| base | raw | 89.26 | 97.30 | 50.83 | 70.99 | 1.23 |
+| base | lex | 92.76 | 98.15 | 50.83 | 70.99 | 1.23 |
+| ft | auto | 78.17 | 98.40 | 62.56 | 73.68 | 1.24 |
+| ft | raw | 76.24 | 97.99 | 62.56 | 73.68 | 1.22 |
+| ft | lex | 78.23 | 98.42 | 62.56 | 73.68 | 1.22 |
+
